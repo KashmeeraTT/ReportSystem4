@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    /* Add space between the form and report viewer */
+    height: 100vh;
+    /* Use full viewport height */
+    padding: 10px;
+    box-sizing: border-box;
+}
