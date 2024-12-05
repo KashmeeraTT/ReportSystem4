@@ -5,7 +5,7 @@ const Meteorology = require("./models/Meteorology");
 const { text } = require("body-parser");
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/EnvironmentData");
+mongoose.connect("mongodb+srv://tishan21:FLx4dDbJYtVEJwRz@cluster0.axnh0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
 // Function to read a text file and return its content
 const readTextFile = (filePath) => {
