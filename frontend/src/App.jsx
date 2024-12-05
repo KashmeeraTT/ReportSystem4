@@ -68,7 +68,9 @@ function App() {
       {(isGenerating || isDownloading) && (
         <div className="loading-overlay">
           <div className="spinner"></div>
-          <p>{isGenerating ? "Generating report..." : "Downloading report..."}</p>
+          <p>
+            {isGenerating ? "Generating report..." : isDownloading ? "Downloading report..." : ""}
+          </p>
         </div>
       )}
 
