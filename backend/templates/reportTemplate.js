@@ -5,13 +5,13 @@ module.exports = function generateReportTemplate(sections, district, day, month,
                 <title>${district} District Agro-met Advisory Co-production Report - ${day} ${month} ${year}</title>
                 <style>
                     body {
-                        font-family: Calibri, Arial, sans-serif; /* Modern and professional */
+                        font-family: Calibri, Arial, sans-serif;
                         margin: 20px;
                         line-height: 1.6;
                         color: #333;
                     }
                     h1, h2, h3, h4 {
-                        font-family: Georgia, 'Times New Roman', serif; /* Formal for headers */
+                        font-family: Georgia, 'Times New Roman', serif; 
                         text-align: center;
                         color: #2a2a2a;
                     }
@@ -37,7 +37,7 @@ module.exports = function generateReportTemplate(sections, district, day, month,
             </head>
             <body>
                 ${sections.join("\n")}
-                <div>
+                <div style="text-align: center;">
                     <h4>Part B</h4>
                 </div>
             </body>
