@@ -11,12 +11,11 @@ const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, rep
     });
 
     const districts = [
-        "Colombo", "Gampaha", "Kalutara", "Kandy", "Matale",
-        "Puttalam", "Trincomalee", "Nuwara Eliya",
-        "Matara", "Galle", "Hambantota", "Jaffna", "Kilinochchi",
-        "Mannar", "Vavuniya", "Mullaitivu", "Batticaloa", "Ampara",
-        "Kurunegala", "Anuradhapura", "Polonnaruwa", "Badulla",
-        "Moneragala", "Ratnapura", "Kegalle",
+        "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo",
+        "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara",
+        "Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar",
+        "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya",
+        "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
     ];
 
     // Handle form input changes
