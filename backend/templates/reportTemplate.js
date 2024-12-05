@@ -12,7 +12,7 @@ module.exports = function generateReportTemplate(sections, district, day, month,
                     }
                     h1, h2, h3, h4 {
                         font-family: Georgia, 'Times New Roman', serif; 
-                        text-align: center;
+                        text-align: left;
                         color: #2a2a2a;
                     }
                     .section {
