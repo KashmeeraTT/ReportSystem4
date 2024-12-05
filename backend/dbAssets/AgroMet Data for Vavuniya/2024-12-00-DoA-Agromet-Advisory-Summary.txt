@@ -1,0 +1,16 @@
+With the available weather predictions, it is advisable to consider general climatological rainfall values as near-normal rainfall values for each month when undertaking agricultural planning.
+<p>
+<table>
+<tr>
+<td>Month</td>	<td><AER DL1b></td>	<td><AER DL1e></td>	<td><AER DL1f></td>
+</tr>
+<tr>
+<td>December</td>	<td><Near Normal></td>	<td><Near Normal></td>	<td><Near Normal></td>
+</tr>
+<tr>
+<td>January</td>	<td><Near Normal></td>	<td><Near Normal></td>	<td><Near Normal></td>
+</tr>
+<tr>
+<td>February</td>	<td><Near Normal></td>	<td><Near Normal></td>	<td><Near Normal></td>
+</tr>
+</table>

@@ -16,8 +16,8 @@ const MeteorologySchema = new mongoose.Schema({
         png1: Buffer,
         png2: Buffer,
         png3: Buffer,
-        csv1: String,
-        csv2: String,
+        csv1: Buffer,
+        csv2: Buffer,
     },
 });
 
