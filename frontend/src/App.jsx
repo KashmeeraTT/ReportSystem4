@@ -11,7 +11,7 @@ function App() {
   // Function to handle report generation
   const generateReport = async (formData) => {
     try {
-      const response = await fetch("API_BASE_URL", {
+      const response = await fetch(API_BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
