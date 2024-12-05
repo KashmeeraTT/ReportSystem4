@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "./components/Form/Form";
 import ReportViewer from "./components/ReportViewer/ReportViewer";
 import "./styles/global.css";
+import API_BASE_URL from "./config";
 
 function App() {
   const [reportPages, setReportPages] = useState([]); // Store generated report pages
@@ -10,7 +11,7 @@ function App() {
   // Function to handle report generation
   const generateReport = async (formData) => {
     try {
-      const response = await fetch("http://localhost:3000/api/reports/generate", {
+      const response = await fetch("API_BASE_URL", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
