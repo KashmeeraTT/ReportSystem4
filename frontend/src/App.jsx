@@ -7,13 +7,12 @@ import API_BASE_URL from "./config";
 function App() {
   const [reportPages, setReportPages] = useState([]); // Store generated report pages
   const [isEditable, setIsEditable] = useState(true); // Determine if form fields are editable
-  const [isGenerating, setIsGenerating] = useState(false); // State for generating reports
-  const [isDownloading, setIsDownloading] = useState(false); // State for downloading reports
+  const [isFetching, setIsFetching] = useState(false); // Loading state for report generation
   const [error, setError] = useState(""); // Error state
 
   // Function to handle report generation
   const generateReport = async (formData) => {
-    setIsGenerating(true); // Show loading animation for generating
+    setIsFetching(true); // Show fetching animation
     setError(""); // Reset any previous error
     try {
       const response = await fetch(API_BASE_URL, {
@@ -34,49 +33,19 @@ function App() {
       console.error(error.message);
       setError("Failed to fetch report. Please try again."); // Set error message
     } finally {
-      setIsGenerating(false); // Hide loading animation for generating
-    }
-  };
-
-  // Function to handle report downloading
-  const downloadReport = () => {
-    if (reportPages.length === 0) {
-      setError("No report available to download.");
-      return;
-    }
-
-    setIsDownloading(true); // Start download animation
-    try {
-      const blob = new Blob([reportPages.join("\n")], { type: "text/html" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "report.html";
-      a.click();
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error(error.message);
-      setError("Failed to download report.");
-    } finally {
-      setIsDownloading(false); // End download animation
+      setIsFetching(false); // Hide fetching animation
     }
   };
 
   return (
     <div className="container">
-      {/* Loading Overlay */}
-      {(isGenerating || isDownloading) && (
+      {isFetching && (
         <div className="loading-overlay">
           <div className="spinner"></div>
-          <p>
-            {isGenerating ? "Generating report..." : isDownloading ? "Downloading report..." : ""}
-          </p>
+          <p>Generating report...</p>
         </div>
       )}
-
-      {/* Error Message */}
       {error && <div className="error-message">{error}</div>}
-
       {/* Form Section */}
       <Form
         onGenerateReport={generateReport}
@@ -84,7 +53,6 @@ function App() {
         setReportPages={setReportPages}
         setIsEditable={setIsEditable}
         reportPages={reportPages}
-        onDownload={downloadReport}
       />
 
       {/* Report Viewer Section */}

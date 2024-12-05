@@ -10,6 +10,8 @@ const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, rep
         district: "",
     });
 
+    const [isDownloading, setIsDownloading] = useState(false); // State for download spinner
+
     const districts = [
         "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo",
         "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara",
@@ -43,16 +45,24 @@ const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, rep
     };
 
     // Handle report download
-    const handleDownload = () => {
+    const handleDownload = async () => {
         if (reportPages.length > 0) {
-            const filename = `${formData.district}_Report_${formData.day}_${formData.month}_${formData.year}.html`;
-            const blob = new Blob([reportPages.join("\n")], { type: "text/html" }); // Combine all pages into a single HTML file
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = filename;
-            a.click();
-            URL.revokeObjectURL(url);
+            setIsDownloading(true); // Start spinner
+            try {
+                const filename = `${formData.district}_Report_${formData.day}_${formData.month}_${formData.year}.html`;
+                const blob = new Blob([reportPages.join("\n")], { type: "text/html" }); // Combine all pages into a single HTML file
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error("Error downloading report:", error);
+                alert("Failed to download the report. Please try again.");
+            } finally {
+                setIsDownloading(false); // Stop spinner
+            }
         } else {
             alert("No report available to download.");
         }
@@ -148,8 +158,9 @@ const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, rep
                         <button
                             className="button download-button"
                             onClick={handleDownload}
+                            disabled={isDownloading} // Disable button when downloading
                         >
-                            Download Report
+                            {isDownloading ? "Downloading..." : "Download Report"}
                         </button>
                     </div>
                 )}
