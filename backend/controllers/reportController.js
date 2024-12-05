@@ -27,6 +27,7 @@ exports.generateReport = async (req, res, next) => {
         const rainfallForecast2 = await Meteorology.findOne({ category: "Rainfall", subcategory: "Monthly", month, submonth: nextMonth, year });
         const rainfallForecast3 = await Meteorology.findOne({ category: "Rainfall", subcategory: "Monthly", month, submonth: nextNextMonth, year });
 
+        const weeklyRainfall0 = await Meteorology.findOne({ category: "Rainfall", subcategory: "Weekly", year, district, weekNumber, subweekNumber: 0 });
         const weeklyRainfall1 = await Meteorology.findOne({ category: "Rainfall", subcategory: "Weekly", year, district, weekNumber, subweekNumber: 1 });
         const weeklyRainfall2 = await Meteorology.findOne({ category: "Rainfall", subcategory: "Weekly", year, district, weekNumber, subweekNumber: 2 });
         const weeklyRainfall3 = await Meteorology.findOne({ category: "Rainfall", subcategory: "Weekly", year, district, weekNumber, subweekNumber: 3 });
@@ -48,6 +49,7 @@ exports.generateReport = async (req, res, next) => {
             generateSection(`Rainfall Forecast ${month} ${year}`, rainfallForecast1),
             generateSection(`Rainfall Forecast ${nextMonth} ${nextMonthYear}`, rainfallForecast2),
             generateSection(`Rainfall Forecast ${nextNextMonth} ${nextNextMonthYear}`, rainfallForecast3),
+            generateSection(`Weekly Rainfall Forecast Week ${weekNumber} ${year}`, weeklyRainfall0),
             generateSection(`Weekly Rainfall Forecast Week ${weekNumber} ${year} - Subweek 1 (Week ${weekNumber} ${year})`, weeklyRainfall1),
             generateSection(`Weekly Rainfall Forecast Week ${weekNumber} ${year} - Subweek 2 (Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year})`, weeklyRainfall2),
             generateSection(`Weekly Rainfall Forecast Week ${weekNumber} ${year} - Subweek 3 (Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year})`, weeklyRainfall3),

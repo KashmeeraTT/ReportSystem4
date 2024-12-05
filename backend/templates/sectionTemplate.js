@@ -70,19 +70,87 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
     const csv1Table = data.content.csv1 ? renderCsvToHtmlTable(data.content.csv1) : "";
     const csv2Table = data.content.csv2 ? renderCsvToHtmlTable(data.content.csv2) : "";
 
-    // Return the generated HTML section
-    return `
-        <div class="section" style="page-break-after: always;">
-            <h2>${title}</h2>
-            <p>${updatedText || "No text available."}</p>
-            <div style="text-align: center;">
-                ${png1Base64 ? `<img src="${png1Base64}" alt="${title} Image 1" />` : ""}
-                ${png2Base64 ? `<img src="${png2Base64}" alt="${title} Image 2" />` : ""}
-                ${png3Base64 ? `<img src="${png3Base64}" alt="${title} Image 3" />` : ""}
-                ${csv1Table ? `<div style="margin-top: 20px;">${csv1Table}</div>` : ""}
-                ${csv2Table ? `<div style="margin-top: 20px;">${csv2Table}</div>` : ""}
+    // Build the content
+    let htmlContent = "";
+
+    if (updatedText || csv1Table || csv2Table || png1Base64 || png2Base64 || png3Base64) {
+
+        // If any data is available, show the content
+        if (updatedText) {
+            htmlContent += `
+                <div class="section" style="page-break-after: always;">
+                    <h2>${title}</h2>
+                    ${updatedText}
+                </div>
+                <!-- PAGE BREAK -->
+            `;
+        }
+
+        if (csv1Table) {
+            htmlContent += `
+                <div class="section" style="page-break-after: always;">
+                    <h2>${title}</h2>
+                    ${csv1Table}
+                </div>
+                <!-- PAGE BREAK -->
+            `;
+        }
+
+        if (csv2Table) {
+            htmlContent += `
+                <div class="section" style="page-break-after: always;">
+                    <h2>${title}</h2>
+                    ${csv2Table}
+                </div>
+                <!-- PAGE BREAK -->
+            `;
+        }
+
+        if (png1Base64) {
+            htmlContent += `
+                <div class="section" style="page-break-after: always;">
+                    <h2>${title}</h2>
+                    <div style="text-align: center;">
+                        <img src="${png1Base64}" alt="${title} Image 1" style="max-width: 100%; height: auto;" />
+                    </div>
+                </div>
+                <!-- PAGE BREAK -->
+            `;
+        }
+
+        if (png2Base64) {
+            htmlContent += `
+                <div class="section" style="page-break-after: always;">
+                    <h2>${title}</h2>
+                    <div style="text-align: center;">
+                        <img src="${png2Base64}" alt="${title} Image 2" style="max-width: 100%; height: auto;" />
+                    </div>
+                </div>
+                <!-- PAGE BREAK -->
+            `;
+        }
+
+        if (png3Base64) {
+            htmlContent += `
+                <div class="section" style="page-break-after: always;">
+                    <h2>${title}</h2>
+                    <div style="text-align: center;">
+                        <img src="${png3Base64}" alt="${title} Image 3" style="max-width: 100%; height: auto;" />
+                    </div>
+                </div>
+                <!-- PAGE BREAK -->
+            `;
+        }
+    } else {
+        // If no CSV or PNG is available, show "Data not available."
+        htmlContent += `
+            <div class="section" style="page-break-after: always;">
+                <h2>${title}</h2>
+                <p>Data not available.</p>
             </div>
-        </div>
-        <!-- PAGE BREAK -->
-    `;
+            <!-- PAGE BREAK -->
+        `;
+    }
+
+    return htmlContent;
 };

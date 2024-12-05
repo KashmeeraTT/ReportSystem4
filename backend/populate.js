@@ -38,22 +38,13 @@ const meteorologyData = [
         year: 2024,
         content: {
             csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-11-00-DoM-Rainfall-Forecast-Seasonal-and-Monthly-Data.csv")), // Store CSV as binary
-        },
-    },
-    {
-        department: "DoM",
-        category: "Rainfall",
-        subcategory: "Seasonal",
-        month: "November",
-        year: 2024,
-        content: {
             png1: readImage(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-11-00-DoM-Rainfall-Forecast-Seasonal.png")), // Store image as Buffer
         },
     },
     {
         department: "DoM",
         category: "Rainfall",
-        subcategory: "Seasonal",
+        subcategory: "Monthly",
         month: "November",
         submonth: "November",
         year: 2024,
@@ -64,7 +55,7 @@ const meteorologyData = [
     {
         department: "DoM",
         category: "Rainfall",
-        subcategory: "Seasonal",
+        subcategory: "Monthly",
         month: "November",
         submonth: "December",
         year: 2024,
@@ -75,7 +66,7 @@ const meteorologyData = [
     {
         department: "DoM",
         category: "Rainfall",
-        subcategory: "Seasonal",
+        subcategory: "Monthly",
         month: "November",
         submonth: "January",
         year: 2024,
@@ -92,7 +83,7 @@ const meteorologyData = [
         weekNumber: 45,
         subweekNumber: 0,
         content: {
-            csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-00-DoM-Rainfall-Forecast-Weekly-Data.csv")), // Store CSV as binary
+            csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-11-00-DoM-Rainfall-Forecast-Weekly-Data.csv")), // Store CSV as binary
         },
     },
     {
@@ -160,11 +151,11 @@ const meteorologyData = [
         department: "DoM",
         category: "Rainfall",
         subcategory: "Climatological",
-        month: "October",
+        month: "November",
         year: 2024,
         district: "Vavuniya",
         content: {
-            text: readTextFile(path.join(__dirname, 'dbAssets/AgroMet Data for Vavuniya', '2024-12-00-DoA-Agromet-Advisory-Summary.txt')),
+            text: readTextFile(path.join(__dirname, 'dbAssets/AgroMet Data for Vavuniya', '2024-11-00-DoA-Agromet-Advisory-Summary.txt')),
         },
     },
     {
