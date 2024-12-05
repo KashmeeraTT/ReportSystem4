@@ -42,7 +42,6 @@ function App() {
       {isFetching && (
         <div className="loading-overlay">
           <div className="spinner"></div>
-          <p>Generating report...</p>
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
