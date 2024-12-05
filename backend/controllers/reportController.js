@@ -49,7 +49,7 @@ exports.generateReport = async (req, res, next) => {
             generateSection(`Rainfall Forecast for ${month} ${year}`, rainfallForecast1),
             generateSection(`Rainfall Forecast for ${nextMonth} ${nextMonthYear}`, rainfallForecast2),
             generateSection(`Rainfall Forecast for ${nextNextMonth} ${nextNextMonthYear}`, rainfallForecast3),
-            generateSection(`Weekly Rainfall Forecast Summary Week for ${weekNumber} ${year}, ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year}, ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year}, ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year}`, weeklyRainfall0),
+            generateSection(`Weekly Rainfall Forecast Summary for Week ${weekNumber} ${year}, Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year}, Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year}, Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year}`, weeklyRainfall0),
             generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 1 (Week ${weekNumber} ${year})`, weeklyRainfall1),
             generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 2 (Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year})`, weeklyRainfall2),
             generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 3 (Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year})`, weeklyRainfall3),
