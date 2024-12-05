@@ -1,5 +1,6 @@
 With the available weather predictions, it is advisable to consider general climatological rainfall values as near-normal rainfall values for each month when undertaking agricultural planning.
 <p>
+
 <table border="1">
   <thead>
     <tr>
