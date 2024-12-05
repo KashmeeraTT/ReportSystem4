@@ -5,11 +5,7 @@ module.exports = function generateIntroduction(district, day, month, year) {
             <h2>${district} District</h2>
             <h3>${day} ${month} ${year}</h3>
             <p style="text-align: justify;">
-                The Natural Resources Management Centre, Department of Agriculture (NRMC, DoA) 
-                has released the Agro-met advisory for ${month} ${year}, incorporating weather 
-                forecasts from the Department of Meteorology (DoM) and irrigation water availability 
-                information from various departments. Field-level data were collected from multiple sources 
-                to compile this report.
+                The Natural Resources Management Centre, Department of Agriculture (NRMC, DoA) has released the Agro-met advisory for ${month} ${year}, which incorporates weather forecasts provided by the Department of Meteorology (DoM) and the irrigation water availability information from the Irrigation Department (ID), Mahaweli Water Management Secretariat (MASL-WMS) and the Department of Agrarian Development (DAD). Field-level data and information for this document were collected from the Department of Agriculture (DoA), Mahaweli Authority of Sri Lanka (MASL), ID, DAD and plantation research institutes.
             </p>
             <p style="text-align: justify;">
                 The Department of Meteorology (DoM) has issued the seasonal weather forecast 
