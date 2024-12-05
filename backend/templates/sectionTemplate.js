@@ -1,6 +1,6 @@
 const Papa = require("papaparse");
 
-module.exports = function generateSection(title, data, observedPrecipitation = null) {
+module.exports = function generateSection(title, data, observedPrecipitation = null, previousMonth = null, previousMonthYear = null) {
     if (!data || !data.content) {
         return `
             <div class="section" style="page-break-after: always;">
@@ -99,7 +99,7 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
         if (csv2Table) {
             htmlContent += `
                 <div class="section" style="page-break-after: always;">
-                    <h2>${title}</h2>
+                    <h2>Provincial Irrigation ${title}</h2>
                     ${csv2Table}
                 </div>
                 <!-- PAGE BREAK -->
@@ -121,7 +121,7 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
         if (png2Base64) {
             htmlContent += `
                 <div class="section" style="page-break-after: always;">
-                    <h2>${title}</h2>
+                    <h2>Percnt of Normal Precipitation for ${previousMonth} ${previousMonthYear}</h2>
                     <div style="text-align: center;">
                         <img src="${png2Base64}" alt="${title} Image 2" style="max-width: 100%; height: auto;" />
                     </div>
