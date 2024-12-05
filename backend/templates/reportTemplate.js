@@ -37,7 +37,7 @@ module.exports = function generateReportTemplate(sections, district, day, month,
             </head>
             <body>
                 ${sections.join("\n")}
-                <div class="section">
+                <div>
                     <h4>Part B</h4>
                 </div>
             </body>
