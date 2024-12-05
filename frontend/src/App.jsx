@@ -7,9 +7,13 @@ import API_BASE_URL from "./config";
 function App() {
   const [reportPages, setReportPages] = useState([]); // Store generated report pages
   const [isEditable, setIsEditable] = useState(true); // Determine if form fields are editable
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [error, setError] = useState(""); // Error state
 
   // Function to handle report generation
   const generateReport = async (formData) => {
+    setIsLoading(true); // Show loading animation
+    setError(""); // Reset any previous error
     try {
       const response = await fetch(API_BASE_URL, {
         method: "POST",
@@ -27,11 +31,21 @@ function App() {
       setIsEditable(false); // Disable the form fields
     } catch (error) {
       console.error(error.message);
+      setError("Failed to fetch report. Please try again."); // Set error message
+    } finally {
+      setIsLoading(false); // Hide loading animation
     }
   };
 
   return (
     <div className="container">
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <p>Loading...</p>
+        </div>
+      )}
+      {error && <div className="error-message">{error}</div>}
       {/* Form Section */}
       <Form
         onGenerateReport={generateReport}
