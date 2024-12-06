@@ -386,6 +386,20 @@ const meteorologyData = [
         district: "Vavuniya",
         content: {
             csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-05-ID-Reservoir-Water-Availability-Data-Medium.csv")),
+            csv2: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-05-PID-Reservoir-Water-Availability-Data-Medium.csv")),
+        },
+    },
+    {
+        department: "DAD",
+        category: "Reservoir",
+        subcategory: "Minor",
+        day: 3,
+        month: "December",
+        year: 2024,
+        district: "Vavuniya",
+        content: {
+            csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-05-DAD-Reservoir-Water-Availability-Data-Small.csv")),
+            png1: readImage(path.join(__dirname, 'dbAssets/AgroMet Data for Vavuniya', '2024-12-00-DAD-Water-Availability-Forecast-Minor-Tank.png')),
         },
     },
 ];
