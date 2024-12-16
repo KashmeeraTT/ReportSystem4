@@ -41,7 +41,7 @@ exports.generateReport = async (req, res, next) => {
         const mediumReservoir = await findNearestPrevious("Reservoir", "Medium", district, year, month, day);
         const minorTank = await findNearestPrevious("Reservoir", "Minor", district, year, month, day);
 
-        const Parameters = await Meteorology.findOne({ department: "DOA", category: "Parameters", subcategory: "Seasonal", month, year, district });
+        const Parameters = await Meteorology.findOne({ department: "DOA", category: "Parameters", month, year, district });
 
         const introduction = generateIntroduction(district, day, month, year);
 
