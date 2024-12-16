@@ -29,22 +29,15 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                     newValues[dropdown.id] = dropdown.value; // Capture the current dropdown value
                 });
 
-                // Merge new values with existing ones
-                setDropdownValues((prevValues) => {
-                    const mergedValues = { ...prevValues, ...newValues };
-
-                    // Remove old values that are no longer in the dropdowns
-                    Object.keys(prevValues).forEach((key) => {
-                        if (!(key in newValues)) {
-                            delete mergedValues[key];
-                        }
-                    });
-
-                    return mergedValues;
-                });
+                // Merge new values with existing values (no removal of old data)
+                setDropdownValues((prevValues) => ({
+                    ...prevValues,
+                    ...newValues,
+                }));
 
                 // Save the updated dropdownValues to localStorage
-                localStorage.setItem("DropdownValues", JSON.stringify(newValues));
+                const mergedValues = { ...dropdownValues, ...newValues };
+                localStorage.setItem("DropdownValues", JSON.stringify(mergedValues));
 
                 // Update the current page in the updated report
                 setUpdatedReportPages((prevPages) => {
