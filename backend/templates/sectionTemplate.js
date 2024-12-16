@@ -21,47 +21,116 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
     const png2Base64 = data.content.png2 ? `data:image/png;base64,${Buffer.from(data.content.png2).toString('base64')}` : null;
     const png3Base64 = data.content.png3 ? `data:image/png;base64,${Buffer.from(data.content.png3).toString('base64')}` : null;
 
+    // Function to render a CSV file into an editable HTML table
     const renderCsvToHtmlTable = (csvBuffer) => {
         if (!csvBuffer) return "";
-    
-        // Decode the CSV buffer to a string using UTF-16LE encoding
-        let csvString = csvBuffer.toString("utf16le");
-    
-        // Remove BOM if present
-        csvString = csvString.replace(/^\uFEFF/, '');
-    
-        // Parse CSV data using Papaparse
+
+        let csvString = csvBuffer.toString("utf16le").replace(/^\uFEFF/, "");
         const { data: parsedData, errors } = Papa.parse(csvString.trim(), {
-            header: false,        // Don't treat the first row as headers
-            skipEmptyLines: true, // Ignore empty lines
-            quoteChar: '"',       // Handle quoted fields correctly
-            delimiter: ",",       // Explicitly set delimiter as a comma
+            header: false,
+            skipEmptyLines: true,
+            quoteChar: '"',
+            delimiter: ",",
         });
-    
+
         if (errors.length) {
             console.error("Error parsing CSV:", errors);
             return "<p>Error parsing CSV data.</p>";
         }
-    
-        // Generate a static HTML table
+
+        const savedValues = JSON.parse(localStorage.getItem("WaterAvailability")) || {};
+        const minMaxByAER = {};
+
+        const waterAvailabilityIndex = parsedData[0]?.indexOf("Water Availability (%)");
+        const hasWaterAvailability = waterAvailabilityIndex !== -1;
+
         let htmlTable = `<table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">`;
-    
+
         parsedData.forEach((row, rowIndex) => {
             htmlTable += "<tr>";
-            row.forEach((cell) => {
+            row.forEach((cell, colIndex) => {
                 if (rowIndex === 0) {
-                    // Header row
                     htmlTable += `<th style="padding: 8px; background-color: #f2f2f2;">${cell}</th>`;
+                } else if (hasWaterAvailability && colIndex === waterAvailabilityIndex) {
+                    const key = row[0];
+                    const savedValue = savedValues[key] || cell;
+                    const aer = row[3];
+                    const value = parseInt(savedValue) || 0;
+
+                    if (!minMaxByAER[aer]) {
+                        minMaxByAER[aer] = { min: value, max: value };
+                    } else {
+                        minMaxByAER[aer].min = Math.min(minMaxByAER[aer].min, value);
+                        minMaxByAER[aer].max = Math.max(minMaxByAER[aer].max, value);
+                    }
+
+                    htmlTable += `
+                        <td style="padding: 8px;">
+                            <input 
+                                type="number" 
+                                value="${savedValue}" 
+                                min="0" 
+                                max="100" 
+                                style="width: 60px;" 
+                                onchange="handleWaterInputChange(event, '${key}')"
+                            />
+                        </td>`;
                 } else {
-                    // Data rows
                     htmlTable += `<td style="padding: 8px;">${cell}</td>`;
                 }
             });
             htmlTable += "</tr>";
         });
-    
+
         htmlTable += "</table>";
+
+        if (hasWaterAvailability) {
+            localStorage.setItem("MinMaxByAER", JSON.stringify(minMaxByAER));
+            renderSideWindow(minMaxByAER);
+        }
+
         return htmlTable;
+    };
+
+    // Function to handle input changes and save to localStorage
+    window.handleWaterInputChange = (event, key) => {
+        const value = event.target.value;
+        if (value >= 0 && value <= 100) {
+            const savedValues = JSON.parse(localStorage.getItem("WaterAvailability")) || {};
+            savedValues[key] = value;
+            localStorage.setItem("WaterAvailability", JSON.stringify(savedValues));
+        } else {
+            alert("Please enter a value between 0 and 100.");
+            event.target.value = "";
+        }
+    };
+
+    const renderSideWindow = (minMaxByAER) => {
+        const sideWindow = document.getElementById("side-window");
+        if (!sideWindow) {
+            const newWindow = document.createElement("div");
+            newWindow.id = "side-window";
+            newWindow.style.position = "fixed";
+            newWindow.style.top = "10px";
+            newWindow.style.right = "10px";
+            newWindow.style.padding = "10px";
+            newWindow.style.border = "1px solid #ccc";
+            newWindow.style.background = "#f9f9f9";
+            newWindow.innerHTML = `
+                <h4>Water Availability (Min/Max)</h4>
+                <ul id="aer-stats"></ul>
+            `;
+            document.body.appendChild(newWindow);
+        }
+
+        const statsList = document.getElementById("aer-stats");
+        statsList.innerHTML = "";
+
+        Object.entries(minMaxByAER).forEach(([aer, stats]) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${aer}: Min=${stats.min}, Max=${stats.max}`;
+            statsList.appendChild(listItem);
+        });
     };
     
     // Decode and render the CSV buffers
