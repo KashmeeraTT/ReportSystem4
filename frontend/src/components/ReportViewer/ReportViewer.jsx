@@ -6,37 +6,50 @@ const ReportViewer = ({ reportPages }) => {
     const [dropdownValues, setDropdownValues] = useState({});
     const [showFloatingWindow, setShowFloatingWindow] = useState(false);
 
-    // Reset page counter when new reportPages are received
     useEffect(() => {
         setCurrentPage(0); // Reset to the first page whenever reportPages change
     }, [reportPages]);
 
-    // Capture dropdown values dynamically
+    // Restore dropdown values on page load
+    useEffect(() => {
+        restoreDropdownValues();
+    }, [currentPage]);
+
+    const restoreDropdownValues = () => {
+        const savedValues = JSON.parse(localStorage.getItem("DropdownValues")) || {};
+        Object.entries(savedValues).forEach(([id, value]) => {
+            const dropdown = document.getElementById(id);
+            if (dropdown) {
+                dropdown.value = value; // Restore the saved value
+            }
+        });
+    };
+
     const handleCaptureDropdownValues = () => {
         const dropdowns = document.querySelectorAll("select[id^='AER']");
         const capturedValues = {};
+
         dropdowns.forEach((dropdown) => {
-            const id = dropdown.id; // Get dropdown ID
-            const value = dropdown.value; // Get dropdown value
-            capturedValues[id] = value; // Save to the object
+            const id = dropdown.id;
+            const value = dropdown.value;
+            capturedValues[id] = value;
         });
-        setDropdownValues(capturedValues); // Update state
-        setShowFloatingWindow(true); // Show the floating window
+
+        setDropdownValues(capturedValues);
+        localStorage.setItem("DropdownValues", JSON.stringify(capturedValues));
+        setShowFloatingWindow(true);
     };
 
-    // Close the floating window
     const handleCloseFloatingWindow = () => {
         setShowFloatingWindow(false);
     };
 
-    // Navigate to the next page
     const handleNext = () => {
         if (currentPage < reportPages.length - 1) {
             setCurrentPage(currentPage + 1);
         }
     };
 
-    // Navigate to the previous page
     const handlePrevious = () => {
         if (currentPage > 0) {
             setCurrentPage(currentPage - 1);
