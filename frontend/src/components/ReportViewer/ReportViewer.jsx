@@ -120,22 +120,17 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                             Next
                         </button>
                         <button
-                            className="capture-dropdown-button"
+                            className="save-button"
                             onClick={handleCaptureDropdownValues}
-                            style={{
-                                marginLeft: "10px",
-                                padding: "5px 10px",
-                                cursor: "pointer",
-                            }}
                         >
-                            Capture Dropdown Values
+                            Save
                         </button>
                     </div>
 
                     {showFloatingWindow && (
                         <div className="floating-window">
                             <div className="floating-content">
-                                <h3>Dropdown Values</h3>
+                                <h3>Saved Values</h3>
                                 <ul>
                                     {Object.entries(dropdownValues).map(([key, value]) => (
                                         <li key={key}>
