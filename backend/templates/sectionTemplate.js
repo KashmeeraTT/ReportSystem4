@@ -30,7 +30,7 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
         // Remove BOM if present
         csvString = csvString.replace(/^\uFEFF/, '');
     
-        // Parse CSV data using Papaparse
+        // Parse CSV data using PapaParse
         const { data: parsedData, errors } = Papa.parse(csvString.trim(), {
             header: false,        // Don't treat the first row as headers
             skipEmptyLines: true, // Ignore empty lines
@@ -48,13 +48,30 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
     
         parsedData.forEach((row, rowIndex) => {
             htmlTable += "<tr>";
-            row.forEach((cell) => {
+            row.forEach((cell, colIndex) => {
                 if (rowIndex === 0) {
                     // Header row
                     htmlTable += `<th style="padding: 8px; background-color: #f2f2f2;">${cell}</th>`;
                 } else {
                     // Data rows
-                    htmlTable += `<td style="padding: 8px;">${cell}</td>`;
+                    if (parsedData[0][colIndex] === "Water Availability (%)") {
+                        // Make the "Water Availability (%)" column an editable number input
+                        htmlTable += `
+                            <td style="padding: 8px;">
+                                <input 
+                                    type="number" 
+                                    value="${cell}" 
+                                    min="0" 
+                                    max="100" 
+                                    data-row="${rowIndex}" 
+                                    data-col="${colIndex}" 
+                                    style="width: 100%; padding: 4px;" 
+                                />
+                            </td>
+                        `;
+                    } else {
+                        htmlTable += `<td style="padding: 8px;">${cell}</td>`;
+                    }
                 }
             });
             htmlTable += "</tr>";
@@ -63,6 +80,7 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
         htmlTable += "</table>";
         return htmlTable;
     };
+    
     
     // Decode and render the CSV buffers
     const csv1Table = data.content.csv1 ? renderCsvToHtmlTable(data.content.csv1) : ""; // Static

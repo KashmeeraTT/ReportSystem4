@@ -23,59 +23,76 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
     useEffect(() => {
         if (iframeRef.current) {
             iframeRef.current.onload = () => {
-                restoreDropdownValues();
+                restoreEditableValues();
             };
         }
     }, [currentPage]);
 
-    const handleCaptureDropdownValues = () => {
+    const handleCaptureEditableValues = () => {
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
                 const dropdowns = iframeDocument.querySelectorAll("select[id^='AER']");
+                const inputs = iframeDocument.querySelectorAll("input[type='number'][data-col]");
+    
                 const newValues = {};
+    
+                // Capture values from dropdowns
                 dropdowns.forEach((dropdown) => {
                     newValues[dropdown.id] = dropdown.value; // Capture the current dropdown value
                 });
-
-                // Merge new values with existing values (no removal of old data)
+    
+                // Capture values from input fields
+                inputs.forEach((input) => {
+                    const id = `input-${input.dataset.row}-${input.dataset.col}`;
+                    newValues[id] = input.value; // Capture the current input value
+                });
+    
+                // Merge new values with existing values
                 setDropdownValues((prevValues) => ({
                     ...prevValues,
                     ...newValues,
                 }));
-
-                // Save the updated dropdownValues to localStorage
+    
+                // Save the updated values to localStorage
                 const mergedValues = { ...dropdownValues, ...newValues };
-                localStorage.setItem("DropdownValues", JSON.stringify(mergedValues));
-
+                localStorage.setItem("EditableValues", JSON.stringify(mergedValues));
+    
                 // Update the current page in the updated report
                 setUpdatedReportPages((prevPages) => {
                     const updatedPages = [...prevPages];
                     updatedPages[currentPage] = iframeDocument.documentElement.outerHTML;
                     return updatedPages;
                 });
-
+    
                 setShowFloatingWindow(true);
             } else {
                 console.error("Could not access iframe document.");
             }
         }
     };
-
-    const restoreDropdownValues = () => {
-        const savedValues = JSON.parse(localStorage.getItem("DropdownValues")) || {};
+    
+    const restoreEditableValues = () => {
+        const savedValues = JSON.parse(localStorage.getItem("EditableValues")) || {};
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
+                // Restore dropdown values
                 Object.entries(savedValues).forEach(([id, value]) => {
                     const dropdown = iframeDocument.getElementById(id);
                     if (dropdown) {
                         dropdown.value = value;
                     }
+                    // Restore input field values
+                    const input = iframeDocument.querySelector(`[id="${id}"]`);
+                    if (input) {
+                        input.value = value;
+                    }
                 });
             }
         }
     };
+    
 
     const handleCloseFloatingWindow = () => {
         setShowFloatingWindow(false);
@@ -121,7 +138,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                         </button>
                         <button
                             className="save-button"
-                            onClick={handleCaptureDropdownValues}
+                            onClick={handleCaptureEditableValues}
                         >
                             Save
                         </button>
