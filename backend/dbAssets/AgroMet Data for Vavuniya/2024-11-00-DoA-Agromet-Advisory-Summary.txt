@@ -9,6 +9,14 @@ With the available weather predictions, it is advisable to consider general clim
             <th style="padding: 10px; border: 1px solid #ddd;">AER DL1f</th>
         </tr>
     </thead>
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; border: 1px solid #ddd;"></th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(Vavuniya)</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(Puliyankulama)</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(Nulumkulama)</th>
+        </tr>
+    </thead>
     <tbody>
         <tr>
             <td style="padding: 10px; border: 1px solid #ddd;">November</td>
@@ -29,5 +37,13 @@ With the available weather predictions, it is advisable to consider general clim
             <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
         </tr>
     </tbody>
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; border: 1px solid #ddd;">Seasonal</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Near Normal</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Near Normal</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Near Normal</th>
+        </tr>
+    </thead>
 </table>
 

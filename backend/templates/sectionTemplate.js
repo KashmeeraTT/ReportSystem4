@@ -69,6 +69,7 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
     // Decode and render the CSV buffers
     const csv1Table = data.content.csv1 ? renderCsvToHtmlTable(data.content.csv1) : "";
     const csv2Table = data.content.csv2 ? renderCsvToHtmlTable(data.content.csv2) : "";
+    const csv3Table = data.content.csv3 ? renderCsvToHtmlTable(data.content.csv3) : "";
 
     // Build the content
     let htmlContent = "";
@@ -101,6 +102,16 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
                 <div class="section" style="page-break-after: always;">
                     <h2>Provincial Irrigation ${title}</h2>
                     ${csv2Table}
+                </div>
+                <!-- PAGE BREAK -->
+            `;
+        }
+
+        if (csv3Table) {
+            htmlContent += `
+                <div class="section" style="page-break-after: always;">
+                    <h2>${title}</h2>
+                    ${csv3Table}
                 </div>
                 <!-- PAGE BREAK -->
             `;
