@@ -1,48 +1,22 @@
 With the available weather predictions, it is advisable to consider general climatological rainfall values as near-normal rainfall values for each month when undertaking agricultural planning.
 <p>
 <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial, sans-serif;">
-    <thead>
-        <tr style="background-color: #f2f2f2;">
-            <th style="padding: 10px; border: 1px solid #ddd;">Month</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1b</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1e</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1f</th>
-        </tr>
-    </thead>
-    <thead>
-        <tr style="background-color: #f2f2f2;">
-            <th style="padding: 10px; border: 1px solid #ddd;"></th>
-            <th style="padding: 10px; border: 1px solid #ddd;">(Vavuniya)</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">(Puliyankulama)</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">(Nulumkulama)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="padding: 10px; border: 1px solid #ddd;">December</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-        </tr>
-        <tr style="background-color: #f9f9f9;">
-            <td style="padding: 10px; border: 1px solid #ddd;">January</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-        </tr>
-        <tr>
-            <td style="padding: 10px; border: 1px solid #ddd;">February</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">Near Normal</td>
-        </tr>
-    </tbody>
-    <thead>
-        <tr style="background-color: #f2f2f2;">
-            <th style="padding: 10px; border: 1px solid #ddd;">Seasonal</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">Near Normal</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">Near Normal</th>
-            <th style="padding: 10px; border: 1px solid #ddd;">Near Normal</th>
-        </tr>
-    </thead>
+<tr>
+<td><b>Month</b></td>	<td><b>AER DL1b</b></td>	<td><b>AER DL1e</b></td>	<td><b>AER DL1f</b></td>
+</tr>
+<tr>
+<td></td>	<td><b>(Vavuniya)</b></td>	<td><b>(Puliyankulama)</b></td>	<td><b>(Nelumkulama)</b></td>
+</tr>
+<tr>
+<td>November</td>	<td>Near Normal</td>	<td>Near Normal</td>	<td>Near Normal</td>
+</tr>
+<tr>
+<td>December</td>	<td>Near Normal</td>	<td>Near Normal</td>	<td>Near Normal</td>
+</tr>
+<tr>
+<td>January</td>	<td>Near Normal</td>	<td>Near Normal</td>	<td>Near Normal</td>
+</tr>
+<tr>
+<td>Seasonal</td>	<td>Near Normal</td>	<td>Near Normal</td>	<td>Near Normal</td>
+</tr>
 </table>

@@ -110,7 +110,7 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
         if (csv3Table) {
             htmlContent += `
                 <div class="section" style="page-break-after: always;">
-                    <h2>${title}</h2>
+                    <h2>${title} AERs</h2>
                     ${csv3Table}
                 </div>
                 <!-- PAGE BREAK -->
