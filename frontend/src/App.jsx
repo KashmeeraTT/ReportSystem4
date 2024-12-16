@@ -54,7 +54,7 @@ function App() {
         isEditable={isEditable}
         setReportPages={setReportPages}
         setIsEditable={setIsEditable}
-        reportPages={updatedReportPages} // Use updated report pages for download
+        updatedReportPages={updatedReportPages} // Use updated report pages for download
       />
 
       {/* Report Viewer Section */}

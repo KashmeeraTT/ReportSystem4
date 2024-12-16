@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Form.css";
 import "../../styles/global.css";
 
-const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, reportPages }) => {
+const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, updatedReportPages }) => {
     const [formData, setFormData] = useState({
         year: "",
         month: "",
@@ -44,10 +44,10 @@ const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, rep
 
     // Handle report download
     const handleDownload = () => {
-        if (reportPages.length > 0) {
+        if (updatedReportPages.length > 0) {
             try {
                 const filename = `${formData.district}_Report_${formData.day}_${formData.month}_${formData.year}.html`;
-                const blob = new Blob([reportPages.join("\n")], { type: "text/html" }); // Combine all pages into a single HTML file
+                const blob = new Blob([updatedReportPages.join("\n")], { type: "text/html" }); // Combine all pages into a single HTML file
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
