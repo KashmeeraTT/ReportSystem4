@@ -40,21 +40,6 @@ function App() {
     }
   };
 
-  // Check if updatedReportPages are different from reportPages
-  const isReportModified = () => {
-    if (reportPages.length !== updatedReportPages.length) {
-      return true; // Modified if lengths are different
-    }
-
-    for (let i = 0; i < reportPages.length; i++) {
-      if (reportPages[i] !== updatedReportPages[i]) {
-        return true; // Modified if any page content is different
-      }
-    }
-
-    return false; // No modifications detected
-  };
-
   return (
     <div className="container">
       {isFetching && (
@@ -63,15 +48,6 @@ function App() {
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
-
-      {/* Display whether the report is modified */}
-      <div className="report-status">
-        <p>
-          Report Status:{" "}
-          <strong>{isReportModified() ? "Modified" : "Unchanged"}</strong>
-        </p>
-      </div>
-
       {/* Form Section */}
       <Form
         onGenerateReport={generateReport}
