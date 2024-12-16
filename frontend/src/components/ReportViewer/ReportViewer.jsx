@@ -6,11 +6,20 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
     const [dropdownValues, setDropdownValues] = useState({});
     const [showFloatingWindow, setShowFloatingWindow] = useState(false);
     const iframeRef = useRef(null); // Reference to the iframe element
+    const previousReportPagesRef = useRef([]); // Track previous reportPages
 
+    // Reset dropdownValues only when reportPages change
     useEffect(() => {
-        setCurrentPage(0); // Reset to the first page whenever reportPages change
+        if (JSON.stringify(previousReportPagesRef.current) !== JSON.stringify(reportPages)) {
+            // Clear dropdown storage and update previousReportPagesRef
+            setDropdownValues({});
+            localStorage.removeItem("DropdownValues");
+            previousReportPagesRef.current = reportPages;
+        }
+        setCurrentPage(0); // Reset to the first page when reportPages change
     }, [reportPages]);
 
+    // Restore dropdown values when the iframe loads
     useEffect(() => {
         if (iframeRef.current) {
             iframeRef.current.onload = () => {
