@@ -3,7 +3,7 @@ import Form from "./components/Form/Form";
 import ReportViewer from "./components/ReportViewer/ReportViewer";
 import "./styles/global.css";
 import API_BASE_URL from "./config";
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   const [reportPages, setReportPages] = useState([]); // Store generated report pages
@@ -56,7 +56,10 @@ function App() {
       />
 
       {/* Report Viewer Section */}
-      <ReportViewer reportPages={reportPages} />
+      <ReportViewer
+        reportPages={reportPages}
+        setReportPages={setReportPages} // Allow updating reportPages
+      />
       <SpeedInsights />
     </div>
   );

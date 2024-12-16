@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ReportViewer.css";
 
-const ReportViewer = ({ reportPages }) => {
+const ReportViewer = ({ reportPages, setReportPages }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const [dropdownValues, setDropdownValues] = useState({});
     const [showFloatingWindow, setShowFloatingWindow] = useState(false);
     const iframeRef = useRef(null); // Reference to the iframe element
 
-    // Reset page counter when new reportPages are received
     useEffect(() => {
         setCurrentPage(0); // Reset to the first page whenever reportPages change
     }, [reportPages]);
 
-    // Restore dropdown values when page changes
     useEffect(() => {
         if (iframeRef.current) {
             iframeRef.current.onload = () => {
@@ -21,7 +19,6 @@ const ReportViewer = ({ reportPages }) => {
         }
     }, [currentPage]);
 
-    // Capture dropdown values inside the iframe
     const handleCaptureDropdownValues = () => {
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
@@ -33,6 +30,12 @@ const ReportViewer = ({ reportPages }) => {
                 });
                 setDropdownValues(capturedValues);
                 localStorage.setItem("DropdownValues", JSON.stringify(capturedValues));
+
+                // Update the current report page with new dropdown values
+                const updatedPages = [...reportPages];
+                updatedPages[currentPage] = iframeDocument.documentElement.outerHTML;
+                setReportPages(updatedPages);
+
                 setShowFloatingWindow(true);
             } else {
                 console.error("Could not access iframe document.");
@@ -40,7 +43,6 @@ const ReportViewer = ({ reportPages }) => {
         }
     };
 
-    // Restore dropdown values inside the iframe
     const restoreDropdownValues = () => {
         const savedValues = JSON.parse(localStorage.getItem("DropdownValues")) || {};
         if (iframeRef.current) {
