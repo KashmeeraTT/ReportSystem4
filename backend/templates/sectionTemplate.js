@@ -21,8 +21,7 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
     const png2Base64 = data.content.png2 ? `data:image/png;base64,${Buffer.from(data.content.png2).toString('base64')}` : null;
     const png3Base64 = data.content.png3 ? `data:image/png;base64,${Buffer.from(data.content.png3).toString('base64')}` : null;
 
-    // Render CSV data as an HTML table
-    const renderCsvToHtmlTable = (csvBuffer, isEditable = false) => {
+    const renderCsvToHtmlTable = (csvBuffer) => {
         if (!csvBuffer) return "";
     
         // Decode the CSV buffer to a string using UTF-16LE encoding
@@ -44,80 +43,30 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
             return "<p>Error parsing CSV data.</p>";
         }
     
-        // Generate HTML table with optional editable column
-        let htmlTable = isEditable
-            ? `<form id="csv3Form" onsubmit="handleCsv3Submit(event)">
-                <table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">`
-            : `<table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">`;
+        // Generate a static HTML table
+        let htmlTable = `<table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">`;
     
         parsedData.forEach((row, rowIndex) => {
             htmlTable += "<tr>";
-            row.forEach((cell, colIndex) => {
+            row.forEach((cell) => {
                 if (rowIndex === 0) {
                     // Header row
                     htmlTable += `<th style="padding: 8px; background-color: #f2f2f2;">${cell}</th>`;
-                } else if (isEditable && colIndex === 4) {
-                    // Editable "Water Availability (%)" column
-                    htmlTable += `
-                        <td style="padding: 8px;">
-                            <input 
-                                type="number" 
-                                name="waterAvailabilityRow${rowIndex}" 
-                                value="${cell}" 
-                                min="0" 
-                                max="100" 
-                                style="width: 100%; padding: 4px;" 
-                                required 
-                            />
-                        </td>`;
                 } else {
-                    // Static columns
+                    // Data rows
                     htmlTable += `<td style="padding: 8px;">${cell}</td>`;
                 }
             });
             htmlTable += "</tr>";
         });
     
-        htmlTable += isEditable
-            ? `
-                </table>
-                <button type="submit" style="margin-top: 10px; padding: 8px 16px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">
-                    Save Changes
-                </button>
-            </form>`
-            : "</table>";
-    
-        // Add client-side script for handling form submission for editable tables
-        if (isEditable) {
-            htmlTable += `
-                <script>
-                    function handleCsv3Submit(event) {
-                        event.preventDefault();
-                        
-                        const formData = new FormData(event.target);
-                        const updatedData = {};
-    
-                        // Collect updated values
-                        formData.forEach((value, key) => {
-                            updatedData[key] = value;
-                        });
-    
-                        console.log("Updated Data:", updatedData);
-    
-                        // TODO: Add logic to process/save the updated data (e.g., via an API or server-side processing)
-                        alert("Changes saved successfully!");
-                    }
-                </script>
-            `;
-        }
-    
+        htmlTable += "</table>";
         return htmlTable;
     };
     
     // Decode and render the CSV buffers
-    const csv1Table = data.content.csv1 ? renderCsvToHtmlTable(data.content.csv1, false) : ""; // Static
-    const csv2Table = data.content.csv2 ? renderCsvToHtmlTable(data.content.csv2, false) : ""; // Static
-    const csv3Table = data.content.csv3 ? renderCsvToHtmlTable(data.content.csv3, true) : "";  // Editable
+    const csv1Table = data.content.csv1 ? renderCsvToHtmlTable(data.content.csv1) : ""; // Static
+    const csv2Table = data.content.csv2 ? renderCsvToHtmlTable(data.content.csv2) : ""; // Static
 
     // Build the content
     let htmlContent = "";
@@ -150,16 +99,6 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
                 <div class="section" style="page-break-after: always;">
                     <h2>Provincial Irrigation ${title}</h2>
                     ${csv2Table}
-                </div>
-                <!-- PAGE BREAK -->
-            `;
-        }
-
-        if (csv3Table) {
-            htmlContent += `
-                <div class="section" style="page-break-after: always;">
-                    <h2>${title} AERs</h2>
-                    ${csv3Table}
                 </div>
                 <!-- PAGE BREAK -->
             `;
