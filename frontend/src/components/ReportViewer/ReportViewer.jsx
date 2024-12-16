@@ -1,43 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ReportViewer.css";
 
 const ReportViewer = ({ reportPages }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const [dropdownValues, setDropdownValues] = useState({});
     const [showFloatingWindow, setShowFloatingWindow] = useState(false);
+    const iframeRef = useRef(null); // Reference to the iframe element
 
+    // Reset page counter when new reportPages are received
     useEffect(() => {
         setCurrentPage(0); // Reset to the first page whenever reportPages change
     }, [reportPages]);
 
-    // Restore dropdown values on page load
+    // Restore dropdown values when page changes
     useEffect(() => {
-        restoreDropdownValues();
+        if (iframeRef.current) {
+            iframeRef.current.onload = () => {
+                restoreDropdownValues();
+            };
+        }
     }, [currentPage]);
 
-    const restoreDropdownValues = () => {
-        const savedValues = JSON.parse(localStorage.getItem("DropdownValues")) || {};
-        Object.entries(savedValues).forEach(([id, value]) => {
-            const dropdown = document.getElementById(id);
-            if (dropdown) {
-                dropdown.value = value; // Restore the saved value
+    // Capture dropdown values inside the iframe
+    const handleCaptureDropdownValues = () => {
+        if (iframeRef.current) {
+            const iframeDocument = iframeRef.current.contentDocument;
+            if (iframeDocument) {
+                const dropdowns = iframeDocument.querySelectorAll("select[id^='AER']");
+                const capturedValues = {};
+                dropdowns.forEach((dropdown) => {
+                    capturedValues[dropdown.id] = dropdown.value;
+                });
+                setDropdownValues(capturedValues);
+                localStorage.setItem("DropdownValues", JSON.stringify(capturedValues));
+                setShowFloatingWindow(true);
+            } else {
+                console.error("Could not access iframe document.");
             }
-        });
+        }
     };
 
-    const handleCaptureDropdownValues = () => {
-        const dropdowns = document.querySelectorAll("select[id^='AER']");
-        const capturedValues = {};
-
-        dropdowns.forEach((dropdown) => {
-            const id = dropdown.id;
-            const value = dropdown.value;
-            capturedValues[id] = value;
-        });
-
-        setDropdownValues(capturedValues);
-        localStorage.setItem("DropdownValues", JSON.stringify(capturedValues));
-        setShowFloatingWindow(true);
+    // Restore dropdown values inside the iframe
+    const restoreDropdownValues = () => {
+        const savedValues = JSON.parse(localStorage.getItem("DropdownValues")) || {};
+        if (iframeRef.current) {
+            const iframeDocument = iframeRef.current.contentDocument;
+            if (iframeDocument) {
+                Object.entries(savedValues).forEach(([id, value]) => {
+                    const dropdown = iframeDocument.getElementById(id);
+                    if (dropdown) {
+                        dropdown.value = value;
+                    }
+                });
+            }
+        }
     };
 
     const handleCloseFloatingWindow = () => {
@@ -61,6 +77,7 @@ const ReportViewer = ({ reportPages }) => {
             {reportPages.length > 0 ? (
                 <>
                     <iframe
+                        ref={iframeRef}
                         title="Report Viewer"
                         srcDoc={reportPages[currentPage]}
                         className="iframe"
