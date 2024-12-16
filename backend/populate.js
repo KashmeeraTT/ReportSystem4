@@ -402,6 +402,16 @@ const meteorologyData = [
             png1: readImage(path.join(__dirname, 'dbAssets/AgroMet Data for Vavuniya', '2024-12-00-DAD-Water-Availability-Forecast-Minor-Tank.png')),
         },
     },
+    {
+        department: "DOA",
+        category: "Parameters",
+        month: "December",
+        year: 2024,
+        district: "Vavuniya",
+        content: {
+            text: readTextFile(path.join(__dirname, 'dbAssets/AgroMet Data for Vavuniya', '2024-12-00-DoA-Agromet-Parameter-Selection.txt')),
+        },
+    },
 ];
 
 // Function to populate the database

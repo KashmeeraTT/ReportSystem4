@@ -33,28 +33,27 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
                 const dropdowns = iframeDocument.querySelectorAll("select[id^='AER']");
-                const inputs = iframeDocument.querySelectorAll("input[type='number'][data-col]");
+                const checkboxes = iframeDocument.querySelectorAll("input[type='checkbox']");
     
                 const newValues = {};
     
-                // Capture values from dropdowns
+                // Capture dropdown values
                 dropdowns.forEach((dropdown) => {
-                    newValues[dropdown.id] = dropdown.value; // Capture the current dropdown value
+                    newValues[dropdown.id] = dropdown.value;
                 });
     
-                // Capture values from input fields
-                inputs.forEach((input) => {
-                    const id = `input-${input.dataset.row}-${input.dataset.col}`;
-                    newValues[id] = input.value; // Capture the current input value
+                // Capture checkbox states
+                checkboxes.forEach((checkbox) => {
+                    newValues[checkbox.id] = checkbox.checked; // true or false
                 });
     
-                // Merge new values with existing values
+                // Merge new values with existing ones
                 setDropdownValues((prevValues) => ({
                     ...prevValues,
                     ...newValues,
                 }));
     
-                // Save the updated values to localStorage
+                // Save to localStorage
                 const mergedValues = { ...dropdownValues, ...newValues };
                 localStorage.setItem("EditableValues", JSON.stringify(mergedValues));
     
@@ -72,6 +71,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
         }
     };
     
+
     const restoreEditableValues = () => {
         const savedValues = JSON.parse(localStorage.getItem("EditableValues")) || {};
         if (iframeRef.current) {
@@ -83,10 +83,10 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                     if (dropdown) {
                         dropdown.value = value;
                     }
-                    // Restore input field values
-                    const input = iframeDocument.querySelector(`[id="${id}"]`);
-                    if (input) {
-                        input.value = value;
+                    // Restore checkbox states
+                    const checkbox = iframeDocument.getElementById(id);
+                    if (checkbox && checkbox.type === "checkbox") {
+                        checkbox.checked = value;
                     }
                 });
             }

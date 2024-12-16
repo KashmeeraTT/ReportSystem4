@@ -23,64 +23,46 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
 
     const renderCsvToHtmlTable = (csvBuffer) => {
         if (!csvBuffer) return "";
-    
+        
         // Decode the CSV buffer to a string using UTF-16LE encoding
         let csvString = csvBuffer.toString("utf16le");
-    
+        
         // Remove BOM if present
         csvString = csvString.replace(/^\uFEFF/, '');
-    
-        // Parse CSV data using PapaParse
+        
+        // Parse CSV data using Papaparse
         const { data: parsedData, errors } = Papa.parse(csvString.trim(), {
             header: false,        // Don't treat the first row as headers
             skipEmptyLines: true, // Ignore empty lines
             quoteChar: '"',       // Handle quoted fields correctly
             delimiter: ",",       // Explicitly set delimiter as a comma
         });
-    
+        
         if (errors.length) {
             console.error("Error parsing CSV:", errors);
             return "<p>Error parsing CSV data.</p>";
         }
-    
+        
         // Generate a static HTML table
         let htmlTable = `<table border="1" style="border-collapse: collapse; width: 100%; text-align: left;">`;
-    
+        
         parsedData.forEach((row, rowIndex) => {
             htmlTable += "<tr>";
-            row.forEach((cell, colIndex) => {
+            row.forEach((cell) => {
                 if (rowIndex === 0) {
                     // Header row
                     htmlTable += `<th style="padding: 8px; background-color: #f2f2f2;">${cell}</th>`;
                 } else {
                     // Data rows
-                    if (parsedData[0][colIndex] === "Water Availability (%)") {
-                        // Make the "Water Availability (%)" column an editable number input
-                        htmlTable += `
-                            <td style="padding: 8px;">
-                                <input 
-                                    type="number" 
-                                    value="${cell}" 
-                                    min="0" 
-                                    max="100" 
-                                    data-row="${rowIndex}" 
-                                    data-col="${colIndex}" 
-                                    style="width: 100%; padding: 4px;" 
-                                />
-                            </td>
-                        `;
-                    } else {
-                        htmlTable += `<td style="padding: 8px;">${cell}</td>`;
-                    }
+                    htmlTable += `<td style="padding: 8px;">${cell}</td>`;
                 }
             });
             htmlTable += "</tr>";
         });
-    
+        
         htmlTable += "</table>";
         return htmlTable;
-    };
-    
+    };    
     
     // Decode and render the CSV buffers
     const csv1Table = data.content.csv1 ? renderCsvToHtmlTable(data.content.csv1) : ""; // Static

@@ -41,6 +41,8 @@ exports.generateReport = async (req, res, next) => {
         const mediumReservoir = await findNearestPrevious("Reservoir", "Medium", district, year, month, day);
         const minorTank = await findNearestPrevious("Reservoir", "Minor", district, year, month, day);
 
+        const Parameters = await Meteorology.findOne({ department: "DOA", category: "Parameters", subcategory: "Seasonal", month, year, district });
+
         const introduction = generateIntroduction(district, day, month, year);
 
         const sections = [
@@ -59,6 +61,7 @@ exports.generateReport = async (req, res, next) => {
             generateSection(`Major Reservoir Water Availability as of ${day} ${month} ${year} - ${district} District`, majorReservoir),
             generateSection(`Medium Reservoir Water Availability as of ${day} ${month} ${year} - ${district} District`, mediumReservoir),
             generateSection(`Minor Tank Water Availability as of ${day} ${month} ${year} - ${district} District`, minorTank),
+            generateSection(`Agromet Parameter Selection for Advisory Co-production ${month} ${year}`, Parameters),
         ];
 
         const report = generateReportTemplate(sections, district, day, month, year);
