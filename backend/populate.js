@@ -398,7 +398,7 @@ const meteorologyData = [
         year: 2024,
         district: "Vavuniya",
         content: {
-            csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-05-DAD-Reservoir-Water-Availability-Data-Small.csv")),
+            csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-05-DAD-Reservoir-Water-Availability-Data-ASC.csv")),
             csv3: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-05-DAD-Reservoir-Water-Availability-Data-AER.csv")),
             png1: readImage(path.join(__dirname, 'dbAssets/AgroMet Data for Vavuniya', '2024-12-00-DAD-Water-Availability-Forecast-Minor-Tank.png')),
         },
