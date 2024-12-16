@@ -6,7 +6,8 @@ import API_BASE_URL from "./config";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
-  const [reportPages, setReportPages] = useState([]); // Store generated report pages
+  const [reportPages, setReportPages] = useState([]); // Original generated report pages
+  const [updatedReportPages, setUpdatedReportPages] = useState([]); // Updated report pages after edits
   const [isEditable, setIsEditable] = useState(true); // Determine if form fields are editable
   const [isFetching, setIsFetching] = useState(false); // Loading state for report generation
   const [error, setError] = useState(""); // Error state
@@ -28,7 +29,8 @@ function App() {
 
       const htmlReport = await response.text();
       const pages = htmlReport.split("<!-- PAGE BREAK -->"); // Split report into pages
-      setReportPages(pages); // Update the report pages state
+      setReportPages(pages); // Update the original report pages state
+      setUpdatedReportPages([...pages]); // Initialize the updated report pages
       setIsEditable(false); // Disable the form fields
     } catch (error) {
       console.error(error.message);
@@ -52,13 +54,13 @@ function App() {
         isEditable={isEditable}
         setReportPages={setReportPages}
         setIsEditable={setIsEditable}
-        reportPages={reportPages}
+        reportPages={updatedReportPages} // Use updated report pages for download
       />
 
       {/* Report Viewer Section */}
       <ReportViewer
-        reportPages={reportPages}
-        setReportPages={setReportPages} // Allow updating reportPages
+        reportPages={reportPages} // Input: original report pages
+        setUpdatedReportPages={setUpdatedReportPages} // Output: update separate report pages
       />
       <SpeedInsights />
     </div>

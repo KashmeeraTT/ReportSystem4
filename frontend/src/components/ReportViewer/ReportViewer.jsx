@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ReportViewer.css";
 
-const ReportViewer = ({ reportPages, setReportPages }) => {
+const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const [dropdownValues, setDropdownValues] = useState({});
     const [showFloatingWindow, setShowFloatingWindow] = useState(false);
@@ -31,10 +31,12 @@ const ReportViewer = ({ reportPages, setReportPages }) => {
                 setDropdownValues(capturedValues);
                 localStorage.setItem("DropdownValues", JSON.stringify(capturedValues));
 
-                // Update the current report page with new dropdown values
-                const updatedPages = [...reportPages];
-                updatedPages[currentPage] = iframeDocument.documentElement.outerHTML;
-                setReportPages(updatedPages);
+                // Update the current page in the updated report
+                setUpdatedReportPages((prevPages) => {
+                    const updatedPages = [...prevPages];
+                    updatedPages[currentPage] = iframeDocument.documentElement.outerHTML;
+                    return updatedPages;
+                });
 
                 setShowFloatingWindow(true);
             } else {
