@@ -24,12 +24,27 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
                 const dropdowns = iframeDocument.querySelectorAll("select[id^='AER']");
-                const capturedValues = {};
+                const newValues = {};
                 dropdowns.forEach((dropdown) => {
-                    capturedValues[dropdown.id] = dropdown.value;
+                    newValues[dropdown.id] = dropdown.value; // Capture the current dropdown value
                 });
-                setDropdownValues(capturedValues);
-                localStorage.setItem("DropdownValues", JSON.stringify(capturedValues));
+
+                // Merge new values with existing ones
+                setDropdownValues((prevValues) => {
+                    const mergedValues = { ...prevValues, ...newValues };
+
+                    // Remove old values that are no longer in the dropdowns
+                    Object.keys(prevValues).forEach((key) => {
+                        if (!(key in newValues)) {
+                            delete mergedValues[key];
+                        }
+                    });
+
+                    return mergedValues;
+                });
+
+                // Save the updated dropdownValues to localStorage
+                localStorage.setItem("DropdownValues", JSON.stringify(newValues));
 
                 // Update the current page in the updated report
                 setUpdatedReportPages((prevPages) => {
