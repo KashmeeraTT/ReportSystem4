@@ -40,6 +40,7 @@ module.exports = function generateReportTemplate(sections, district, day, month,
                 <div>
                     <h4 style="text-align: center;">Part B</h4>
                 </div>
+                <div id="PART_B_PLACEHOLDER">This is a placeholder</div>
             </body>
         </html>
     `;
