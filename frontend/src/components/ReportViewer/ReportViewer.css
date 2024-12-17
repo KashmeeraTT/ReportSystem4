@@ -1,15 +1,3 @@
-.report-container {
-    flex: 3;
-    /* Occupy 3/4th of the width */
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
 .iframe {
     flex: 1;
     border: none;

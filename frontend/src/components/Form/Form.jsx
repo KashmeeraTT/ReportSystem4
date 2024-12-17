@@ -64,7 +64,7 @@ const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, upd
     };
 
     return (
-        <div className="form-container">
+        <div>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="year" className="label">Year:</label>
@@ -159,7 +159,7 @@ const Form = ({ onGenerateReport, isEditable, setReportPages, setIsEditable, upd
                     </div>
                 )}
             </form>
-        </div>
+        </div>    
     );
 };
 
