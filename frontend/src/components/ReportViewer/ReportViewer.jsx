@@ -56,8 +56,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                 ranges,
             });
         });
-    
-        console.log(aerData); // For debugging or further processing
+        
         return aerData;
     };
     
