@@ -5,21 +5,20 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const [dropdownValues, setDropdownValues] = useState({});
     const [showFloatingWindow, setShowFloatingWindow] = useState(false);
-    const iframeRef = useRef(null); // Reference to the iframe element
-    const previousReportPagesRef = useRef([]); // Track previous reportPages
+    const iframeRef = useRef(null);
+    const previousReportPagesRef = useRef([]);
 
-    // Reset dropdownValues only when reportPages change
+    // Reset dropdownValues when reportPages change
     useEffect(() => {
         if (JSON.stringify(previousReportPagesRef.current) !== JSON.stringify(reportPages)) {
-            // Clear dropdown storage and update previousReportPagesRef
             setDropdownValues({});
-            localStorage.removeItem("DropdownValues");
+            localStorage.removeItem("EditableValues");
             previousReportPagesRef.current = reportPages;
         }
-        setCurrentPage(0); // Reset to the first page when reportPages change
+        setCurrentPage(0);
     }, [reportPages]);
 
-    // Restore dropdown values when the iframe loads
+    // Restore values when iframe loads
     useEffect(() => {
         if (iframeRef.current) {
             iframeRef.current.onload = () => {
@@ -32,83 +31,67 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
-                const dropdowns = iframeDocument.querySelectorAll("select[id^='AER']");
+                const dropdowns = iframeDocument.querySelectorAll("select[id^='SAER'], select[id^='RAER']");
                 const checkboxes = iframeDocument.querySelectorAll("input[type='checkbox']");
-    
+
                 const newValues = {};
-    
+
                 // Capture dropdown values
                 dropdowns.forEach((dropdown) => {
                     newValues[dropdown.id] = dropdown.value;
                 });
-    
+
                 // Capture checkbox states
                 checkboxes.forEach((checkbox) => {
-                    newValues[checkbox.id] = checkbox.checked; // true or false
+                    newValues[checkbox.id] = checkbox.checked ? "Checked" : "Unchecked";
                 });
-    
-                // Merge new values with existing ones
+
+                // Merge and save values
                 setDropdownValues((prevValues) => ({
                     ...prevValues,
                     ...newValues,
                 }));
-    
-                // Save to localStorage
+
                 const mergedValues = { ...dropdownValues, ...newValues };
                 localStorage.setItem("EditableValues", JSON.stringify(mergedValues));
-    
-                // Update the current page in the updated report
+
+                // Update current page in reportPages
                 setUpdatedReportPages((prevPages) => {
                     const updatedPages = [...prevPages];
                     updatedPages[currentPage] = iframeDocument.documentElement.outerHTML;
                     return updatedPages;
                 });
-    
+
                 setShowFloatingWindow(true);
             } else {
                 console.error("Could not access iframe document.");
             }
         }
     };
-    
 
     const restoreEditableValues = () => {
         const savedValues = JSON.parse(localStorage.getItem("EditableValues")) || {};
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
-                // Restore dropdown values
+                // Restore dropdown values and checkbox states
                 Object.entries(savedValues).forEach(([id, value]) => {
-                    const dropdown = iframeDocument.getElementById(id);
-                    if (dropdown) {
-                        dropdown.value = value;
-                    }
-                    // Restore checkbox states
-                    const checkbox = iframeDocument.getElementById(id);
-                    if (checkbox && checkbox.type === "checkbox") {
-                        checkbox.checked = value;
+                    const element = iframeDocument.getElementById(id);
+                    if (element) {
+                        if (element.tagName === "SELECT") {
+                            element.value = value;
+                        } else if (element.type === "checkbox") {
+                            element.checked = value === "Checked";
+                        }
                     }
                 });
             }
         }
     };
-    
 
-    const handleCloseFloatingWindow = () => {
-        setShowFloatingWindow(false);
-    };
-
-    const handleNext = () => {
-        if (currentPage < reportPages.length - 1) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const handlePrevious = () => {
-        if (currentPage > 0) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
+    const handleCloseFloatingWindow = () => setShowFloatingWindow(false);
+    const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, reportPages.length - 1));
+    const handlePrevious = () => setCurrentPage((prev) => Math.max(prev - 1, 0));
 
     return (
         <div className="report-container">
@@ -121,25 +104,14 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                         className="iframe"
                     />
                     <div className="pagination-controls">
-                        <button
-                            className="pagination-button"
-                            onClick={handlePrevious}
-                            disabled={currentPage === 0}
-                        >
+                        <button onClick={handlePrevious} disabled={currentPage === 0}>
                             Previous
                         </button>
                         <span>Page {currentPage + 1} of {reportPages.length}</span>
-                        <button
-                            className="pagination-button"
-                            onClick={handleNext}
-                            disabled={currentPage === reportPages.length - 1}
-                        >
+                        <button onClick={handleNext} disabled={currentPage === reportPages.length - 1}>
                             Next
                         </button>
-                        <button
-                            className="save-button"
-                            onClick={handleCaptureEditableValues}
-                        >
+                        <button onClick={handleCaptureEditableValues}>
                             Save
                         </button>
                     </div>
@@ -155,15 +127,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                                         </li>
                                     ))}
                                 </ul>
-                                <button
-                                    className="close-floating-button"
-                                    onClick={handleCloseFloatingWindow}
-                                    style={{
-                                        padding: "5px 10px",
-                                        marginTop: "10px",
-                                        cursor: "pointer",
-                                    }}
-                                >
+                                <button onClick={handleCloseFloatingWindow} style={{ padding: "5px 10px" }}>
                                     Close
                                 </button>
                             </div>
