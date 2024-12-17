@@ -148,7 +148,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                         <button
                             className="save-button"
                             onClick={() => {
-                                handleCaptureEditableValues;
+                                handleCaptureEditableValues();
                                 const aerData = generateAerData();
                                 console.log("AER Data:", aerData);
                             }}
