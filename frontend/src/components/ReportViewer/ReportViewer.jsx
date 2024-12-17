@@ -1,49 +1,54 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ReportViewer.css";
-import generateAERSection from "../AERAdvisory/AERAdvisory";
 
-const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
-    const [updatedReportPages, setUpdatedReportPagesState] = useState([]); // Updated pages
+const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const [dropdownValues, setDropdownValues] = useState({});
     const [showFloatingWindow, setShowFloatingWindow] = useState(false);
     const iframeRef = useRef(null);
+    const previousReportPagesRef = useRef([]);
 
-    // Generate AER advisory and replace placeholder
-    const processReportWithAdvisory = (originalReport) => {
-        const aerData = generateAerData();
-        const aerSectionHTML = generateAERSection(district, aerData);
+    // Reset values on new report pages
+    useEffect(() => {
+        if (JSON.stringify(previousReportPagesRef.current) !== JSON.stringify(reportPages)) {
+            setDropdownValues({});
+            localStorage.removeItem("EditableValues");
+            previousReportPagesRef.current = reportPages;
+        }
+        setCurrentPage(0);
+    }, [reportPages]);
 
-        // Replace placeholder
-        const updatedReport = originalReport.replace(
-            `<div id="PART_B_PLACEHOLDER">This is a placeholder</div>`,
-            aerSectionHTML
-        );
-
-        // Split report into pages
-        const pages = updatedReport.split("<!-- PAGE BREAK -->");
-        setUpdatedReportPagesState(pages);
-    };
+    // Restore values when iframe loads
+    useEffect(() => {
+        if (iframeRef.current) {
+            iframeRef.current.onload = () => {
+                restoreEditableValues();
+            };
+        }
+    }, [currentPage]);
 
     const generateAerData = () => {
         const savedValues = JSON.parse(localStorage.getItem("EditableValues")) || {};
         const aerData = [];
-
+    
+        // Dynamically extract AER codes from keys
         const aerCodes = Object.keys(savedValues)
             .filter((key) => key.startsWith("S AER ") || key.startsWith("R AER "))
-            .map((key) => key.split(" ")[2])
-            .filter((value, index, self) => self.indexOf(value) === index);
-
+            .map((key) => key.split(" ")[2]) // Extract the code (e.g., "DL1b" from "S AER DL1b")
+            .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+    
+        // Generate data for each dynamically extracted AER code
         aerCodes.forEach((code, index) => {
             const seasonalRainfall = savedValues[`S AER ${code}`] || "N/A";
             const receivedRainfall = savedValues[`R AER ${code}`] || "N/A";
-
+    
+            // Collect ranges for Minor Tank Water Availability dynamically
             const ranges = [];
             for (let i = 1; i <= 5; i++) {
                 const key = `AER${index + 1}-mtwa-range${i}`;
                 ranges.push(savedValues[key] === "Checked" ? "Checked" : "Unchecked");
             }
-
+    
             aerData.push({
                 aerCode: code,
                 seasonalRainfall,
@@ -51,10 +56,10 @@ const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
                 ranges,
             });
         });
-
+        
         return aerData;
     };
-
+    
     const handleCaptureEditableValues = () => {
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
@@ -64,14 +69,17 @@ const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
 
                 const newValues = {};
 
+                // Capture dropdown values
                 dropdowns.forEach((dropdown) => {
                     newValues[dropdown.id] = dropdown.value;
                 });
 
+                // Capture checkbox states
                 checkboxes.forEach((checkbox) => {
                     newValues[checkbox.id] = checkbox.checked ? "Checked" : "Unchecked";
                 });
 
+                // Merge and save values
                 setDropdownValues((prevValues) => ({
                     ...prevValues,
                     ...newValues,
@@ -79,7 +87,7 @@ const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
 
                 localStorage.setItem("EditableValues", JSON.stringify(newValues));
 
-                setUpdatedReportPagesState((prevPages) => {
+                setUpdatedReportPages((prevPages) => {
                     const updatedPages = [...prevPages];
                     updatedPages[currentPage] = iframeDocument.documentElement.outerHTML;
                     return updatedPages;
@@ -112,31 +120,17 @@ const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
     };
 
     const handleCloseFloatingWindow = () => setShowFloatingWindow(false);
-    const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, updatedReportPages.length - 1));
+    const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, reportPages.length - 1));
     const handlePrevious = () => setCurrentPage((prev) => Math.max(prev - 1, 0));
-
-    // Process new htmlReport only when it changes
-    useEffect(() => {
-        if (htmlReport) {
-            processReportWithAdvisory(htmlReport);
-            setCurrentPage(0); // Reset to first page only when a new report arrives
-        }
-    }, [htmlReport]);
-
-    useEffect(() => {
-        if (iframeRef.current) {
-            iframeRef.current.onload = () => restoreEditableValues();
-        }
-    }, [currentPage]);
 
     return (
         <div className="report-viewer-container">
-            {updatedReportPages.length > 0 ? (
+            {reportPages.length > 0 ? (
                 <>
                     <iframe
                         ref={iframeRef}
                         title="Report Viewer"
-                        srcDoc={updatedReportPages[currentPage]}
+                        srcDoc={reportPages[currentPage]}
                         className="iframe"
                     />
                     <div className="pagination-controls">
@@ -148,13 +142,14 @@ const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
                             Previous
                         </button>
                         <span className="page-indicator">
-                            Page {currentPage + 1} of {updatedReportPages.length}
+                            Page {currentPage + 1} of {reportPages.length}
                         </span>
                         <button
                             className="save-button"
                             onClick={() => {
                                 handleCaptureEditableValues();
-                                console.log("AER Data:", generateAerData());
+                                const aerData = generateAerData();
+                                console.log("AER Data:", aerData);
                             }}
                         >
                             Save
@@ -162,7 +157,7 @@ const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
                         <button
                             className="pagination-button"
                             onClick={handleNext}
-                            disabled={currentPage === updatedReportPages.length - 1}
+                            disabled={currentPage === reportPages.length - 1}
                         >
                             Next
                         </button>

@@ -6,32 +6,31 @@ import API_BASE_URL from "./config";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
-  const [reportPages, setReportPages] = useState(""); // Original generated report pages
+  const [reportPages, setReportPages] = useState([]); // Original generated report pages
   const [updatedReportPages, setUpdatedReportPages] = useState([]); // Updated report pages after edits
   const [isEditable, setIsEditable] = useState(true); // Determine if form fields are editable
   const [isFetching, setIsFetching] = useState(false); // Loading state for report generation
   const [error, setError] = useState(""); // Error state
-  const [district, setDistrict] = useState(""); // State to hold district value
 
   // Function to handle report generation
   const generateReport = async (formData) => {
     setIsFetching(true); // Show fetching animation
     setError(""); // Reset any previous error
-    setDistrict(formData.district); // Update district state
     try {
       const response = await fetch(API_BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to generate report");
       }
-  
+
       const htmlReport = await response.text();
-      setReportPages(htmlReport); // Save the report content
-      setUpdatedReportPages([]); // Update the report pages
+      const pages = htmlReport.split("<!-- PAGE BREAK -->"); // Split report into pages
+      setReportPages(pages); // Update the original report pages state
+      setUpdatedReportPages([...pages]); // Initialize the updated report pages
       setIsEditable(false); // Disable the form fields
     } catch (error) {
       console.error(error.message);
@@ -40,7 +39,6 @@ function App() {
       setIsFetching(false); // Hide fetching animation
     }
   };
-  
 
   return (
     <div className="container">
@@ -67,7 +65,6 @@ function App() {
         <ReportViewer
           reportPages={reportPages}
           setUpdatedReportPages={setUpdatedReportPages}
-          district={district} // Pass the district value to ReportViewer
         />
       </div>
   
