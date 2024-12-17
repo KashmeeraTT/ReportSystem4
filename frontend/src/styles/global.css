@@ -73,12 +73,16 @@
 /* Mobile responsiveness: Stack vertically on smaller screens */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Change to vertical stacking */
+        flex-direction: column; /* Stack components vertically */
+        height: 100vh; /* Full viewport height for the container */
     }
 
     .form-container,
     .report-viewer-container {
         width: 100%; /* Take full width */
+        flex: 1; /* Take equal vertical space */
         margin-bottom: 20px; /* Add spacing between components */
+        min-height: 0; /* Ensure they distribute height evenly without overflow issues */
     }
 }
+
