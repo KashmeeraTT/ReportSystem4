@@ -6,7 +6,7 @@ const generateSection = require("../templates/sectionTemplate");
 const generateReportTemplate = require("../templates/reportTemplate");
 
 exports.generateReport = async (req, res, next) => {
-    const { year, month, day, district, observedPrecipitation } = req.body;
+    const { year, month, day, district } = req.body;
 
     try {
         const weekNumber = calculateWeekNumber(day, month, year);
@@ -56,7 +56,7 @@ exports.generateReport = async (req, res, next) => {
             generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 2 (Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year})`, weeklyRainfall2),
             generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 3 (Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year})`, weeklyRainfall3),
             generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 4 (Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year})`, weeklyRainfall4),
-            generateSection(`Received Rainfall for ${previousMonth} ${previousMonthYear}`, receivedRainfall, observedPrecipitation, previousMonth, previousMonthYear),
+            generateSection(`Received Rainfall for ${previousMonth} ${previousMonthYear}`, receivedRainfall, previousMonth, previousMonthYear),
             generateSection(`Climatological Rainfall Summary for ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`, climatologicalRainfall),
             generateSection(`Major Reservoir Water Availability as of ${day} ${month} ${year} - ${district} District`, majorReservoir),
             generateSection(`Medium Reservoir Water Availability as of ${day} ${month} ${year} - ${district} District`, mediumReservoir),

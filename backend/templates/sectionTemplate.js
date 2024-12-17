@@ -1,6 +1,6 @@
 const Papa = require("papaparse");
 
-module.exports = function generateSection(title, data, observedPrecipitation = null, previousMonth = null, previousMonthYear = null) {
+module.exports = function generateSection(title, data, previousMonth = null, previousMonthYear = null) {
     if (!data || !data.content) {
         return `
             <div class="section" style="page-break-after: always;">
@@ -9,11 +9,6 @@ module.exports = function generateSection(title, data, observedPrecipitation = n
             </div>
             <!-- PAGE BREAK -->
         `;
-    }
-
-    let updatedText = data.content.text || "";
-    if (observedPrecipitation) {
-        updatedText = updatedText.replace("<OBSERVED_PERCIPITATION>", `${observedPrecipitation}%`);
     }
 
     // Decode buffers to Base64 for PNGs
