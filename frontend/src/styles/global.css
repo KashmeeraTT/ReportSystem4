@@ -3,7 +3,7 @@
     flex-direction: row; /* Default: Form and ReportViewer appear side by side */
     justify-content: space-between;
     gap: 20px;
-    height: 100vh;
+    height: 98vh;
     padding: 10px;
     box-sizing: border-box;
 }
@@ -57,7 +57,7 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 0px;
+    padding: 5px;
     height: 100%; /* Ensure container height is defined */
     overflow: auto;
 }
