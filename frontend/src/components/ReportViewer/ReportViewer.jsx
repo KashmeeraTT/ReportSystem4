@@ -27,6 +27,40 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
         }
     }, [currentPage]);
 
+    const generateAerData = () => {
+        const savedValues = JSON.parse(localStorage.getItem("EditableValues")) || {};
+        const aerData = [];
+    
+        // Dynamically extract AER codes from keys
+        const aerCodes = Object.keys(savedValues)
+            .filter((key) => key.startsWith("S AER ") || key.startsWith("R AER "))
+            .map((key) => key.split(" ")[2]) // Extract the code (e.g., "DL1b" from "S AER DL1b")
+            .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+    
+        // Generate data for each dynamically extracted AER code
+        aerCodes.forEach((code, index) => {
+            const seasonalRainfall = savedValues[`S AER ${code}`] || "N/A";
+            const receivedRainfall = savedValues[`R AER ${code}`] || "N/A";
+    
+            // Collect ranges for Minor Tank Water Availability dynamically
+            const ranges = [];
+            for (let i = 1; i <= 5; i++) {
+                const key = `AER${index + 1}-mtwa-range${i}`;
+                ranges.push(savedValues[key] === "Checked" ? "Checked" : "Unchecked");
+            }
+    
+            aerData.push({
+                aerCode: code,
+                seasonalRainfall,
+                receivedRainfall,
+                ranges,
+            });
+        });
+    
+        console.log(aerData); // For debugging or further processing
+        return aerData;
+    };
+    
     const handleCaptureEditableValues = () => {
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
@@ -113,7 +147,11 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                         </span>
                         <button
                             className="save-button"
-                            onClick={handleCaptureEditableValues}
+                            onClick={() => {
+                                handleCaptureEditableValues;
+                                const aerData = generateAerData();
+                                console.log("AER Data:", aerData);
+                            }}
                         >
                             Save
                         </button>
