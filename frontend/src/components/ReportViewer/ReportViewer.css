@@ -70,13 +70,17 @@
 
 .close-floating-button {
     display: block;
-    width: 100%;
+    width: 50%; /* Adjust width for a centered look */
+    margin: 20px auto; /* Centers horizontally */
     background: #007bff;
     color: white;
     border: none;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: 8px; /* Slightly larger border radius for better look */
+    font-size: 16px; /* Increase font size */
     font-weight: bold;
+    height: 50px; /* Increase button height */
+    cursor: pointer; /* Adds a pointer cursor for better UX */
+    text-align: center; /* Ensures text alignment */
 }
 
 .save-button {
