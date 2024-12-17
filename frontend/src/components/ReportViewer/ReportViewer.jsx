@@ -31,7 +31,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
-                const dropdowns = iframeDocument.querySelectorAll("select[id^='SAER'], select[id^='RAER']");
+                const dropdowns = iframeDocument.querySelectorAll("select[id^='S AER'], select[id^='R AER']");
                 const checkboxes = iframeDocument.querySelectorAll("input[type='checkbox']");
 
                 const newValues = {};

@@ -13,21 +13,21 @@
             	Seasonal Rainfall Forecast
             </td>
             <td style="padding: 10px; border: 1px solid #ddd;">
-		<select name="SAER1" id="SAER1">
+		<select name="SAER1" id="S AER DL1b">
 		  <option value="Below Normal">Below Normal</option>
 		  <option value="Near Normal" selected>Near Normal</option>
 		  <option value="Above Normal">Above Normal</option>
 		</select>
             </td>
             <td style="padding: 10px; border: 1px solid #ddd;">
-		<select name="SAER2" id="SAER2">
+		<select name="SAER2" id="S AER DL1e">
 		  <option value="Below Normal">Below Normal</option>
 		  <option value="Near Normal" selected>Near Normal</option>
 		  <option value="Above Normal">Above Normal</option>
 		</select>
             </td>
             <td style="padding: 10px; border: 1px solid #ddd;">
-		<select name="SAER3" id="SAER3">
+		<select name="SAER3" id="S AER DL1f">
 		  <option value="Below Normal">Below Normal</option>
 		  <option value="Near Normal" selected>Near Normal</option>
 		  <option value="Above Normal">Above Normal</option>
@@ -39,21 +39,21 @@
             	Received Rainfall in Last Month
             </td>
             <td style="padding: 10px; border: 1px solid #ddd;">
-		<select name="RAER1" id="RAER1">
+		<select name="RAER1" id="R AER DL1b">
 		  <option value="Below Normal">Below Normal</option>
 		  <option value="Near Normal">Near Normal</option>
 		  <option value="Above Normal" selected>Above Normal</option>
 		</select>
             </td>
             <td style="padding: 10px; border: 1px solid #ddd;">
-		<select name="RAER2" id="RAER2">
+		<select name="RAER2" id="R AER DL1e">
 		  <option value="Below Normal">Below Normal</option>
 		  <option value="Near Normal">Near Normal</option>
 		  <option value="Above Normal" selected>Above Normal</option>
 		</select>
             </td>
             <td style="padding: 10px; border: 1px solid #ddd;">
-		<select name="RAER3" id="RAER3">
+		<select name="RAER3" id="R AER DL1f">
 		  <option value="Below Normal">Below Normal</option>
 		  <option value="Near Normal">Near Normal</option>
 		  <option value="Above Normal" selected>Above Normal</option>
