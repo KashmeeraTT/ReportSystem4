@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ReportViewer.css";
-import generateAERSection from "../AERAdvisory/generateAERSection";
+import generateAERSection from "../AERAdvisory/AERAdvisory/generateAERSection";
 
 const ReportViewer = ({ htmlReport, setUpdatedReportPages, district }) => {
     const [updatedReportPages, setUpdatedReportPagesState] = useState([]); // Updated pages
