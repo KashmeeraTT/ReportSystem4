@@ -78,7 +78,7 @@
     border-radius: 8px; /* Slightly larger border radius for better look */
     font-size: 16px; /* Increase font size */
     font-weight: bold;
-    height: 50px; /* Increase button height */
+    height: 30px; /* Increase button height */
     cursor: pointer; /* Adds a pointer cursor for better UX */
     text-align: center; /* Ensures text alignment */
 }
