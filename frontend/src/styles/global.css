@@ -3,7 +3,7 @@
     flex-direction: row; /* Default: Form and ReportViewer appear side by side */
     justify-content: space-between;
     gap: 20px;
-    height: 97.5vh;
+    height: 97vh;
     padding: 5px;
     box-sizing: border-box;
 }
