@@ -112,17 +112,17 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                             Page {currentPage + 1} of {reportPages.length}
                         </span>
                         <button
+                            className="save-button"
+                            onClick={handleCaptureEditableValues}
+                        >
+                            Save
+                        </button>
+                        <button
                             className="pagination-button"
                             onClick={handleNext}
                             disabled={currentPage === reportPages.length - 1}
                         >
                             Next
-                        </button>
-                        <button
-                            className="save-button"
-                            onClick={handleCaptureEditableValues}
-                        >
-                            Save
                         </button>
                     </div>
 
