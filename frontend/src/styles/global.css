@@ -1,10 +1,9 @@
 .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Default: Form and ReportViewer appear side by side */
+    justify-content: space-between;
     gap: 20px;
-    /* Add space between the form and report viewer */
     height: 97.5vh;
-    /* Use full viewport height */
     padding: 10px;
     box-sizing: border-box;
 }
@@ -24,10 +23,8 @@
 }
 
 .spinner {
-    border: 8px solid #f3f3f3;
-    /* Light grey */
-    border-top: 8px solid #007bff;
-    /* Blue */
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #007bff; /* Blue */
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -38,7 +35,6 @@
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
@@ -52,4 +48,27 @@
     margin: 10px 0;
     border-radius: 4px;
     text-align: center;
+}
+
+.form-container,
+.report-viewer-container {
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    overflow: auto;
+}
+
+/* Mobile responsiveness: Stack vertically on smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Change to vertical stacking */
+    }
+
+    .form-container,
+    .report-viewer-container {
+        width: 100%; /* Take full width */
+        margin-bottom: 20px; /* Add spacing between components */
+    }
 }

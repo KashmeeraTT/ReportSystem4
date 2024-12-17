@@ -48,23 +48,29 @@ function App() {
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
+  
       {/* Form Section */}
-      <Form
-        onGenerateReport={generateReport}
-        isEditable={isEditable}
-        setReportPages={setReportPages}
-        setIsEditable={setIsEditable}
-        updatedReportPages={updatedReportPages} // Use updated report pages for download
-      />
-
+      <div className="form-container">
+        <Form
+          onGenerateReport={generateReport}
+          isEditable={isEditable}
+          setReportPages={setReportPages}
+          setIsEditable={setIsEditable}
+          updatedReportPages={updatedReportPages}
+        />
+      </div>
+  
       {/* Report Viewer Section */}
-      <ReportViewer
-        reportPages={reportPages} // Input: original report pages
-        setUpdatedReportPages={setUpdatedReportPages} // Output: update separate report pages
-      />
+      <div className="report-viewer-container">
+        <ReportViewer
+          reportPages={reportPages}
+          setUpdatedReportPages={setUpdatedReportPages}
+        />
+      </div>
+  
       <SpeedInsights />
     </div>
-  );
+  );  
 }
 
 export default App;
