@@ -91,7 +91,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
     const handlePrevious = () => setCurrentPage((prev) => Math.max(prev - 1, 0));
 
     return (
-        <div>
+        <div height="100%">
             {reportPages.length > 0 ? (
                 <>
                     <iframe
