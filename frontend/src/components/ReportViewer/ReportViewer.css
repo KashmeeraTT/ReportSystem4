@@ -73,8 +73,10 @@
     color: white;
     border: none;
     border-radius: 4px;
-    padding: 10px;
+    padding: 10px 20px;
     cursor: pointer;
+    display: block; /* Ensures it behaves like a block-level element */
+    margin: 10px auto 0; /* Auto centers horizontally and adds spacing at the top */
 }
 
 .save-button {
