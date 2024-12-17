@@ -2,7 +2,7 @@
     flex: 1;
     border: none;
     width: 100%;
-    height: calc(100% - 60px); /* Adjusts for pagination controls height */
+    height: calc(100% - 30px); /* Adjusts for pagination controls height */
 }
 
 .report-viewer-container {
@@ -18,7 +18,7 @@
     padding: 10px;
     background-color: #f9f9f9;
     border-top: 1px solid #ddd;
-    height: 60px; /* Fixed height for controls */
+    height: 30px; /* Fixed height for controls */
 }
 
 .pagination-button {
