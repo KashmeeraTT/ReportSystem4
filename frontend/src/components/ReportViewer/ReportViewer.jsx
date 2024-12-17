@@ -102,7 +102,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                     />
                     <div className="pagination-controls">
                         <button
-                            className="button button-pagination"
+                            className="pagination-button"
                             onClick={handlePrevious}
                             disabled={currentPage === 0}
                         >
@@ -112,13 +112,13 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                             Page {currentPage + 1} of {reportPages.length}
                         </span>
                         <button
-                            className="button button-save"
+                            className="save-button"
                             onClick={handleCaptureEditableValues}
                         >
                             Save
                         </button>
                         <button
-                            className="button button-pagination"
+                            className="pagination-button"
                             onClick={handleNext}
                             disabled={currentPage === reportPages.length - 1}
                         >
@@ -138,7 +138,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                                     ))}
                                 </ul>
                                 <button
-                                    className="button button-close"
+                                    className="close-floating-button"
                                     onClick={handleCloseFloatingWindow}
                                 >
                                     Close
