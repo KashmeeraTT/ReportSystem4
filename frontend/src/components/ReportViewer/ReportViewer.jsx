@@ -8,7 +8,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
     const iframeRef = useRef(null);
     const previousReportPagesRef = useRef([]);
 
-    // Reset dropdownValues when reportPages change
+    // Reset values on new report pages
     useEffect(() => {
         if (JSON.stringify(previousReportPagesRef.current) !== JSON.stringify(reportPages)) {
             setDropdownValues({});
@@ -52,10 +52,8 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                     ...newValues,
                 }));
 
-                const mergedValues = { ...dropdownValues, ...newValues };
-                localStorage.setItem("EditableValues", JSON.stringify(mergedValues));
+                localStorage.setItem("EditableValues", JSON.stringify(newValues));
 
-                // Update current page in reportPages
                 setUpdatedReportPages((prevPages) => {
                     const updatedPages = [...prevPages];
                     updatedPages[currentPage] = iframeDocument.documentElement.outerHTML;
@@ -74,7 +72,6 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
         if (iframeRef.current) {
             const iframeDocument = iframeRef.current.contentDocument;
             if (iframeDocument) {
-                // Restore dropdown values and checkbox states
                 Object.entries(savedValues).forEach(([id, value]) => {
                     const element = iframeDocument.getElementById(id);
                     if (element) {
@@ -104,14 +101,27 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                         className="iframe"
                     />
                     <div className="pagination-controls">
-                        <button onClick={handlePrevious} disabled={currentPage === 0}>
+                        <button
+                            className="pagination-button"
+                            onClick={handlePrevious}
+                            disabled={currentPage === 0}
+                        >
                             Previous
                         </button>
-                        <span>Page {currentPage + 1} of {reportPages.length}</span>
-                        <button onClick={handleNext} disabled={currentPage === reportPages.length - 1}>
+                        <span className="page-indicator">
+                            Page {currentPage + 1} of {reportPages.length}
+                        </span>
+                        <button
+                            className="pagination-button"
+                            onClick={handleNext}
+                            disabled={currentPage === reportPages.length - 1}
+                        >
                             Next
                         </button>
-                        <button onClick={handleCaptureEditableValues}>
+                        <button
+                            className="save-button"
+                            onClick={handleCaptureEditableValues}
+                        >
                             Save
                         </button>
                     </div>
@@ -127,7 +137,10 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages }) => {
                                         </li>
                                     ))}
                                 </ul>
-                                <button onClick={handleCloseFloatingWindow} style={{ padding: "5px 10px" }}>
+                                <button
+                                    className="close-floating-button"
+                                    onClick={handleCloseFloatingWindow}
+                                >
                                     Close
                                 </button>
                             </div>
