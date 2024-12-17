@@ -74,7 +74,7 @@
 @media (max-width: 768px) {
     .container {
         flex-direction: column; /* Stack components vertically */
-        height: 100vh; /* Full viewport height for the container */
+        height: 200vh; /* Full viewport height for the container */
     }
 
     .form-container,
