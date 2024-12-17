@@ -66,14 +66,14 @@ module.exports = function generateSection(title, data, previousMonth = null, pre
     // Build the content
     let htmlContent = "";
 
-    if (updatedText || csv1Table || csv2Table || png1Base64 || png2Base64 || png3Base64) {
+    if (data.content.text || csv1Table || csv2Table || png1Base64 || png2Base64 || png3Base64) {
 
         // If any data is available, show the content
-        if (updatedText) {
+        if (data.content.text) {
             htmlContent += `
                 <div class="section" style="page-break-after: always;">
                     <h2>${title}</h2>
-                    ${updatedText}
+                    ${data.content.text}
                 </div>
                 <!-- PAGE BREAK -->
             `;
