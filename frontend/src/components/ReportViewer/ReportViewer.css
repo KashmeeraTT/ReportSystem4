@@ -1,3 +1,4 @@
+/* General Layout */
 .iframe {
     flex: 1;
     border: none;
@@ -21,24 +22,61 @@
     height: 30px; /* Fixed height for controls */
 }
 
-.pagination-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    cursor: pointer;
+/* Base Button Styles */
+.button {
+    display: inline-block;
+    background-color: #007bff; /* Default blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded edges */
+    font-size: 14px; /* Default font size */
+    font-weight: bold; /* Bold text */
+    padding: 10px 20px; /* Top/Bottom and Left/Right padding */
+    text-align: center; /* Center text */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transitions */
 }
 
-.pagination-button:disabled {
-    background-color: #ccc;
+/* Hover Effect for All Buttons */
+.button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: #f1f1f1; /* Lighter text on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Disabled Button Style */
+.button:disabled {
+    background-color: #ccc; /* Grey for disabled state */
     cursor: not-allowed;
+    transform: none;
 }
 
-.page-indicator {
-    font-weight: lighter;
+/* Button Variants */
+.button-save {
+    background-color: #28a745; /* Green for save buttons */
 }
 
+.button-save:hover {
+    background-color: #1e7e34; /* Darker green on hover */
+}
+
+.button-close {
+    background-color: #dc3545; /* Red for close buttons */
+}
+
+.button-close:hover {
+    background-color: #bd2130; /* Darker red on hover */
+}
+
+.button-pagination {
+    background-color: #007bff; /* Blue for pagination buttons */
+}
+
+.button-pagination:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Floating Window */
 .floating-window {
     position: fixed;
     top: 50%;
@@ -72,22 +110,31 @@
     display: block;
     width: 50%; /* Adjust width for a centered look */
     margin: 20px auto; /* Centers horizontally */
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px; /* Slightly larger border radius for better look */
-    font-size: 16px; /* Increase font size */
-    font-weight: bold;
-    height: 30px; /* Increase button height */
-    cursor: pointer; /* Adds a pointer cursor for better UX */
-    text-align: center; /* Ensures text alignment */
-}
-
-.save-button {
-    background-color: #28a745;
+    background-color: #dc3545; /* Red for close button */
     color: white;
     border: none;
     border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
     padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
+
+.close-floating-button:hover {
+    background-color: #bd2130; /* Darker red on hover */
+    transform: scale(1.05);
+}
+
+/* Page Indicator */
+.page-indicator {
+    font-weight: lighter;
+}
+
+/* Additional Global Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
