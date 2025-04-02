@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "./components/Form/Form";
 import ReportViewer from "./components/ReportViewer/ReportViewer";
 import "./styles/global.css";
@@ -12,6 +12,14 @@ function App() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [language, setLanguage] = useState(null);
+
+  // Load language from localStorage (if available)
+  useEffect(() => {
+    const savedLang = localStorage.getItem("appLanguage");
+    if (savedLang) {
+      setLanguage(savedLang);
+    }
+  }, []);
 
   const generateReport = async (formData) => {
     setIsFetching(true);
@@ -40,18 +48,45 @@ function App() {
     }
   };
 
-  // Render landing page
+  const handleLanguageChange = (e) => {
+    const newLang = e.target.value;
+    const confirmChange = window.confirm("Changing the language will reset the form. Continue?");
+    if (confirmChange) {
+      localStorage.setItem("appLanguage", newLang);
+      setLanguage(newLang);
+      setReportPages([]);
+      setUpdatedReportPages([]);
+      setIsEditable(true);
+    }
+  };
+
+  // Initial landing page if language is not selected yet
   if (!language) {
     return (
       <div className="landing-page">
         <div className="landing-content">
-          <h1 className="main-title">District Agro-met Advisory Co-production<br />Software Application</h1>
-          <h2 className="sub-title">දිස්ත්‍රික් කෘෂි-කාලගුණික උපදේශන සමසම්පාදනය<br />සදහා වන මෘදුකාංග යෙදුම</h2>
-          <h2 className="sub-title">மாவட்ட வேளாண் வானிலை ஆலோசனையின் ஒருங்கிணைப்பு<br />பொருந்தக்கூடிய மென்பொருள் பயன்பாடு</h2>
+          <h1 className="main-title">
+            District Agro-met Advisory Co-production<br />Software Application
+          </h1>
+          <h2 className="sub-title">
+            දිස්ත්‍රික් කෘෂි-කාලගුණික උපදේශන සමසම්පාදනය<br />සදහා වන මෘදුකාංග යෙදුම
+          </h2>
+          <h2 className="sub-title">
+            மாவட்ட வேளாண் வானிலை ஆலோசனையின் ஒருங்கிணைப்பு<br />பொருந்தக்கூடிய மென்பொருள் பயன்பாடு
+          </h2>
           <div className="language-buttons">
-            <button onClick={() => setLanguage("en")}>English</button>
-            <button onClick={() => setLanguage("si")}>සිංහල</button>
-            <button onClick={() => setLanguage("ta")}>தமிழ்</button>
+            <button onClick={() => {
+              setLanguage("en");
+              localStorage.setItem("appLanguage", "en");
+            }}>English</button>
+            <button onClick={() => {
+              setLanguage("si");
+              localStorage.setItem("appLanguage", "si");
+            }}>සිංහල</button>
+            <button onClick={() => {
+              setLanguage("ta");
+              localStorage.setItem("appLanguage", "ta");
+            }}>தமிழ்</button>
           </div>
         </div>
       </div>
@@ -60,6 +95,15 @@ function App() {
 
   return (
     <div className="container">
+      {/* Language Selector */}
+      <div className="top-bar">
+        <select className="language-selector" value={language} onChange={handleLanguageChange}>
+          <option value="en">🌐 English</option>
+          <option value="si">🌐 සිංහල</option>
+          <option value="ta">🌐 தமிழ்</option>
+        </select>
+      </div>
+
       {isFetching && (
         <div className="loading-overlay">
           <div className="spinner"></div>

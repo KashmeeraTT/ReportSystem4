@@ -1,14 +1,14 @@
 .container {
     display: flex;
-    flex-direction: row; /* Default: Form and ReportViewer appear side by side */
+    flex-direction: row;
     justify-content: space-between;
     gap: 20px;
     height: 97vh;
     padding: 5px;
     box-sizing: border-box;
-}
-
-.loading-overlay {
+  }
+  
+  .loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -20,27 +20,24 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-}
-
-.spinner {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #007bff; /* Blue */
+  }
+  
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #007bff;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.error-message {
+  }
+  
+  .error-message {
     background-color: #f8d7da;
     color: #842029;
     border: 1px solid #f5c2c7;
@@ -48,59 +45,59 @@
     margin: 10px 0;
     border-radius: 4px;
     text-align: center;
-}
-
-/* Make form smaller and report viewer larger */
-.form-container {
-    flex: 1; /* Form container takes 1 part of the available space */
-    max-width: 100%; /* Optional: Restrict form container width */
+  }
+  
+  /* Responsive layout */
+  .form-container {
+    flex: 1;
+    max-width: 100%;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 5px;
-    height: 100%; /* Ensure container height is defined */
+    height: 100%;
     overflow: auto;
-}
-
-.report-viewer-container {
-    flex: 3; /* Report viewer takes 3 parts of the available space */
+  }
+  
+  .report-viewer-container {
+    flex: 3;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 5px;
-    height: 100%; /* Ensure container height is defined */
+    height: 100%;
     overflow: auto;
-}
-
-/* Mobile responsiveness: Stack vertically on smaller screens */
-@media (max-width: 768px) {
+  }
+  
+  @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Stack components vertically */
-        height: 120vh; /* Full viewport height for the container */
+      flex-direction: column;
+      height: 120vh;
     }
-
+  
     .form-container,
     .report-viewer-container {
-        width: 100%; /* Take full width */
-        flex: 1; /* Take equal vertical space */
-        margin-bottom: 20px; /* Add spacing between components */
-        min-height: 0; /* Ensure they distribute height evenly without overflow issues */
+      width: 100%;
+      flex: 1;
+      margin-bottom: 20px;
+      min-height: 0;
     }
-}
-
-.landing-page {
+  }
+  
+  /* Landing page styles */
+  .landing-page {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100vh;
-    background: linear-gradient(to right, #e0f7fa, #fff);
-    padding: 2rem;
+    background: linear-gradient(to right, #e0f7fa, #ffffff);
     text-align: center;
+    padding: 2rem;
   }
   
   .landing-content {
+    background: white;
     max-width: 800px;
-    background-color: white;
     padding: 3rem;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -141,5 +138,21 @@
   
   .language-buttons button:hover {
     background-color: #004d40;
+  }
+  
+  /* Top language switcher */
+  .top-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
+  
+  .language-selector {
+    padding: 0.4rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
   }
   
