@@ -6,16 +6,16 @@ import API_BASE_URL from "./config";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
-  const [reportPages, setReportPages] = useState([]); // Original generated report pages
-  const [updatedReportPages, setUpdatedReportPages] = useState([]); // Updated report pages after edits
-  const [isEditable, setIsEditable] = useState(true); // Determine if form fields are editable
-  const [isFetching, setIsFetching] = useState(false); // Loading state for report generation
-  const [error, setError] = useState(""); // Error state
+  const [reportPages, setReportPages] = useState([]);
+  const [updatedReportPages, setUpdatedReportPages] = useState([]);
+  const [isEditable, setIsEditable] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState("");
+  const [language, setLanguage] = useState(null); // null = no language selected yet
 
-  // Function to handle report generation
   const generateReport = async (formData) => {
-    setIsFetching(true); // Show fetching animation
-    setError(""); // Reset any previous error
+    setIsFetching(true);
+    setError("");
     try {
       const response = await fetch(API_BASE_URL, {
         method: "POST",
@@ -28,17 +28,31 @@ function App() {
       }
 
       const htmlReport = await response.text();
-      const pages = htmlReport.split("<!-- PAGE BREAK -->"); // Split report into pages
-      setReportPages(pages); // Update the original report pages state
-      setUpdatedReportPages([...pages]); // Initialize the updated report pages
-      setIsEditable(false); // Disable the form fields
+      const pages = htmlReport.split("<!-- PAGE BREAK -->");
+      setReportPages(pages);
+      setUpdatedReportPages([...pages]);
+      setIsEditable(false);
     } catch (error) {
       console.error(error.message);
-      setError("Failed to fetch report. Please try again."); // Set error message
+      setError("Failed to fetch report. Please try again.");
     } finally {
-      setIsFetching(false); // Hide fetching animation
+      setIsFetching(false);
     }
   };
+
+  // Render landing page if language is not yet selected
+  if (!language) {
+    return (
+      <div className="landing-page">
+        <h2>Select Language</h2>
+        <div className="language-buttons">
+          <button onClick={() => setLanguage("en")}>English</button>
+          <button onClick={() => setLanguage("si")}>සිංහල</button>
+          <button onClick={() => setLanguage("ta")}>தமிழ்</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
@@ -48,8 +62,7 @@ function App() {
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
-  
-      {/* Form Section */}
+
       <div className="form-container">
         <Form
           onGenerateReport={generateReport}
@@ -57,20 +70,21 @@ function App() {
           setReportPages={setReportPages}
           setIsEditable={setIsEditable}
           updatedReportPages={updatedReportPages}
+          language={language} // optional: pass language to Form
         />
       </div>
-  
-      {/* Report Viewer Section */}
+
       <div className="report-viewer-container">
         <ReportViewer
           reportPages={reportPages}
           setUpdatedReportPages={setUpdatedReportPages}
+          language={language} // optional: pass language to Viewer
         />
       </div>
-  
+
       <SpeedInsights />
     </div>
-  );  
+  );
 }
 
 export default App;
