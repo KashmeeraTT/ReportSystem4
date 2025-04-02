@@ -97,11 +97,13 @@ function App() {
     <div className="container">
       {/* Language Selector */}
       <div className="top-bar">
-        <select className="language-selector" value={language} onChange={handleLanguageChange}>
-          <option value="en">🌐 English</option>
-          <option value="si">🌐 සිංහල</option>
-          <option value="ta">🌐 தமிழ்</option>
-        </select>
+        <div className="top-bar-content">
+          <select className="language-selector" value={language} onChange={handleLanguageChange}>
+            <option value="en">🌐 English</option>
+            <option value="si">🌐 සිංහල</option>
+            <option value="ta">🌐 தமிழ்</option>
+          </select>
+        </div>
       </div>
 
       {isFetching && (

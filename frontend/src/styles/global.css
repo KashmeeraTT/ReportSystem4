@@ -146,7 +146,7 @@
     justify-content: flex-end;
     padding: 1rem;
   }
-  
+    
   .language-selector {
     padding: 0.4rem 0.75rem;
     font-size: 1rem;
@@ -154,5 +154,12 @@
     border: 1px solid #ccc;
     background-color: #fff;
     cursor: pointer;
+    min-width: 150px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .language-selector:hover {
+    border-color: #00796b;
+    box-shadow: 0 0 5px rgba(0, 121, 107, 0.2);
   }
   
