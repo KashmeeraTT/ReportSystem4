@@ -205,7 +205,7 @@ const meteorologyData = [
         year: 2024,
         content: {
             csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-00-DoM-Rainfall-Forecast-Seasonal-and-Monthly-Data.csv")), // Store CSV as binary
-            png1: readImage(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-00-DoM-Rainfall-Forecast-Seasonal.png")), // Store image as Buffer
+            png2: readImage(path.join(__dirname, "dbAssets/AgroMet Data for Vavuniya", "2024-12-00-DoM-Rainfall-Forecast-Seasonal.png")), // Store image as Buffer
         },
     },
     {
