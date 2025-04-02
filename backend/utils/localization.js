@@ -51,5 +51,22 @@ const topics = {
     },
   };
   
-  module.exports = topics;
+ // ✅ Alternate titles used in specific section parts like PNGs or CSVs
+const altTitles = {
+    provincialIrrigation: {
+      en: "Provincial Irrigation",
+      si: "පළාත් සෑණු ජල සැලසුම",
+      ta: "மாநில நீர்ப்பாசனத் திட்டம்"
+    },
+    percentOfNormal: {
+      en: "Percent of Normal Precipitation",
+      si: "සාමාන්‍ය වර්ෂාපතනයේ ප්‍රතිශතය",
+      ta: "இயல்பான மழையின் சதவீதம்"
+    }
+  };
+  
+  module.exports = {
+    topics,
+    altTitles,
+  };
   

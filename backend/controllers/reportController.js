@@ -4,7 +4,7 @@ const { findNearestPrevious } = require("../utils/databaseUtils");
 const generateIntroduction = require("../templates/introductionTemplate");
 const generateSection = require("../templates/sectionTemplate");
 const generateReportTemplate = require("../templates/reportTemplate");
-const topics = require("../utils/localization");
+const { topics, altTitles } = require("../utils/localization");
 
 
 exports.generateReport = async (req, res, next) => {
@@ -49,61 +49,136 @@ exports.generateReport = async (req, res, next) => {
 
         const sections = [
             introduction,
+          
             generateSection(
               `${topics.seasonalSummary[language]} ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`,
-              seasonalRainfall
+              seasonalRainfall,
+              null,
+              null,
+              language,
+              altTitles
             ),
-            generateSection(`${topics.rainfallForecast[language]} ${month} ${year}`, rainfallForecast1),
-            generateSection(`${topics.rainfallForecast[language]} ${nextMonth} ${nextMonthYear}`, rainfallForecast2),
-            generateSection(`${topics.rainfallForecast[language]} ${nextNextMonth} ${nextNextMonthYear}`, rainfallForecast3),
+          
+            generateSection(
+              `${topics.rainfallForecast[language]} ${month} ${year}`,
+              rainfallForecast1,
+              null,
+              null,
+              language,
+              altTitles
+            ),
+            generateSection(
+              `${topics.rainfallForecast[language]} ${nextMonth} ${nextMonthYear}`,
+              rainfallForecast2,
+              null,
+              null,
+              language,
+              altTitles
+            ),
+            generateSection(
+              `${topics.rainfallForecast[language]} ${nextNextMonth} ${nextNextMonthYear}`,
+              rainfallForecast3,
+              null,
+              null,
+              language,
+              altTitles
+            ),
+          
             generateSection(
               `${topics.weeklySummary[language]} Week ${weekNumber} ${year}, Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year}, Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year}, Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year}`,
-              weeklyRainfall0
+              weeklyRainfall0,
+              null,
+              null,
+              language,
+              altTitles
             ),
+          
             generateSection(
               `${topics.weeklySummary[language]} - Subweek 1 (Week ${weekNumber} ${year})`,
-              weeklyRainfall1
+              weeklyRainfall1,
+              null,
+              null,
+              language,
+              altTitles
             ),
             generateSection(
               `${topics.weeklySummary[language]} - Subweek 2 (Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year})`,
-              weeklyRainfall2
+              weeklyRainfall2,
+              null,
+              null,
+              language,
+              altTitles
             ),
             generateSection(
               `${topics.weeklySummary[language]} - Subweek 3 (Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year})`,
-              weeklyRainfall3
+              weeklyRainfall3,
+              null,
+              null,
+              language,
+              altTitles
             ),
             generateSection(
               `${topics.weeklySummary[language]} - Subweek 4 (Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year})`,
-              weeklyRainfall4
+              weeklyRainfall4,
+              null,
+              null,
+              language,
+              altTitles
             ),
+          
             generateSection(
               `${topics.receivedRain[language]} ${previousMonth} ${previousMonthYear}`,
               receivedRainfall,
               previousMonth,
-              previousMonthYear
+              previousMonthYear,
+              language,
+              altTitles
             ),
+          
             generateSection(
               `${topics.climatology[language]} ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`,
-              climatologicalRainfall
+              climatologicalRainfall,
+              null,
+              null,
+              language,
+              altTitles
+            ),
+          
+            generateSection(
+              `${topics.majorReservoir[language]} as of ${day} ${month} ${year} - ${district} District`,
+              majorReservoir,
+              null,
+              null,
+              language,
+              altTitles
             ),
             generateSection(
-              `${topics.majorReservoir[language]} ${day} ${month} ${year} - ${district} District`,
-              majorReservoir
+              `${topics.mediumReservoir[language]} as of ${day} ${month} ${year} - ${district} District`,
+              mediumReservoir,
+              null,
+              null,
+              language,
+              altTitles
             ),
             generateSection(
-              `${topics.mediumReservoir[language]} ${day} ${month} ${year} - ${district} District`,
-              mediumReservoir
+              `${topics.minorTank[language]} as of ${day} ${month} ${year} - ${district} District`,
+              minorTank,
+              null,
+              null,
+              language,
+              altTitles
             ),
-            generateSection(
-              `${topics.minorTank[language]} ${day} ${month} ${year} - ${district} District`,
-              minorTank
-            ),
+          
             generateSection(
               `${topics.parameters[language]} ${month} ${year}`,
-              Parameters
+              Parameters,
+              null,
+              null,
+              language,
+              altTitles
             ),
           ];
-
+          
         const report = generateReportTemplate(sections, district, day, month, year);
         const filename = `${district}_Report_${day}_${month}_${year}.html`;
 
