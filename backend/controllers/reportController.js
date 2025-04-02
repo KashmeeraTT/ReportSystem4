@@ -4,9 +4,11 @@ const { findNearestPrevious } = require("../utils/databaseUtils");
 const generateIntroduction = require("../templates/introductionTemplate");
 const generateSection = require("../templates/sectionTemplate");
 const generateReportTemplate = require("../templates/reportTemplate");
+const topics = require("../utils/localization");
+
 
 exports.generateReport = async (req, res, next) => {
-    const { year, month, day, district } = req.body;
+    const { year, month, day, district, language = "en"  } = req.body;
 
     try {
         const weekNumber = calculateWeekNumber(day, month, year);
@@ -47,22 +49,60 @@ exports.generateReport = async (req, res, next) => {
 
         const sections = [
             introduction,
-            generateSection(`Seasonal and Monthly Rainfall Forecast Summary for ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`, seasonalRainfall),
-            generateSection(`Rainfall Forecast for ${month} ${year}`, rainfallForecast1),
-            generateSection(`Rainfall Forecast for ${nextMonth} ${nextMonthYear}`, rainfallForecast2),
-            generateSection(`Rainfall Forecast for ${nextNextMonth} ${nextNextMonthYear}`, rainfallForecast3),
-            generateSection(`Weekly Rainfall Forecast Summary for Week ${weekNumber} ${year}, Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year}, Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year}, Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year}`, weeklyRainfall0),
-            generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 1 (Week ${weekNumber} ${year})`, weeklyRainfall1),
-            generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 2 (Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year})`, weeklyRainfall2),
-            generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 3 (Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year})`, weeklyRainfall3),
-            generateSection(`Weekly Rainfall Forecast for Week ${weekNumber} ${year} - Subweek 4 (Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year})`, weeklyRainfall4),
-            generateSection(`Received Rainfall for ${previousMonth} ${previousMonthYear}`, receivedRainfall, previousMonth, previousMonthYear),
-            generateSection(`Climatological Rainfall Summary for ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`, climatologicalRainfall),
-            generateSection(`Major Reservoir Water Availability as of ${day} ${month} ${year} - ${district} District`, majorReservoir),
-            generateSection(`Medium Reservoir Water Availability as of ${day} ${month} ${year} - ${district} District`, mediumReservoir),
-            generateSection(`Minor Tank Water Availability as of ${day} ${month} ${year} - ${district} District`, minorTank),
-            generateSection(`Agromet Parameter Selection for Advisory Co-production ${month} ${year}`, Parameters),
-        ];
+            generateSection(
+              `${topics.seasonalSummary[language]} ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`,
+              seasonalRainfall
+            ),
+            generateSection(`${topics.rainfallForecast[language]} ${month} ${year}`, rainfallForecast1),
+            generateSection(`${topics.rainfallForecast[language]} ${nextMonth} ${nextMonthYear}`, rainfallForecast2),
+            generateSection(`${topics.rainfallForecast[language]} ${nextNextMonth} ${nextNextMonthYear}`, rainfallForecast3),
+            generateSection(
+              `${topics.weeklySummary[language]} Week ${weekNumber} ${year}, Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year}, Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year}, Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year}`,
+              weeklyRainfall0
+            ),
+            generateSection(
+              `${topics.weeklySummary[language]} - Subweek 1 (Week ${weekNumber} ${year})`,
+              weeklyRainfall1
+            ),
+            generateSection(
+              `${topics.weeklySummary[language]} - Subweek 2 (Week ${adjustedWeeks[1].weekNumber} ${adjustedWeeks[1].year})`,
+              weeklyRainfall2
+            ),
+            generateSection(
+              `${topics.weeklySummary[language]} - Subweek 3 (Week ${adjustedWeeks[2].weekNumber} ${adjustedWeeks[2].year})`,
+              weeklyRainfall3
+            ),
+            generateSection(
+              `${topics.weeklySummary[language]} - Subweek 4 (Week ${adjustedWeeks[3].weekNumber} ${adjustedWeeks[3].year})`,
+              weeklyRainfall4
+            ),
+            generateSection(
+              `${topics.receivedRain[language]} ${previousMonth} ${previousMonthYear}`,
+              receivedRainfall,
+              previousMonth,
+              previousMonthYear
+            ),
+            generateSection(
+              `${topics.climatology[language]} ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`,
+              climatologicalRainfall
+            ),
+            generateSection(
+              `${topics.majorReservoir[language]} ${day} ${month} ${year} - ${district} District`,
+              majorReservoir
+            ),
+            generateSection(
+              `${topics.mediumReservoir[language]} ${day} ${month} ${year} - ${district} District`,
+              mediumReservoir
+            ),
+            generateSection(
+              `${topics.minorTank[language]} ${day} ${month} ${year} - ${district} District`,
+              minorTank
+            ),
+            generateSection(
+              `${topics.parameters[language]} ${month} ${year}`,
+              Parameters
+            ),
+          ];
 
         const report = generateReportTemplate(sections, district, day, month, year);
         const filename = `${district}_Report_${day}_${month}_${year}.html`;

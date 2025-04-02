@@ -109,7 +109,7 @@ const Form = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGenerateReport(formData);
+    onGenerateReport({ ...formData, language });
   };
 
   const handleReEnter = () => {
