@@ -13,10 +13,12 @@ function App() {
   const [error, setError] = useState("");
   const [language, setLanguage] = useState(null);
 
-  // Load language from localStorage
+  // ✅ Load language if previously selected AND user already visited this session
   useEffect(() => {
     const savedLang = localStorage.getItem("appLanguage");
-    if (savedLang) {
+    const hasVisited = sessionStorage.getItem("hasVisited");
+
+    if (savedLang && hasVisited === "true") {
       setLanguage(savedLang);
     }
   }, []);
@@ -53,6 +55,7 @@ function App() {
     const confirmChange = window.confirm("Changing the language will reset the form. Continue?");
     if (confirmChange) {
       localStorage.setItem("appLanguage", newLang);
+      sessionStorage.setItem("hasVisited", "true");
       setLanguage(newLang);
       setReportPages([]);
       setUpdatedReportPages([]);
@@ -60,7 +63,13 @@ function App() {
     }
   };
 
-  // Show landing page if no language is selected yet
+  const handleLandingLanguageSelect = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("appLanguage", lang);
+    sessionStorage.setItem("hasVisited", "true");
+  };
+
+  // ✅ Initial landing page shown only if no language yet selected this session
   if (!language) {
     return (
       <div className="landing-page">
@@ -75,18 +84,9 @@ function App() {
             மாவட்ட வேளாண் வானிலை ஆலோசனையின் ஒருங்கிணைப்பு<br />பொருந்தக்கூடிய மென்பொருள் பயன்பாடு
           </h2>
           <div className="language-buttons">
-            <button onClick={() => {
-              setLanguage("en");
-              localStorage.setItem("appLanguage", "en");
-            }}>English</button>
-            <button onClick={() => {
-              setLanguage("si");
-              localStorage.setItem("appLanguage", "si");
-            }}>සිංහල</button>
-            <button onClick={() => {
-              setLanguage("ta");
-              localStorage.setItem("appLanguage", "ta");
-            }}>தமிழ்</button>
+            <button onClick={() => handleLandingLanguageSelect("en")}>English</button>
+            <button onClick={() => handleLandingLanguageSelect("si")}>සිංහල</button>
+            <button onClick={() => handleLandingLanguageSelect("ta")}>தமிழ்</button>
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ function App() {
           language={language}
         />
 
-        {/* Language selector moved to bottom of form */}
+        {/* Language selector below form */}
         <div className="language-switcher-container">
           <select
             className="language-selector"
