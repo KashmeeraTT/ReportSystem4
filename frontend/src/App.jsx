@@ -13,7 +13,7 @@ function App() {
   const [error, setError] = useState("");
   const [language, setLanguage] = useState(null);
 
-  // Load language from localStorage (if available)
+  // Load language from localStorage
   useEffect(() => {
     const savedLang = localStorage.getItem("appLanguage");
     if (savedLang) {
@@ -60,7 +60,7 @@ function App() {
     }
   };
 
-  // Initial landing page if language is not selected yet
+  // Show landing page if no language is selected yet
   if (!language) {
     return (
       <div className="landing-page">
@@ -95,17 +95,6 @@ function App() {
 
   return (
     <div className="container">
-      {/* Language Selector */}
-      <div className="top-bar">
-        <div className="top-bar-content">
-          <select className="language-selector" value={language} onChange={handleLanguageChange}>
-            <option value="en">🌐 English</option>
-            <option value="si">🌐 සිංහල</option>
-            <option value="ta">🌐 தமிழ்</option>
-          </select>
-        </div>
-      </div>
-
       {isFetching && (
         <div className="loading-overlay">
           <div className="spinner"></div>
@@ -122,6 +111,19 @@ function App() {
           updatedReportPages={updatedReportPages}
           language={language}
         />
+
+        {/* Language selector moved to bottom of form */}
+        <div className="language-switcher-container">
+          <select
+            className="language-selector"
+            value={language}
+            onChange={handleLanguageChange}
+          >
+            <option value="en">🌐 English</option>
+            <option value="si">🌐 සිංහල</option>
+            <option value="ta">🌐 தமிழ்</option>
+          </select>
+        </div>
       </div>
 
       <div className="report-viewer-container">
