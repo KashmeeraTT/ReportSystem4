@@ -11,7 +11,7 @@ function App() {
   const [isEditable, setIsEditable] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
-  const [language, setLanguage] = useState(null); // null = no language selected yet
+  const [language, setLanguage] = useState(null);
 
   const generateReport = async (formData) => {
     setIsFetching(true);
@@ -40,15 +40,19 @@ function App() {
     }
   };
 
-  // Render landing page if language is not yet selected
+  // Render landing page
   if (!language) {
     return (
       <div className="landing-page">
-        <h2>Select Language</h2>
-        <div className="language-buttons">
-          <button onClick={() => setLanguage("en")}>English</button>
-          <button onClick={() => setLanguage("si")}>සිංහල</button>
-          <button onClick={() => setLanguage("ta")}>தமிழ்</button>
+        <div className="landing-content">
+          <h1 className="main-title">District Agro-met Advisory Co-production<br />Software Application</h1>
+          <h2 className="sub-title">දිස්ත්‍රික් කෘෂි-කාලගුණික උපදේශන සමසම්පාදනය<br />සදහා වන මෘදුකාංග යෙදුම</h2>
+          <h2 className="sub-title">மாவட்ட வேளாண் வானிலை ஆலோசனையின் ஒருங்கிணைப்பு<br />பொருந்தக்கூடிய மென்பொருள் பயன்பாடு</h2>
+          <div className="language-buttons">
+            <button onClick={() => setLanguage("en")}>English</button>
+            <button onClick={() => setLanguage("si")}>සිංහල</button>
+            <button onClick={() => setLanguage("ta")}>தமிழ்</button>
+          </div>
         </div>
       </div>
     );
@@ -70,7 +74,7 @@ function App() {
           setReportPages={setReportPages}
           setIsEditable={setIsEditable}
           updatedReportPages={updatedReportPages}
-          language={language} // optional: pass language to Form
+          language={language}
         />
       </div>
 
@@ -78,7 +82,7 @@ function App() {
         <ReportViewer
           reportPages={reportPages}
           setUpdatedReportPages={setUpdatedReportPages}
-          language={language} // optional: pass language to Viewer
+          language={language}
         />
       </div>
 
