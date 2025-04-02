@@ -39,6 +39,17 @@ const Form = ({
         "Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar",
         "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya",
         "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
+      ],
+      monthsDisplay: [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ],
+      districtsDisplay: [
+        "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo",
+        "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara",
+        "Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar",
+        "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya",
+        "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
       ]
     },
     si: {
@@ -52,11 +63,13 @@ const Form = ({
       generate: "වාර්තාව ජනනය කරන්න",
       reEnter: "විස්තර නැවත ඇතුළත් කරන්න",
       download: "වාර්තාව බාගන්න",
-      months: [
+      months: translations.en.months,
+      districts: translations.en.districts,
+      monthsDisplay: [
         "ජනවාරි", "පෙබරවාරි", "මාර්තු", "අප්‍රේල්", "මැයි", "ජූනි",
         "ජූලි", "අගෝස්තු", "සැප්තැම්බර්", "ඔක්තෝබර්", "නොවැම්බර්", "දෙසැම්බර්"
       ],
-      districts: [
+      districtsDisplay: [
         "අම්පාර", "අනුරාධපුර", "බදුල්ල", "බටිකලෝව", "කොළඹ",
         "ගාල්ල", "ගමපහ", "හම්බන්තොට", "යාපනය", "කළුතර",
         "මහනුවර", "කෑගල්ල", "කිලිනොච්චිය", "කුරුණෑගල", "මන්නාරම",
@@ -75,11 +88,13 @@ const Form = ({
       generate: "அறிக்கையை உருவாக்குக",
       reEnter: "விவரங்களை மீண்டும் உள்ளிடவும்",
       download: "அறிக்கையை பதிவிறக்கவும்",
-      months: [
+      months: translations.en.months,
+      districts: translations.en.districts,
+      monthsDisplay: [
         "ஜனவரி", "பிப்ரவரி", "மார்ச்", "ஏப்ரல்", "மே", "ஜூன்",
         "ஜூலை", "ஆகஸ்ட்", "செப்டம்பர்", "அக்டோபர்", "நவம்பர்", "டிசம்பர்"
       ],
-      districts: [
+      districtsDisplay: [
         "அம்பாறை", "அனுராதபுரம்", "பதுளை", "மட்டக்களப்பு", "கொழும்பு",
         "காலி", "கம்பஹா", "அம்பாந்தோட்டை", "யாழ்ப்பாணம்", "களுத்துறை",
         "கண்டி", "கேகாலை", "கிலிநொச்சி", "குறுநாகல்", "மன்னார்",
@@ -98,7 +113,7 @@ const Form = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGenerateReport(formData);
+    onGenerateReport(formData); // Sends English values only
   };
 
   const handleReEnter = () => {
@@ -163,8 +178,10 @@ const Form = ({
             disabled={!isEditable}
           >
             <option value="">{t.selectMonth}</option>
-            {t.months.map((month) => (
-              <option key={month} value={month}>{month}</option>
+            {t.months.map((month, index) => (
+              <option key={month} value={month}>
+                {t.monthsDisplay[index]}
+              </option>
             ))}
           </select>
         </div>
@@ -199,8 +216,10 @@ const Form = ({
             disabled={!isEditable}
           >
             <option value="">{t.selectDistrict}</option>
-            {t.districts.map((district) => (
-              <option key={district} value={district}>{district}</option>
+            {t.districts.map((district, index) => (
+              <option key={district} value={district}>
+                {t.districtsDisplay[index]}
+              </option>
             ))}
           </select>
         </div>
