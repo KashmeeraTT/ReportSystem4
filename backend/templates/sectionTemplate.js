@@ -1,6 +1,6 @@
 const Papa = require("papaparse");
 
-module.exports = function generateSection(title, data, previousMonth = null, previousMonthYear = null, language = "en", altTitles = {}) {
+module.exports = function generateSection(title, data, previousMonth = null, previousMonthYear = null, language = "en", altTitles = null) {
     if (!data || !data.content) {
         return `
             <div class="section" style="page-break-after: always;">
@@ -10,10 +10,6 @@ module.exports = function generateSection(title, data, previousMonth = null, pre
             <!-- PAGE BREAK -->
         `;
     }
-
-    const getAltTitle = (key, defaultText) => {
-        return altTitles?.[key]?.[language] || defaultText;
-    };
 
     const png1Base64 = data.content.png1 ? `data:image/png;base64,${Buffer.from(data.content.png1).toString('base64')}` : null;
     const png2Base64 = data.content.png2 ? `data:image/png;base64,${Buffer.from(data.content.png2).toString('base64')}` : null;
@@ -80,7 +76,7 @@ module.exports = function generateSection(title, data, previousMonth = null, pre
         if (csv2Table) {
             htmlContent += `
                 <div class="section" style="page-break-after: always;">
-                    <h2>${getAltTitle("provincialIrrigation", "Provincial Irrigation")} - ${title}</h2>
+                    <h2>${altTitles} - ${title}</h2>
                     ${csv2Table}
                 </div>
                 <!-- PAGE BREAK -->
@@ -102,7 +98,7 @@ module.exports = function generateSection(title, data, previousMonth = null, pre
         if (png2Base64) {
             htmlContent += `
                 <div class="section" style="page-break-after: always;">
-                    <h2>${getAltTitle("percentOfNormal", "Percent of Normal Precipitation")} - ${previousMonth} ${previousMonthYear}</h2>
+                    <h2>${altTitles} - ${previousMonth} ${previousMonthYear}</h2>
                     <div style="text-align: center;">
                         <img src="${png2Base64}" alt="${title} Image 2" style="max-width: 100%; height: auto;" />
                     </div>

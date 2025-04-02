@@ -62,7 +62,12 @@ const altTitles = {
       en: "Percent of Normal Precipitation",
       si: "සාමාන්‍ය වර්ෂාපතනයේ ප්‍රතිශතය",
       ta: "இயல்பான மழையின் சதவீதம்"
-    }
+    },
+    seasonalSummary: {
+      en: "Seasonal Rainfall Forecast Summary for",
+      si: "සෘතුමය වර්ෂාපතන පුරෝකථන සාරාංශය",
+      ta: "பருவகால மழைப்பொழிவு முன்னறிவிப்பு சுருக்கம்"
+    },
   };
   
   module.exports = {

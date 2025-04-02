@@ -10,6 +10,10 @@ const { topics, altTitles } = require("../utils/localization");
 exports.generateReport = async (req, res, next) => {
     const { year, month, day, district, language = "en"  } = req.body;
 
+    const getAltTitle = (key, defaultText) => {
+        return altTitles?.[key]?.[language] || defaultText;
+    };
+
     try {
         const weekNumber = calculateWeekNumber(day, month, year);
         const adjustedWeeks = adjustWeekNumbers(year, weekNumber);
@@ -56,7 +60,7 @@ exports.generateReport = async (req, res, next) => {
               null,
               null,
               language,
-              altTitles
+              getAltTitle("seasonalSummary", "Seasonal Rainfall Forecast Summary for")
             ),
           
             generateSection(
@@ -132,7 +136,7 @@ exports.generateReport = async (req, res, next) => {
               previousMonth,
               previousMonthYear,
               language,
-              altTitles
+              getAltTitle("percentOfNormal", "Percent of Normal Precipitation")
             ),
           
             generateSection(
@@ -145,7 +149,7 @@ exports.generateReport = async (req, res, next) => {
             ),
           
             generateSection(
-              `${topics.majorReservoir[language]} as of ${day} ${month} ${year} - ${district} District`,
+              `${topics.majorReservoir[language]} ${day} ${month} ${year} - ${district} District`,
               majorReservoir,
               null,
               null,
@@ -153,15 +157,15 @@ exports.generateReport = async (req, res, next) => {
               altTitles
             ),
             generateSection(
-              `${topics.mediumReservoir[language]} as of ${day} ${month} ${year} - ${district} District`,
+              `${topics.mediumReservoir[language]} ${day} ${month} ${year} - ${district} District`,
               mediumReservoir,
               null,
               null,
               language,
-              altTitles
+              getAltTitle("provincialIrrigation", "Provincial Irrigation")
             ),
             generateSection(
-              `${topics.minorTank[language]} as of ${day} ${month} ${year} - ${district} District`,
+              `${topics.minorTank[language]} ${day} ${month} ${year} - ${district} District`,
               minorTank,
               null,
               null,
