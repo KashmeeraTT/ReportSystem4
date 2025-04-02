@@ -2,6 +2,20 @@ import React, { useState } from "react";
 import "./Form.css";
 import "../../styles/global.css";
 
+// Define English values first to prevent reference errors
+const englishMonths = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+const englishDistricts = [
+  "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo",
+  "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara",
+  "Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar",
+  "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya",
+  "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
+];
+
 const Form = ({
   onGenerateReport,
   isEditable,
@@ -29,28 +43,10 @@ const Form = ({
       generate: "Generate Report",
       reEnter: "Re-enter Details",
       download: "Download Report",
-      months: [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ],
-      districts: [
-        "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo",
-        "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara",
-        "Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar",
-        "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya",
-        "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
-      ],
-      monthsDisplay: [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ],
-      districtsDisplay: [
-        "Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo",
-        "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara",
-        "Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar",
-        "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya",
-        "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"
-      ]
+      months: englishMonths,
+      districts: englishDistricts,
+      monthsDisplay: englishMonths,
+      districtsDisplay: englishDistricts
     },
     si: {
       year: "වර්ෂය",
@@ -63,8 +59,8 @@ const Form = ({
       generate: "වාර්තාව ජනනය කරන්න",
       reEnter: "විස්තර නැවත ඇතුළත් කරන්න",
       download: "වාර්තාව බාගන්න",
-      months: translations.en.months,
-      districts: translations.en.districts,
+      months: englishMonths,
+      districts: englishDistricts,
       monthsDisplay: [
         "ජනවාරි", "පෙබරවාරි", "මාර්තු", "අප්‍රේල්", "මැයි", "ජූනි",
         "ජූලි", "අගෝස්තු", "සැප්තැම්බර්", "ඔක්තෝබර්", "නොවැම්බර්", "දෙසැම්බර්"
@@ -88,8 +84,8 @@ const Form = ({
       generate: "அறிக்கையை உருவாக்குக",
       reEnter: "விவரங்களை மீண்டும் உள்ளிடவும்",
       download: "அறிக்கையை பதிவிறக்கவும்",
-      months: translations.en.months,
-      districts: translations.en.districts,
+      months: englishMonths,
+      districts: englishDistricts,
       monthsDisplay: [
         "ஜனவரி", "பிப்ரவரி", "மார்ச்", "ஏப்ரல்", "மே", "ஜூன்",
         "ஜூலை", "ஆகஸ்ட்", "செப்டம்பர்", "அக்டோபர்", "நவம்பர்", "டிசம்பர்"
@@ -113,7 +109,7 @@ const Form = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGenerateReport(formData); // Sends English values only
+    onGenerateReport(formData);
   };
 
   const handleReEnter = () => {
