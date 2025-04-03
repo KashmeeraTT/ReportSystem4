@@ -13,7 +13,7 @@ body {
 
 /* App Container */
 .container {
-  max-width: 1600px;
+  width: 100%; /* Take full width of the screen */
   height: calc(100vh - 40px); /* Fixed height to prevent overflow */
   margin: 20px auto;
   display: flex;
