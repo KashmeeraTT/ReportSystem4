@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Form.css";
 import "../../styles/global.css";
 
-// Define English values first to prevent reference errors
 const englishMonths = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -22,13 +21,13 @@ const Form = ({
   setReportPages,
   setIsEditable,
   updatedReportPages,
-  language,
+  language
 }) => {
   const [formData, setFormData] = useState({
     year: "",
     month: "",
     day: "",
-    district: "",
+    district: ""
   });
 
   const translations = {
@@ -115,12 +114,7 @@ const Form = ({
   const handleReEnter = () => {
     setReportPages([]);
     setIsEditable(true);
-    setFormData({
-      year: "",
-      month: "",
-      day: "",
-      district: "",
-    });
+    setFormData({ year: "", month: "", day: "", district: "" });
   };
 
   const handleDownload = () => {
@@ -134,8 +128,8 @@ const Form = ({
         a.download = filename;
         a.click();
         URL.revokeObjectURL(url);
-      } catch (error) {
-        console.error("Error downloading report:", error);
+      } catch (err) {
+        console.error("Error downloading:", err);
         alert("Failed to download the report. Please try again.");
       }
     } else {
@@ -144,108 +138,51 @@ const Form = ({
   };
 
   return (
-    <div>
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="year" className="label">{t.year}:</label>
-          <input
-            type="number"
-            id="year"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-            className="input"
-            required
-            min="1900"
-            max="2100"
-            disabled={!isEditable}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="month" className="label">{t.month}:</label>
-          <select
-            id="month"
-            name="month"
-            value={formData.month}
-            onChange={handleChange}
-            className="input"
-            required
-            disabled={!isEditable}
-          >
-            <option value="">{t.selectMonth}</option>
-            {t.months.map((month, index) => (
-              <option key={month} value={month}>
-                {t.monthsDisplay[index]}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="day" className="label">{t.day}:</label>
-          <select
-            id="day"
-            name="day"
-            value={formData.day}
-            onChange={handleChange}
-            className="input"
-            required
-            disabled={!isEditable}
-          >
-            <option value="">{t.selectDay}</option>
-            {[...Array(31).keys()].map((day) => (
-              <option key={day + 1} value={day + 1}>{day + 1}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="district" className="label">{t.district}:</label>
-          <select
-            id="district"
-            name="district"
-            value={formData.district}
-            onChange={handleChange}
-            className="input"
-            required
-            disabled={!isEditable}
-          >
-            <option value="">{t.selectDistrict}</option>
-            {t.districts.map((district, index) => (
-              <option key={district} value={district}>
-                {t.districtsDisplay[index]}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="button"
-          disabled={!isEditable}
-        >
-          {t.generate}
-        </button>
-
-        {!isEditable && (
-          <div className="button-group">
-            <button
-              className="button re-enter-button"
-              onClick={handleReEnter}
+    <form className="form" onSubmit={handleSubmit}>
+      {["year", "month", "day", "district"].map((field) => (
+        <div className="form-group" key={field}>
+          <label htmlFor={field} className="label">{t[field]}:</label>
+          {field === "year" ? (
+            <input
+              type="number"
+              id="year"
+              name="year"
+              value={formData.year}
+              onChange={handleChange}
+              className="input"
+              required
+              min="1900"
+              max="2100"
+              disabled={!isEditable}
+            />
+          ) : (
+            <select
+              id={field}
+              name={field}
+              value={formData[field]}
+              onChange={handleChange}
+              className="input"
+              required
+              disabled={!isEditable}
             >
-              {t.reEnter}
-            </button>
-            <button
-              className="button download-button"
-              onClick={handleDownload}
-            >
-              {t.download}
-            </button>
-          </div>
-        )}
-      </form>
-    </div>
+              <option value="">{t[`select${field[0].toUpperCase() + field.slice(1)}`]}</option>
+              {(field === "month" ? t.monthsDisplay : field === "district" ? t.districtsDisplay : [...Array(31).keys()].map(i => i + 1)).map((value, index) => (
+                <option key={index} value={t.months?.[index] || t.districts?.[index] || value}>{value}</option>
+              ))}
+            </select>
+          )}
+        </div>
+      ))}
+
+      <button type="submit" className="button" disabled={!isEditable}>{t.generate}</button>
+
+      {!isEditable && (
+        <div className="button-group">
+          <button className="button re-enter-button" onClick={handleReEnter}>{t.reEnter}</button>
+          <button className="button download-button" onClick={handleDownload}>{t.download}</button>
+        </div>
+      )}
+    </form>
   );
 };
 

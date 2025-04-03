@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Form from "./components/Form/Form";
 import ReportViewer from "./components/ReportViewer/ReportViewer";
+import AERFloatingTable from "./components/AERFloatingTable/AERFloatingTable";
 import "./styles/global.css";
 import API_BASE_URL from "./config";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import AERFloatingTable from "./components/AERFloatingTable/AERFloatingTable";
 
 function App() {
   const [reportPages, setReportPages] = useState([]);
@@ -13,8 +13,8 @@ function App() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
   const [language, setLanguage] = useState(null);
+  const [aerHtmlPage, setAerHtmlPage] = useState("");
 
-  // ✅ Load language if previously selected AND user already visited this session
   useEffect(() => {
     const savedLang = localStorage.getItem("appLanguage");
     const hasVisited = sessionStorage.getItem("hasVisited");
@@ -70,26 +70,21 @@ function App() {
     sessionStorage.setItem("hasVisited", "true");
   };
 
-  // ✅ Initial landing page shown only if no language yet selected this session
+  const handleAerTableSave = (htmlPage) => {
+    setAerHtmlPage(htmlPage);
+    setUpdatedReportPages((prev) => [...prev, htmlPage]);
+  };
+
   if (!language) {
     return (
       <div className="landing-page">
-        {/* Logos */}
         <img src="/logos/Logo-IrrigationDept.png" alt="Irrigation Dept Logo" className="landing-logo logo-id" />
         <img src="/logos/Logo-MCB.png" alt="MCB Logo" className="landing-logo logo-mcb" />
         <img src="/logos/Logo-CRIWMP.png" alt="CRIWMP Logo" className="landing-logo logo-criwmp" />
-
-        {/* Landing content */}
         <div className="landing-content">
-          <h1 className="main-title">
-            District Agro-met Advisory Co-production<br />Software Application
-          </h1>
-          <h2 className="sub-title">
-            දිස්ත්‍රික් කෘෂි-කාලගුණික උපදේශන සමසම්පාදනය<br />සදහා වන මෘදුකාංග යෙදුම
-          </h2>
-          <h2 className="sub-title">
-            மாவட்ட வேளாண் வானிலை ஆலோசனையின் ஒருங்கிணைப்பு<br />பொருந்தக்கூடிய மென்பொருள் பயன்பாடு
-          </h2>
+          <h1 className="main-title">District Agro-met Advisory Co-production<br />Software Application</h1>
+          <h2 className="sub-title">දිස්ත්‍රික් කෘෂි-කාලගුණික උපදේශන සමසම්පාදනය<br />සදහා වන මෘදුකාංග යෙදුම</h2>
+          <h2 className="sub-title">மாவட்ட வேளாண் வானிலை ஆலோசனையின் ஒருங்கிணைப்பு<br />பொருந்தக்கூடிய மென்பொருள் பயன்பாடு</h2>
           <div className="language-buttons">
             <button onClick={() => handleLandingLanguageSelect("en")}>English</button>
             <button onClick={() => handleLandingLanguageSelect("si")}>සිංහල</button>
@@ -102,13 +97,9 @@ function App() {
 
   return (
     <div className="container">
-      {isFetching && (
-        <div className="loading-overlay">
-          <div className="spinner"></div>
-        </div>
-      )}
+      {isFetching && <div className="loading-overlay"><div className="spinner"></div></div>}
       {error && <div className="error-message">{error}</div>}
-  
+
       <div className="form-container">
         <Form
           onGenerateReport={generateReport}
@@ -118,21 +109,15 @@ function App() {
           updatedReportPages={updatedReportPages}
           language={language}
         />
-  
-        {/* Language selector below form */}
         <div className="language-switcher-container">
-          <select
-            className="language-selector"
-            value={language}
-            onChange={handleLanguageChange}
-          >
+          <select className="language-selector" value={language} onChange={handleLanguageChange}>
             <option value="en">🌐 English</option>
             <option value="si">🌐 සිංහල</option>
             <option value="ta">🌐 தமிழ்</option>
           </select>
         </div>
       </div>
-  
+
       <div className="report-viewer-container">
         <ReportViewer
           reportPages={reportPages}
@@ -140,14 +125,9 @@ function App() {
           language={language}
         />
       </div>
-  
-      {/* ✅ ADD THIS FLOATING TABLE COMPONENT */}
-      <AERFloatingTable
-        onSave={(savedValues) => {
-          console.log("✅ AER Saved Values:", savedValues);
-        }}
-      />
-  
+
+      <AERFloatingTable onSave={handleAerTableSave} />
+
       <SpeedInsights />
     </div>
   );
