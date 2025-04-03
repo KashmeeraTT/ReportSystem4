@@ -14,28 +14,27 @@ body {
 /* App Container */
 .container {
   max-width: 1600px;
+  height: calc(100vh - 40px); /* Fixed height to prevent overflow */
   margin: 20px auto;
   display: flex;
   gap: 20px;
   padding: 20px;
-  height: calc(100vh - 40px); /* Prevent out-of-bound overflow */
   background: linear-gradient(to right, #d4fc79, #96e6a1);
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  box-sizing: border-box;
 }
 
 /* Form Panel */
 .form-container {
   flex: 1;
-  min-width: 320px;
-  max-width: 440px;
   background: #ffffff;
   border-radius: 16px;
   padding: 20px;
+  min-width: 300px;
+  max-width: 440px;
+  height: 100%; /* Full height of container */
   overflow-y: auto;
-  max-height: 100%;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
@@ -44,11 +43,10 @@ body {
   flex: 3;
   background: #ffffff;
   border-radius: 16px;
-  padding: 0; /* Let internal wrapper handle spacing */
+  height: 100%; /* Match parent height */
+  overflow: hidden; /* Prevent inner overflow */
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  max-height: 100%;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
