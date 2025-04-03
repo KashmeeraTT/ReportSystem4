@@ -1,57 +1,99 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-
-.form-group {
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .form-group {
     display: flex;
     flex-direction: column;
-}
-
-.label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.input {
-    padding: 10px;
+  }
+  
+  .label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #333;
+  }
+  
+  .input {
+    padding: 12px 14px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
-}
-
-.button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #fdfdfd;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    outline: none;
+  }
+  
+  /* Main Button */
+  .button {
+    padding: 12px 20px;
+    background: linear-gradient(to right, #007bff, #0056b3);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-}
-
-.button:disabled {
+    transition: background 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  }
+  
+  .button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: linear-gradient(to right, #339cff, #0056b3);
+  }
+  
+  .button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-}
-
-.button-group {
+    box-shadow: none;
+  }
+  
+  .button-group {
     display: flex;
     justify-content: space-between;
-    /* Ensure buttons are separated */
     gap: 15px;
-}
-
-.re-enter-button {
-    background-color: #ffc107;
-}
-
-.download-button {
-    background-color: #28a745;
-}
-
-.download-button.disabled {
+  }
+  
+  /* Re-enter Button - Yellow */
+  .re-enter-button {
+    background: linear-gradient(to right, #ffca28, #f57f17);
+    color: #000;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.2);
+    transition: background 0.3s ease;
+  }
+  
+  .re-enter-button:hover {
+    background: linear-gradient(to right, #ffd54f, #f9a825);
+  }
+  
+  /* Download Button - Green */
+  .download-button {
+    background: linear-gradient(to right, #28a745, #1e7e34);
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+    transition: background 0.3s ease;
+  }
+  
+  .download-button:hover {
+    background: linear-gradient(to right, #5cd37c, #1e7e34);
+  }
+  
+  .download-button.disabled {
     background-color: #ccc;
     cursor: not-allowed;
-}
+    box-shadow: none;
+  }
+  

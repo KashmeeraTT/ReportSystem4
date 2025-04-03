@@ -1,33 +1,75 @@
-/* Container Layout */
+/* Base reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #f0fff4;
+  color: #333;
+}
+
+/* App Container */
 .container {
+  max-width: 1600px;
+  margin: 20px auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
-  height: 97vh;
-  padding: 10px;
+  padding: 20px;
   background: linear-gradient(to right, #d4fc79, #96e6a1);
-  box-sizing: border-box;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  height: 95vh;
+  overflow: hidden;
 }
 
-/* Spinner and Loading Overlay */
+/* Form Panel */
+.form-container {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  min-width: 300px;
+  max-width: 450px;
+}
+
+/* Report Viewer Panel */
+.report-viewer-container {
+  flex: 3;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+}
+
+/* Spinner Overlay */
 .loading-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(255, 255, 255, 0.85);
   z-index: 1000;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .spinner {
   border: 8px solid #f3f3f3;
-  border-top: 8px solid #4db6ac;
+  border-top: 8px solid #007bff;
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  animation: spin 0.8s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -38,123 +80,87 @@
 
 /* Error Box */
 .error-message {
-  background-color: #ffe0e0;
-  color: #c62828;
-  border: 1px solid #ffcdd2;
-  padding: 12px 20px;
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+  padding: 12px;
+  margin-bottom: 16px;
   border-radius: 6px;
-  font-weight: bold;
   text-align: center;
-  margin: 10px 0;
 }
 
-/* Form and Report Viewer Panels */
-.form-container,
-.report-viewer-container {
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  padding: 20px;
-  overflow-y: auto;
-  height: 100%;
-}
-
-.form-container {
-  flex: 1;
-  max-width: 30%;
-}
-
-.report-viewer-container {
-  flex: 3;
-}
-
-/* Responsive Layout */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .form-container,
-  .report-viewer-container {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-  }
-}
-
-/* Language Selector */
+/* Language Dropdown */
 .language-switcher-container {
   display: flex;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 1.5rem;
 }
 
 .language-selector {
   padding: 0.6rem 1rem;
   font-size: 1rem;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  background-color: #f7f7f7;
+  background-color: #fff;
   cursor: pointer;
-  transition: 0.3s ease;
+  min-width: 160px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .language-selector:hover {
-  border-color: #388e3c;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+  border-color: #00796b;
+  box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
 }
 
-/* Landing Page Styles */
+/* Landing Page */
 .landing-page {
+  position: relative;
   height: 100vh;
-  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  padding: 2rem;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  padding: 2rem;
+  text-align: center;
   overflow: hidden;
 }
 
 .landing-content {
   background: white;
+  max-width: 800px;
   padding: 3rem;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  max-width: 800px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .main-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #004d40;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00796b;
   margin-bottom: 1.5rem;
 }
 
 .sub-title {
-  font-size: 1.3rem;
-  color: #444;
+  font-size: 1.2rem;
+  color: #333;
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 
-/* Language Buttons */
 .language-buttons {
   margin-top: 2rem;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .language-buttons button {
-  background: #00897b;
+  background-color: #00796b;
   color: white;
-  padding: 0.9rem 2rem;
+  padding: 0.8rem 2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -164,24 +170,26 @@
   background-color: #004d40;
 }
 
-/* Landing Logos */
+/* Logos */
 .landing-logo {
   position: absolute;
   pointer-events: none;
-  opacity: 0.65;
-  z-index: 1;
+  opacity: 0.6;
+  z-index: 2;
 }
 
 .logo-id {
   top: 2vh;
   left: 2vw;
-  height: 100px;
+  height: 120px;
+  width: auto;
 }
 
 .logo-mcb {
   bottom: 2vh;
   left: 2vw;
-  height: 100px;
+  height: 120px;
+  width: auto;
 }
 
 .logo-criwmp {
@@ -190,11 +198,25 @@
   transform: translateY(-50%);
   height: 90vh;
   opacity: 0.07;
-  z-index: 0;
+  width: auto;
+  z-index: 1;
 }
 
-/* Logo Responsiveness */
+/* Mobile Responsive */
 @media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .form-container,
+  .report-viewer-container {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
   .logo-id,
   .logo-mcb {
     height: 80px;
