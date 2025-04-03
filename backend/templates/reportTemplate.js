@@ -12,11 +12,12 @@ module.exports = function generateReportTemplate(sections, district, day, month,
                 }
                 h1, h2, h3, h4 {
                     font-family: "Segoe UI", Tahoma, sans-serif;
-                    text-align: left;
+                    text-align: justify;
                     color: rgb(0, 0, 0);
                 }
                 p {
                     font-family: "Segoe UI", Tahoma, sans-serif;
+                    text-align: justify;
                 }
                 table {
                     width: 100%;
