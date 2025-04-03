@@ -1,47 +1,86 @@
-.aer-floating-bubble {
+.aer-floating-wrapper {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 9999;
-    font-family: Arial, sans-serif;
+    z-index: 1000;
   }
   
-  .aer-toggle-button {
-    font-size: 24px;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 50%;
-    background-color: #0a9396;
+  .floating-toggle {
+    background: linear-gradient(to right, #2980b9, #6dd5fa);
     color: white;
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 25px;
     cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
   }
   
-  .aer-table-container {
-    background: white;
-    border-radius: 10px;
-    padding: 1rem;
-    margin-top: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    max-height: 80vh;
-    overflow-y: auto;
+  .floating-toggle:hover {
+    background: linear-gradient(to right, #2575fc, #6a82fb);
   }
   
-  .aer-table-container table {
+  .aer-table-window {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 90vw;
+    max-width: 800px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    overflow-x: auto;
+  }
+  
+  .aer-table {
     width: 100%;
     border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
   }
   
-  .aer-table-container th, .aer-table-container td {
-    border: 1px solid #ccc;
-    padding: 6px;
-  }
-  
-  .aer-save-button {
-    margin-top: 10px;
-    background: #2a9d8f;
+  .aer-table th {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
     color: white;
-    padding: 6px 12px;
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .aer-table td {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  .aer-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  .aer-table select,
+  .aer-table input[type="radio"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  
+  .save-aer-button {
+    margin-top: 15px;
+    padding: 10px 18px;
+    background: #27ae60;
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .save-aer-button:hover {
+    background: #219150;
   }
   
