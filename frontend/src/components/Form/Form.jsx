@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// Form.jsx
+import React from "react";
 import "./Form.css";
 import "../../styles/global.css";
 
@@ -16,6 +17,8 @@ const englishDistricts = [
 ];
 
 const Form = ({
+  formData,
+  setFormData,
   onGenerateReport,
   isEditable,
   setReportPages,
@@ -23,13 +26,6 @@ const Form = ({
   updatedReportPages,
   language
 }) => {
-  const [formData, setFormData] = useState({
-    year: "",
-    month: "",
-    day: "",
-    district: ""
-  });
-
   const translations = {
     en: {
       year: "Year",
@@ -108,7 +104,7 @@ const Form = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGenerateReport({ ...formData, language });
+    onGenerateReport(); // use top-level formData already lifted
   };
 
   const handleReEnter = () => {
@@ -213,12 +209,18 @@ const Form = ({
         </select>
       </div>
 
-      <button type="submit" className="button" disabled={!isEditable}>{t.generate}</button>
+      <button type="submit" className="button" disabled={!isEditable}>
+        {t.generate}
+      </button>
 
       {!isEditable && (
         <div className="button-group">
-          <button className="button re-enter-button" onClick={handleReEnter}>{t.reEnter}</button>
-          <button className="button download-button" onClick={handleDownload}>{t.download}</button>
+          <button className="button re-enter-button" onClick={handleReEnter}>
+            {t.reEnter}
+          </button>
+          <button className="button download-button" type="button" onClick={handleDownload}>
+            {t.download}
+          </button>
         </div>
       )}
     </form>

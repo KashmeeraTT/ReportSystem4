@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState, useEffect } from "react";
 import Form from "./components/Form/Form";
 import ReportViewer from "./components/ReportViewer/ReportViewer";
@@ -7,6 +8,13 @@ import API_BASE_URL from "./config";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
+  const [formData, setFormData] = useState({
+    year: "",
+    month: "",
+    day: "",
+    district: "",
+  });
+
   const [reportPages, setReportPages] = useState([]);
   const [updatedReportPages, setUpdatedReportPages] = useState([]);
   const [isEditable, setIsEditable] = useState(true);
@@ -18,20 +26,20 @@ function App() {
   useEffect(() => {
     const savedLang = localStorage.getItem("appLanguage");
     const hasVisited = sessionStorage.getItem("hasVisited");
-
     if (savedLang && hasVisited === "true") {
       setLanguage(savedLang);
     }
   }, []);
 
-  const generateReport = async (formData) => {
+  const generateReport = async () => {
     setIsFetching(true);
     setError("");
     try {
+      const payload = { ...formData, language };
       const response = await fetch(API_BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -61,6 +69,7 @@ function App() {
       setReportPages([]);
       setUpdatedReportPages([]);
       setIsEditable(true);
+      setFormData({ year: "", month: "", day: "", district: "" });
     }
   };
 
@@ -102,6 +111,8 @@ function App() {
 
       <div className="form-container">
         <Form
+          formData={formData}
+          setFormData={setFormData}
           onGenerateReport={generateReport}
           isEditable={isEditable}
           setReportPages={setReportPages}
@@ -128,9 +139,7 @@ function App() {
 
       <AERFloatingTable
         district={formData.district}
-        onSave={(savedHTMLPage) => {
-          setUpdatedReportPages((prev) => [...prev, savedHTMLPage]);
-        }}
+        onSave={handleAerTableSave}
       />
 
       <SpeedInsights />
