@@ -73,6 +73,12 @@ function App() {
   if (!language) {
     return (
       <div className="landing-page">
+        {/* Logos */}
+        <img src="/logos/Logo-IrrigationDept.png" alt="Irrigation Dept Logo" className="landing-logo logo-id" />
+        <img src="/logos/Logo-MCB.png" alt="MCB Logo" className="landing-logo logo-mcb" />
+        <img src="/logos/Logo-CRIWMP.png" alt="CRIWMP Logo" className="landing-logo logo-criwmp" />
+
+        {/* Landing content */}
         <div className="landing-content">
           <h1 className="main-title">
             District Agro-met Advisory Co-production<br />Software Application

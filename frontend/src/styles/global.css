@@ -86,13 +86,15 @@
   
   /* Landing page styles */
   .landing-page {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
     background: linear-gradient(to right, #e0f7fa, #ffffff);
-    text-align: center;
     padding: 2rem;
+    text-align: center;
+    overflow: hidden;
   }
   
   .landing-content {
@@ -162,5 +164,31 @@
   .language-selector:hover {
     border-color: #00796b;
     box-shadow: 0 0 5px rgba(0, 121, 107, 0.2);
+  }
+
+  .landing-logo {
+    position: absolute;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  
+  .logo-id {
+    top: 20px;
+    left: 20px;
+    height: 80px;
+  }
+  
+  .logo-mcb {
+    bottom: 20px;
+    left: 20px;
+    height: 60px;
+  }
+  
+  .logo-criwmp {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    opacity: 0.12;
   }
   
