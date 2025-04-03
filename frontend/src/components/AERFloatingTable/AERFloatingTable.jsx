@@ -77,7 +77,7 @@ const AERFloatingTable = ({ onSave, district }) => {
           }
           h2 {
             text-align: center;
-            color:rgb(189, 209, 228);
+            color:rgb(0, 0, 0);
             margin-bottom: 30px;
           }
           table {
