@@ -1,52 +1,55 @@
-/* Base reset */
+/* Reset & Base */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
   background: #f0fff4;
   color: #333;
 }
 
-/* App Container */
+/* Layout Container */
 .container {
-  width: 100vw;                     /* Full screen width */
-  height: calc(100vh - 40px);       /* Fixed height with padding */
+  width: 100vw;
+  height: 100vh;
   display: flex;
   gap: 20px;
   padding: 20px;
-  margin: 0 auto;
   background: linear-gradient(to right, #d4fc79, #96e6a1);
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-/* Form Panel */
+/* Form */
 .form-container {
   flex: 1;
+  max-width: 440px;
+  min-width: 300px;
   background: #ffffff;
   border-radius: 16px;
   padding: 20px;
-  min-width: 300px;
-  max-width: 440px;
-  height: 100%; /* Full height of container */
   overflow-y: auto;
+  height: 100%;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-/* Report Viewer Panel */
+/* Report Viewer */
 .report-viewer-container {
   flex: 3;
-  background: #ffffff;
-  border-radius: 16px;
-  height: 100%; /* Match parent height */
-  overflow: hidden; /* Prevent inner overflow */
   display: flex;
   flex-direction: column;
+  background: #ffffff;
+  border-radius: 16px;
+  height: 100%;
+  overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
@@ -72,14 +75,13 @@ body {
   height: 60px;
   animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Error Box */
+/* Error Message */
 .error-message {
   background-color: #f8d7da;
   color: #842029;
@@ -90,13 +92,12 @@ body {
   text-align: center;
 }
 
-/* Language Dropdown */
+/* Language Switcher */
 .language-switcher-container {
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
 }
-
 .language-selector {
   padding: 0.6rem 1rem;
   font-size: 1rem;
@@ -107,127 +108,7 @@ body {
   min-width: 160px;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
-
 .language-selector:hover {
   border-color: #00796b;
   box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
-}
-
-/* Landing Page */
-.landing-page {
-  position: relative;
-  height: 100vh;
-  padding: 2rem;
-  background: linear-gradient(to right, #e0f7fa, #ffffff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-.landing-content {
-  background: white;
-  max-width: 800px;
-  padding: 3rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.main-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #00796b;
-  margin-bottom: 1.5rem;
-}
-
-.sub-title {
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.language-buttons {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.language-buttons button {
-  background-color: #00796b;
-  color: white;
-  padding: 0.8rem 2rem;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.language-buttons button:hover {
-  background-color: #004d40;
-}
-
-/* Logos */
-.landing-logo {
-  position: absolute;
-  pointer-events: none;
-  opacity: 0.6;
-  z-index: 2;
-}
-
-.logo-id {
-  top: 2vh;
-  left: 2vw;
-  height: 120px;
-  width: auto;
-}
-
-.logo-mcb {
-  bottom: 2vh;
-  left: 2vw;
-  height: 120px;
-  width: auto;
-}
-
-.logo-criwmp {
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  height: 90vh;
-  opacity: 0.07;
-  width: auto;
-  z-index: 1;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      height: auto;
-      padding: 10px;
-      max-width: 100%;
-    }
-  
-    .form-container,
-    .report-viewer-container {
-      max-width: 100%;
-      max-height: none;
-      overflow-y: visible;
-      height: auto;
-    }
-  }
-
-  .logo-id,
-  .logo-mcb {
-    height: 80px;
-  }
-
-  .logo-criwmp {
-    height: 60vh;
-  }
 }
