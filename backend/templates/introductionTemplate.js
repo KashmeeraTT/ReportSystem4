@@ -34,12 +34,12 @@ module.exports = function generateIntroduction(district, day, month, year, langu
   const t = introText[language] || introText["en"];
 
   return `
-    <div class="section" style="page-break-after: always;">
-      <h1 style="text-align: center;">${t.title}</h1>
-      <h2 style="text-align: center;">${t.district}</h2>
-      <h3 style="text-align: center;">${t.date}</h3>
-      <h4 style="text-align: center;">${t.part}</h4>
-      <p style="text-align: justify;">${t.para1}</p>
+    <div class="section" style="page-break-after: always; padding: 20px;">
+      <h1 style="text-align: center; margin-bottom: 16px;">${t.title}</h1>
+      <h2 style="text-align: center; margin-bottom: 12px;">${t.district}</h2>
+      <h3 style="text-align: center; margin-bottom: 12px;">${t.date}</h3>
+      <h4 style="text-align: center; margin-bottom: 20px;">${t.part}</h4>
+      <p style="text-align: justify; margin-bottom: 16px;">${t.para1}</p>
       <p style="text-align: justify;">${t.para2}</p>
     </div>
     <!-- PAGE BREAK -->
