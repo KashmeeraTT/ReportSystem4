@@ -6,6 +6,7 @@
     height: 97vh;
     padding: 5px;
     box-sizing: border-box;
+    background: linear-gradient(to right, #e0f7fa, #ffffff);
   }
   
   .loading-overlay {
