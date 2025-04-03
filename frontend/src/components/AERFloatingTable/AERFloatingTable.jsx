@@ -29,11 +29,9 @@ const AERFloatingTable = ({ onSave, district }) => {
 
   const handleRadioChange = (code, rangeNum) => {
     const updatedValues = { ...formValues };
-    // Clear previous selection for that AER code
     for (let i = 1; i <= 5; i++) {
       delete updatedValues[`AER-${code}-range${i}`];
     }
-    // Set the selected range
     updatedValues[`AER-${code}-range${rangeNum}`] = true;
     setFormValues(updatedValues);
   };
@@ -64,16 +62,50 @@ const AERFloatingTable = ({ onSave, district }) => {
         <meta charset="UTF-8">
         <title>Agromet Advisory Table</title>
         <style>
-          body { font-family: Arial, sans-serif; padding: 20px; }
-          .section { page-break-after: always; }
-          table { width: 100%; border-collapse: collapse; }
-          th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-          th { background-color: #f2f2f2; }
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            background: #f8f9fa;
+          }
+          .section {
+            page-break-after: always;
+          }
+          h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 0 12px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+          }
+          th {
+            background: linear-gradient(to right, #2980b9, #6dd5fa);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 15px;
+          }
+          td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            font-size: 14px;
+          }
+          tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          tr:hover td {
+            background-color: #e9f7fe;
+          }
         </style>
       </head>
       <body>
         <div class="section">
-          <h2 style="text-align:center;">Agromet Parameter Selection</h2>
+          <h2>Agromet Parameter Selection</h2>
           <table>
             <thead>
               <tr>
