@@ -173,24 +173,29 @@
   }
   
   .logo-id {
+    position: absolute;
     top: 20px;
     left: 20px;
-    height: 120px; /* Increased size */
+    height: 100px; /* Increase as needed */
     width: auto;
+    z-index: 1;
   }
   
   .logo-mcb {
+    position: absolute;
     bottom: 20px;
     left: 20px;
-    height: 100px; /* Increased size */
+    height: 90px; /* Increase for visibility */
     width: auto;
+    z-index: 1;
   }
   
   .logo-criwmp {
-    right: 0;
+    position: absolute;
     top: 0;
-    bottom: 0;
+    right: 0;
     height: 100%;
-    opacity: 0.12;
+    opacity: 0.08;
+    z-index: 0;
   }
   
