@@ -4,6 +4,7 @@ import ReportViewer from "./components/ReportViewer/ReportViewer";
 import "./styles/global.css";
 import API_BASE_URL from "./config";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import AERFloatingTable from "./components/AERFloatingTable/AERFloatingTable";
 
 function App() {
   const [reportPages, setReportPages] = useState([]);
@@ -107,7 +108,7 @@ function App() {
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
-
+  
       <div className="form-container">
         <Form
           onGenerateReport={generateReport}
@@ -117,7 +118,7 @@ function App() {
           updatedReportPages={updatedReportPages}
           language={language}
         />
-
+  
         {/* Language selector below form */}
         <div className="language-switcher-container">
           <select
@@ -131,7 +132,7 @@ function App() {
           </select>
         </div>
       </div>
-
+  
       <div className="report-viewer-container">
         <ReportViewer
           reportPages={reportPages}
@@ -139,7 +140,14 @@ function App() {
           language={language}
         />
       </div>
-
+  
+      {/* ✅ ADD THIS FLOATING TABLE COMPONENT */}
+      <AERFloatingTable
+        onSave={(savedValues) => {
+          console.log("✅ AER Saved Values:", savedValues);
+        }}
+      />
+  
       <SpeedInsights />
     </div>
   );

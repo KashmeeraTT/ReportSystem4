@@ -1,0 +1,47 @@
+.aer-floating-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+  }
+  
+  .aer-toggle-button {
+    font-size: 24px;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 50%;
+    background-color: #0a9396;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .aer-table-container {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .aer-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .aer-table-container th, .aer-table-container td {
+    border: 1px solid #ccc;
+    padding: 6px;
+  }
+  
+  .aer-save-button {
+    margin-top: 10px;
+    background: #2a9d8f;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+  }
+  

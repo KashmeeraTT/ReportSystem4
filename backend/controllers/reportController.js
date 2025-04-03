@@ -47,7 +47,7 @@ exports.generateReport = async (req, res, next) => {
         const mediumReservoir = await findNearestPrevious("Reservoir", "Medium", district, year, month, day);
         const minorTank = await findNearestPrevious("Reservoir", "Minor", district, year, month, day);
 
-        const Parameters = await Meteorology.findOne({ department: "DOA", category: "Parameters", month, year, district });
+        // const Parameters = await Meteorology.findOne({ department: "DOA", category: "Parameters", month, year, district });
 
         const introduction = generateIntroduction(district, day, month, year, language);
 
@@ -159,13 +159,13 @@ exports.generateReport = async (req, res, next) => {
               altTitles
             ),
           
-            generateSection(
-              `${topics.parameters[language]} ${month} ${year}`,
-              Parameters,
-              null,
-              null,
-              altTitles
-            ),
+            // generateSection(
+            //   `${topics.parameters[language]} ${month} ${year}`,
+            //   Parameters,
+            //   null,
+            //   null,
+            //   altTitles
+            // ),
           ];
           
         const report = generateReportTemplate(sections, district, day, month, year);
