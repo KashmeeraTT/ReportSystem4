@@ -7,12 +7,57 @@ const districtAERCodes = {
   Ampara: ["DL3a", "DL3b", "DL3c"],
 };
 
-const AERFloatingTable = ({ onSave, district }) => {
+const translations = {
+  en: {
+    title: "Agromet Parameter Selection",
+    paramHeader: "Agro-met Parameter",
+    forecast: "Seasonal Rainfall Forecast",
+    received: "Received Rainfall Last Month",
+    mtwa: (r1, r2) => `Minor Tank Water Availability ${r1}%-${r2}%`,
+    yes: "Yes",
+    open: "📋 Fill AER Table",
+    close: "✖ Close AER Table",
+    saved: "✅ AER Table Saved",
+    saveBtn: "Save Table as Report Page",
+    savedBtn: "✔ Saved",
+    options: ["Below Normal", "Near Normal", "Above Normal"],
+  },
+  si: {
+    title: "කෘෂි-කාලගුණ පරාමිතීන් තේරීම",
+    paramHeader: "කෘෂි-කාලගුණ පරාමිතිය",
+    forecast: "මාසික වර්ෂාපතන අනාවැකි",
+    received: "පසුගිය මාසේ ලැබුණු වර්ෂාව",
+    mtwa: (r1, r2) => `කුඩා ටැංකි ජලය ${r1}%-${r2}%`,
+    yes: "ඔව්",
+    open: "📋 AER වගුව පුරවන්න",
+    close: "✖ වසන්න",
+    saved: "✅ AER වගුව සුරකින ලදී",
+    saveBtn: "වාර්තාවට AER වගුව එකතු කරන්න",
+    savedBtn: "✔ සුරකින ලදී",
+    options: ["සාමාන්‍යයට අඩු", "සාමාන්‍ය", "සාමාන්‍යයට වැඩි"],
+  },
+  ta: {
+    title: "வானிலை விவசாய ஆலோசனை அளவுருக்கள்",
+    paramHeader: "வானிலை விவசாய அளவுரு",
+    forecast: "முகாமை கால மழை முன்கூட்டிய கணிப்பு",
+    received: "கடந்த மாதத்தில் பெற்ற மழை",
+    mtwa: (r1, r2) => `சிறிய தடாகங்களில் நீர் கிடைப்புத்தன்மை ${r1}%-${r2}%`,
+    yes: "ஆம்",
+    open: "📋 AER அட்டவணையை நிரப்புக",
+    close: "✖ மூடு",
+    saved: "✅ AER அட்டவணை சேமிக்கப்பட்டது",
+    saveBtn: "அறிக்கைக்கு AER அட்டவணை சேர்க்க",
+    savedBtn: "✔ சேமிக்கப்பட்டது",
+    options: ["சாதாரணத்திற்கு குறைவானது", "சாதாரணம்", "சாதாரணத்திற்கு மேல்"],
+  },
+};
+
+const AERFloatingTable = ({ onSave, district, language = "en" }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formValues, setFormValues] = useState({});
   const [aerCodes, setAerCodes] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
-  const rainfallOptions = ["Below Normal", "Near Normal", "Above Normal"];
+  const t = translations[language] || translations.en;
 
   useEffect(() => {
     if (district && districtAERCodes[district]) {
@@ -25,17 +70,17 @@ const AERFloatingTable = ({ onSave, district }) => {
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
-    setIsSaved(false); // mark unsaved on edit
+    setIsSaved(false);
   };
 
   const handleRadioChange = (code, rangeNum) => {
-    const updatedValues = { ...formValues };
+    const updated = { ...formValues };
     for (let i = 1; i <= 5; i++) {
-      delete updatedValues[`AER-${code}-range${i}`];
+      delete updated[`AER-${code}-range${i}`];
     }
-    updatedValues[`AER-${code}-range${rangeNum}`] = true;
-    setFormValues(updatedValues);
-    setIsSaved(false); // mark unsaved on edit
+    updated[`AER-${code}-range${rangeNum}`] = true;
+    setFormValues(updated);
+    setIsSaved(false);
   };
 
   const handleSave = () => {
@@ -57,15 +102,15 @@ const AERFloatingTable = ({ onSave, district }) => {
 
     const radioRow = (label, rangeNum) =>
       row(label, (code) =>
-        values[`AER-${code}-range${rangeNum}`] ? "Yes" : ""
+        values[`AER-${code}-range${rangeNum}`] ? t.yes : ""
       );
 
     return `
       <!DOCTYPE html>
-      <html lang="en">
+      <html lang="${language}">
       <head>
         <meta charset="UTF-8">
-        <title>Agromet Advisory Table</title>
+        <title>${t.title}</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -77,7 +122,7 @@ const AERFloatingTable = ({ onSave, district }) => {
           }
           h2 {
             text-align: center;
-            color:rgb(0, 0, 0);
+            color: #2c3e50;
             margin-bottom: 30px;
           }
           table {
@@ -89,7 +134,7 @@ const AERFloatingTable = ({ onSave, district }) => {
           }
           th {
             background: linear-gradient(to right,rgb(170, 221, 255),rgb(208, 226, 233));
-            color: white;
+            color: #000;
             padding: 12px;
             text-align: center;
             font-size: 15px;
@@ -110,22 +155,22 @@ const AERFloatingTable = ({ onSave, district }) => {
       </head>
       <body>
         <div class="section">
-          <h2>Agromet Parameter Selection</h2>
+          <h2>${t.title}</h2>
           <table>
             <thead>
               <tr>
-                <th>Agro-met Parameter</th>
+                <th>${t.paramHeader}</th>
                 ${aerCodes.map((code) => `<th>${code}</th>`).join("")}
               </tr>
             </thead>
             <tbody>
-              ${row("Seasonal Rainfall Forecast", (c) => values[`SRF-${c}`] || "N/A")}
-              ${row("Received Rainfall Last Month", (c) => values[`RRF-${c}`] || "N/A")}
-              ${radioRow("Minor Tank Water Availability 0%-30%", 1)}
-              ${radioRow("Minor Tank Water Availability 31%-50%", 2)}
-              ${radioRow("Minor Tank Water Availability 51%-70%", 3)}
-              ${radioRow("Minor Tank Water Availability 71%-90%", 4)}
-              ${radioRow("Minor Tank Water Availability 91%-100%", 5)}
+              ${row(t.forecast, (c) => values[`SRF-${c}`] || "N/A")}
+              ${row(t.received, (c) => values[`RRF-${c}`] || "N/A")}
+              ${radioRow(t.mtwa(0, 30), 1)}
+              ${radioRow(t.mtwa(31, 50), 2)}
+              ${radioRow(t.mtwa(51, 70), 3)}
+              ${radioRow(t.mtwa(71, 90), 4)}
+              ${radioRow(t.mtwa(91, 100), 5)}
             </tbody>
           </table>
         </div>
@@ -137,22 +182,22 @@ const AERFloatingTable = ({ onSave, district }) => {
   return (
     <div className="aer-floating-wrapper" style={{ position: "fixed", top: "20px", right: "20px", zIndex: 999 }}>
       <button className="floating-toggle" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "✖ Close AER Table" : "📋 Fill AER Table"}
+        {isOpen ? t.close : t.open}
       </button>
 
       {isSaved && (
         <div style={{ marginTop: "8px", color: "green", fontWeight: "bold" }}>
-          ✅ AER Table Saved
+          {t.saved}
         </div>
       )}
 
       {isOpen && (
         <div className="aer-table-window">
-          <h3 style={{ marginTop: 0 }}>Fill Agro-met Advisory Table</h3>
+          <h3 style={{ marginTop: 0 }}>{t.title}</h3>
           <table className="aer-table">
             <thead>
               <tr>
-                <th>Parameter</th>
+                <th>{t.paramHeader}</th>
                 {aerCodes.map((code) => (
                   <th key={code}>{code}</th>
                 ))}
@@ -161,7 +206,7 @@ const AERFloatingTable = ({ onSave, district }) => {
             <tbody>
               {["SRF", "RRF"].map((key) => (
                 <tr key={key}>
-                  <td>{key === "SRF" ? "Seasonal Rainfall Forecast" : "Received Rainfall Last Month"}</td>
+                  <td>{key === "SRF" ? t.forecast : t.received}</td>
                   {aerCodes.map((code) => (
                     <td key={code}>
                       <select
@@ -170,7 +215,7 @@ const AERFloatingTable = ({ onSave, district }) => {
                         onChange={handleSelectChange}
                       >
                         <option value="">--</option>
-                        {rainfallOptions.map((opt) => (
+                        {t.options.map((opt) => (
                           <option key={opt} value={opt}>{opt}</option>
                         ))}
                       </select>
@@ -180,7 +225,7 @@ const AERFloatingTable = ({ onSave, district }) => {
               ))}
               {[1, 2, 3, 4, 5].map((range) => (
                 <tr key={range}>
-                  <td>MTWA {range * 20 - 20}%–{range * 20}%</td>
+                  <td>{t.mtwa(range * 20 - 20, range * 20)}</td>
                   {aerCodes.map((code) => (
                     <td key={code}>
                       <input
@@ -196,7 +241,7 @@ const AERFloatingTable = ({ onSave, district }) => {
             </tbody>
           </table>
           <button className="save-aer-button" onClick={handleSave} disabled={isSaved}>
-            {isSaved ? "✔ Saved" : "Save Table as Report Page"}
+            {isSaved ? t.savedBtn : t.saveBtn}
           </button>
         </div>
       )}

@@ -140,6 +140,7 @@ function App() {
       <AERFloatingTable
         district={formData.district}
         onSave={handleAerTableSave}
+        language={language}
       />
 
       <SpeedInsights />
