@@ -107,10 +107,21 @@ const topics = {
     Vavuniya: { en: "Vavuniya", si: "වවුනියාව", ta: "வவுனியா" },
   };
   
+  const getLocalizedMonth = (month, lang = "en") => {
+    return months?.[month]?.[lang] || month;
+  };
+  
+  const getLocalizedDistrict = (district, lang = "en") => {
+    return districts?.[district]?.[lang] || district;
+  };
+  
   module.exports = {
     topics,
     altTitles,
     months,
     districts,
+    getLocalizedMonth,
+    getLocalizedDistrict,
   };
+  
   
