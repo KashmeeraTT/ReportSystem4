@@ -5,7 +5,7 @@ const districtAERCodes = {
   Vavuniya: ["DL1b", "DL1e", "DL1f"],
   Anuradhapura: ["DL2a", "DL2b", "DL2c"],
   Ampara: ["DL3a", "DL3b", "DL3c"],
-  // 🔁 Add more districts with corresponding codes
+  // 🔁 Add more districts with corresponding codes as needed
 };
 
 const AERFloatingTable = ({ onSave, district }) => {
@@ -18,7 +18,7 @@ const AERFloatingTable = ({ onSave, district }) => {
     if (district && districtAERCodes[district]) {
       setAerCodes(districtAERCodes[district]);
     } else {
-      setAerCodes([]); // fallback if unknown
+      setAerCodes([]);
     }
   }, [district]);
 
@@ -45,10 +45,12 @@ const AERFloatingTable = ({ onSave, district }) => {
         ${aerCodes.map((code) => `<td>${getValue(code)}</td>`).join("")}
       </tr>
     `;
-    const checkboxRow = (label, rangeNum) => row(label, (code) =>
-      values[`AER-${code}-range${rangeNum}`] ? "✔️" : ""
-    );
-  
+
+    const checkboxRow = (label, rangeNum) =>
+      row(label, (code) =>
+        values[`AER-${code}-range${rangeNum}`] ? "✓" : ""
+      );
+
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -88,7 +90,6 @@ const AERFloatingTable = ({ onSave, district }) => {
       </html>
     `;
   };
-  
 
   return (
     <div className="aer-floating-wrapper">
@@ -103,7 +104,9 @@ const AERFloatingTable = ({ onSave, district }) => {
             <thead>
               <tr>
                 <th>Parameter</th>
-                {aerCodes.map((code) => <th key={code}>{code}</th>)}
+                {aerCodes.map((code) => (
+                  <th key={code}>{code}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
