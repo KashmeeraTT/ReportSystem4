@@ -60,7 +60,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages, language }) => {
     <div className="report-viewer-container">
       {reportPages.length > 0 ? (
         <>
-          <div className="iframe-wrapper">
+          <div className="iframe-fixed-container">
             <div className="iframe-zoomable" style={zoomStyle} dangerouslySetInnerHTML={{ __html: reportPages[currentPage] }} />
           </div>
 
