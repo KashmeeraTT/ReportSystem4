@@ -67,6 +67,13 @@ const AERFloatingTable = ({ onSave, district, language = "en" }) => {
     }
   }, [district]);
 
+  // Reset form when language changes
+  useEffect(() => {
+    setFormValues({});
+    setIsSaved(false);
+    setIsOpen(false);
+  }, [language]);
+
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
