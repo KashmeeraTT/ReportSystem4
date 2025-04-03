@@ -139,40 +139,79 @@ const Form = ({
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      {["year", "month", "day", "district"].map((field) => (
-        <div className="form-group" key={field}>
-          <label htmlFor={field} className="label">{t[field]}:</label>
-          {field === "year" ? (
-            <input
-              type="number"
-              id="year"
-              name="year"
-              value={formData.year}
-              onChange={handleChange}
-              className="input"
-              required
-              min="1900"
-              max="2100"
-              disabled={!isEditable}
-            />
-          ) : (
-            <select
-              id={field}
-              name={field}
-              value={formData[field]}
-              onChange={handleChange}
-              className="input"
-              required
-              disabled={!isEditable}
-            >
-              <option value="">{t[`select${field[0].toUpperCase() + field.slice(1)}`]}</option>
-              {(field === "month" ? t.monthsDisplay : field === "district" ? t.districtsDisplay : [...Array(31).keys()].map(i => i + 1)).map((value, index) => (
-                <option key={index} value={t.months?.[index] || t.districts?.[index] || value}>{value}</option>
-              ))}
-            </select>
-          )}
-        </div>
-      ))}
+      {/* Year Field */}
+      <div className="form-group">
+        <label htmlFor="year" className="label">{t.year}:</label>
+        <input
+          type="number"
+          id="year"
+          name="year"
+          value={formData.year}
+          onChange={handleChange}
+          className="input"
+          required
+          min="1900"
+          max="2100"
+          disabled={!isEditable}
+        />
+      </div>
+
+      {/* Month Field */}
+      <div className="form-group">
+        <label htmlFor="month" className="label">{t.month}:</label>
+        <select
+          id="month"
+          name="month"
+          value={formData.month}
+          onChange={handleChange}
+          className="input"
+          required
+          disabled={!isEditable}
+        >
+          <option value="">{t.selectMonth}</option>
+          {t.monthsDisplay.map((label, idx) => (
+            <option key={idx} value={t.months[idx]}>{label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Day Field */}
+      <div className="form-group">
+        <label htmlFor="day" className="label">{t.day}:</label>
+        <select
+          id="day"
+          name="day"
+          value={formData.day}
+          onChange={handleChange}
+          className="input"
+          required
+          disabled={!isEditable}
+        >
+          <option value="">{t.selectDay}</option>
+          {[...Array(31)].map((_, i) => (
+            <option key={i + 1} value={i + 1}>{i + 1}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* District Field */}
+      <div className="form-group">
+        <label htmlFor="district" className="label">{t.district}:</label>
+        <select
+          id="district"
+          name="district"
+          value={formData.district}
+          onChange={handleChange}
+          className="input"
+          required
+          disabled={!isEditable}
+        >
+          <option value="">{t.selectDistrict}</option>
+          {t.districtsDisplay.map((label, idx) => (
+            <option key={idx} value={t.districts[idx]}>{label}</option>
+          ))}
+        </select>
+      </div>
 
       <button type="submit" className="button" disabled={!isEditable}>{t.generate}</button>
 
