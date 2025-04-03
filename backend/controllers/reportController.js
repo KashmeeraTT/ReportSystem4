@@ -49,7 +49,7 @@ exports.generateReport = async (req, res, next) => {
 
         const Parameters = await Meteorology.findOne({ department: "DOA", category: "Parameters", month, year, district });
 
-        const introduction = generateIntroduction(district, day, month, year);
+        const introduction = generateIntroduction(district, day, month, year, language);
 
         const sections = [
             introduction,
