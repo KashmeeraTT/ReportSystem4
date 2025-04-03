@@ -126,7 +126,12 @@ function App() {
         />
       </div>
 
-      <AERFloatingTable onSave={handleAerTableSave} />
+      <AERFloatingTable
+        district={formData.district}
+        onSave={(savedHTMLPage) => {
+          setUpdatedReportPages((prev) => [...prev, savedHTMLPage]);
+        }}
+      />
 
       <SpeedInsights />
     </div>

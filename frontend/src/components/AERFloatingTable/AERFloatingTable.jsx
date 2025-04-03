@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AERFloatingTable.css";
 
-const AERFloatingTable = ({ onSave }) => {
+const districtAERCodes = {
+  Vavuniya: ["DL1b", "DL1e", "DL1f"],
+  Anuradhapura: ["DL2a", "DL2b", "DL2c"],
+  Ampara: ["DL3a", "DL3b", "DL3c"],
+  // 🔁 Add more districts with corresponding codes
+};
+
+const AERFloatingTable = ({ onSave, district }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formValues, setFormValues] = useState({});
-  const aerCodes = ["DL1b", "DL1e", "DL1f"];
+  const [aerCodes, setAerCodes] = useState([]);
   const rainfallOptions = ["Below Normal", "Near Normal", "Above Normal"];
+
+  useEffect(() => {
+    if (district && districtAERCodes[district]) {
+      setAerCodes(districtAERCodes[district]);
+    } else {
+      setAerCodes([]); // fallback if unknown
+    }
+  }, [district]);
 
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +34,7 @@ const AERFloatingTable = ({ onSave }) => {
 
   const handleSave = () => {
     const htmlPage = generateStaticHTML(formValues);
-    onSave(htmlPage); // append to updatedReportPages from parent
+    onSave(htmlPage);
     setIsOpen(false);
   };
 
@@ -30,7 +45,11 @@ const AERFloatingTable = ({ onSave }) => {
         ${aerCodes.map((code) => `<td>${getValue(code)}</td>`).join("")}
       </tr>
     `;
-    const checkboxRow = (label, rangeNum) => row(label, (code) => values[`AER-${code}-range${rangeNum}`] ? "✔️" : "");
+
+    const checkboxRow = (label, rangeNum) =>
+      row(label, (code) =>
+        values[`AER-${code}-range${rangeNum}`] ? "✔️" : ""
+      );
 
     return `
       <div class="section" style="page-break-after: always;">
@@ -79,7 +98,9 @@ const AERFloatingTable = ({ onSave }) => {
                         onChange={handleSelectChange}
                       >
                         <option value="">--</option>
-                        {rainfallOptions.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+                        {rainfallOptions.map((opt) => (
+                          <option key={opt} value={opt}>{opt}</option>
+                        ))}
                       </select>
                     </td>
                   ))}
