@@ -176,7 +176,7 @@
     position: absolute;
     top: 20px;
     left: 20px;
-    height: 100px; /* Increase as needed */
+    max-height: 15vh; /* maximum height = 15% of the viewport height */
     width: auto;
     z-index: 1;
   }
@@ -185,7 +185,7 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
-    height: 90px; /* Increase for visibility */
+    max-height: 12vh;
     width: auto;
     z-index: 1;
   }
@@ -195,7 +195,9 @@
     top: 0;
     right: 0;
     height: 100%;
+    max-width: 50vw;
     opacity: 0.08;
     z-index: 0;
   }
+  
   
