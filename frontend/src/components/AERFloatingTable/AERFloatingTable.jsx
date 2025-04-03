@@ -45,30 +45,50 @@ const AERFloatingTable = ({ onSave, district }) => {
         ${aerCodes.map((code) => `<td>${getValue(code)}</td>`).join("")}
       </tr>
     `;
-
-    const checkboxRow = (label, rangeNum) =>
-      row(label, (code) =>
-        values[`AER-${code}-range${rangeNum}`] ? "✔️" : ""
-      );
-
+    const checkboxRow = (label, rangeNum) => row(label, (code) =>
+      values[`AER-${code}-range${rangeNum}`] ? "✔️" : ""
+    );
+  
     return `
-      <div class="section" style="page-break-after: always;">
-        <h2 style="text-align:center;">Agromet Parameter Selection</h2>
-        <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial, sans-serif;">
-          <thead><tr><th>Agro-met Parameter</th>${aerCodes.map((c) => `<th>${c}</th>`).join("")}</tr></thead>
-          <tbody>
-            ${row("Seasonal Rainfall Forecast", (c) => values[`SRF-${c}`] || "N/A")}
-            ${row("Received Rainfall Last Month", (c) => values[`RRF-${c}`] || "N/A")}
-            ${checkboxRow("Minor Tank Water Availability 0%-30%", 1)}
-            ${checkboxRow("Minor Tank Water Availability 31%-50%", 2)}
-            ${checkboxRow("Minor Tank Water Availability 51%-70%", 3)}
-            ${checkboxRow("Minor Tank Water Availability 71%-90%", 4)}
-            ${checkboxRow("Minor Tank Water Availability 91%-100%", 5)}
-          </tbody>
-        </table>
-      </div>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>Agromet Advisory Table</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; }
+          .section { page-break-after: always; }
+          table { width: 100%; border-collapse: collapse; }
+          th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+          th { background-color: #f2f2f2; }
+        </style>
+      </head>
+      <body>
+        <div class="section">
+          <h2 style="text-align:center;">Agromet Parameter Selection</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Agro-met Parameter</th>
+                ${aerCodes.map((code) => `<th>${code}</th>`).join("")}
+              </tr>
+            </thead>
+            <tbody>
+              ${row("Seasonal Rainfall Forecast", (c) => values[`SRF-${c}`] || "N/A")}
+              ${row("Received Rainfall Last Month", (c) => values[`RRF-${c}`] || "N/A")}
+              ${checkboxRow("Minor Tank Water Availability 0%-30%", 1)}
+              ${checkboxRow("Minor Tank Water Availability 31%-50%", 2)}
+              ${checkboxRow("Minor Tank Water Availability 51%-70%", 3)}
+              ${checkboxRow("Minor Tank Water Availability 71%-90%", 4)}
+              ${checkboxRow("Minor Tank Water Availability 91%-100%", 5)}
+            </tbody>
+          </table>
+        </div>
+      </body>
+      </html>
     `;
   };
+  
 
   return (
     <div className="aer-floating-wrapper">
