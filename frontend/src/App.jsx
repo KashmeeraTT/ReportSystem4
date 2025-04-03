@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState, useEffect } from "react";
 import Form from "./components/Form/Form";
 import ReportViewer from "./components/ReportViewer/ReportViewer";
@@ -22,6 +21,7 @@ function App() {
   const [error, setError] = useState("");
   const [language, setLanguage] = useState(null);
   const [aerHtmlPage, setAerHtmlPage] = useState("");
+  const [aerResetSignal, setAerResetSignal] = useState(0);
 
   useEffect(() => {
     const savedLang = localStorage.getItem("appLanguage");
@@ -42,9 +42,7 @@ function App() {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to generate report");
-      }
+      if (!response.ok) throw new Error("Failed to generate report");
 
       const htmlReport = await response.text();
       const pages = htmlReport.split("<!-- PAGE BREAK -->");
@@ -70,6 +68,7 @@ function App() {
       setUpdatedReportPages([]);
       setIsEditable(true);
       setFormData({ year: "", month: "", day: "", district: "" });
+      setAerResetSignal(prev => prev + 1);
     }
   };
 
@@ -82,6 +81,14 @@ function App() {
   const handleAerTableSave = (htmlPage) => {
     setAerHtmlPage(htmlPage);
     setUpdatedReportPages((prev) => [...prev, htmlPage]);
+  };
+
+  const handleReEnter = () => {
+    setReportPages([]);
+    setUpdatedReportPages([]);
+    setIsEditable(true);
+    setFormData({ year: "", month: "", day: "", district: "" });
+    setAerResetSignal(prev => prev + 1); // signal reset
   };
 
   if (!language) {
@@ -119,6 +126,7 @@ function App() {
           setIsEditable={setIsEditable}
           updatedReportPages={updatedReportPages}
           language={language}
+          onReEnter={handleReEnter}
         />
         <div className="language-switcher-container">
           <select className="language-selector" value={language} onChange={handleLanguageChange}>
@@ -141,6 +149,7 @@ function App() {
         district={formData.district}
         onSave={handleAerTableSave}
         language={language}
+        resetSignal={aerResetSignal}
       />
 
       <SpeedInsights />

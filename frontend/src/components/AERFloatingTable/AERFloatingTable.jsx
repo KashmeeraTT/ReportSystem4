@@ -52,7 +52,7 @@ const translations = {
   },
 };
 
-const AERFloatingTable = ({ onSave, district, language = "en" }) => {
+const AERFloatingTable = ({ onSave, district, language = "en", resetSignal  }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formValues, setFormValues] = useState({});
   const [aerCodes, setAerCodes] = useState([]);
@@ -72,7 +72,7 @@ const AERFloatingTable = ({ onSave, district, language = "en" }) => {
     setFormValues({});
     setIsSaved(false);
     setIsOpen(false);
-  }, [language]);
+  }, [language, resetSignal]);
 
   const handleSelectChange = (e) => {
     const { name, value } = e.target;

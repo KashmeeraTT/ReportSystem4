@@ -24,7 +24,8 @@ const Form = ({
   setReportPages,
   setIsEditable,
   updatedReportPages,
-  language
+  language,
+  onReEnter
 }) => {
   const translations = {
     en: {
@@ -111,6 +112,7 @@ const Form = ({
     setReportPages([]);
     setIsEditable(true);
     setFormData({ year: "", month: "", day: "", district: "" });
+    onReEnter(); // 👈 Trigger AER reset
   };
 
   const handleDownload = () => {
