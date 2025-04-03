@@ -1,89 +1,112 @@
-.iframe {
-    flex: 1;
-    border: none;
-    width: 100%;
-    height: calc(100% - 30px); /* Adjusts for pagination controls height */
+.report-viewer-container {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  min-height: 100%;
+  min-width: 0; /* Prevent overflow */
+  overflow: hidden;
 }
 
-.report-viewer-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.iframe-wrapper {
+  flex-grow: 1;
+  min-height: 0; /* critical to let flex take full height */
+  overflow: auto;
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.iframe-zoomable {
+  width: 100%;
+  min-height: 100%;
+  border-radius: 8px;
+  background: white;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+  transform-origin: top center;
 }
 
 .pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    background-color: #f9f9f9;
-    border-top: 1px solid #ddd;
-    height: 30px; /* Fixed height for controls */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #f9f9f9, #e9f5ff);
+  border-top: 1px solid #ddd;
+  padding: 10px 16px;
+  height: 60px;
+  font-size: 15px;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .pagination-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    cursor: pointer;
+  background: linear-gradient(to right, #339cff, #007bff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.2);
+}
+
+.pagination-button:hover:not(:disabled) {
+  background: linear-gradient(to right, #66b3ff, #0056b3);
+  transform: translateY(-1px);
 }
 
 .pagination-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .page-indicator {
-    font-weight: lighter;
+  min-width: 120px; /* consistent width */
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: #555;
+  opacity: 0.8;
 }
 
-.floating-window {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    width: 300px;
-    padding: 20px;
+.zoom-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
-.floating-content h3 {
-    margin: 0 0 10px;
-    text-align: center;
+.zoom-controls button {
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
 }
 
-.floating-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.zoom-controls button:hover {
+  background: #d0ecff;
 }
 
-.floating-content ul li {
-    margin: 5px 0;
-}
-
-.close-floating-button {
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-    display: block; /* Ensures it behaves like a block-level element */
-    margin: 10px auto 0; /* Auto centers horizontally and adds spacing at the top */
-}
-
-.save-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    cursor: pointer;
+.no-report-text {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  margin: auto;
+  padding: 2rem;
 }
