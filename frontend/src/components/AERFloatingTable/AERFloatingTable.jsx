@@ -5,13 +5,13 @@ const districtAERCodes = {
   Vavuniya: ["DL1b", "DL1e", "DL1f"],
   Anuradhapura: ["DL2a", "DL2b", "DL2c"],
   Ampara: ["DL3a", "DL3b", "DL3c"],
-  // Add more districts as needed
 };
 
 const AERFloatingTable = ({ onSave, district }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formValues, setFormValues] = useState({});
   const [aerCodes, setAerCodes] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
   const rainfallOptions = ["Below Normal", "Near Normal", "Above Normal"];
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const AERFloatingTable = ({ onSave, district }) => {
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
+    setIsSaved(false); // mark unsaved on edit
   };
 
   const handleRadioChange = (code, rangeNum) => {
@@ -34,12 +35,16 @@ const AERFloatingTable = ({ onSave, district }) => {
     }
     updatedValues[`AER-${code}-range${rangeNum}`] = true;
     setFormValues(updatedValues);
+    setIsSaved(false); // mark unsaved on edit
   };
 
   const handleSave = () => {
-    const htmlPage = generateStaticHTML(formValues);
-    onSave(htmlPage);
-    setIsOpen(false);
+    if (!isSaved) {
+      const htmlPage = generateStaticHTML(formValues);
+      onSave(htmlPage);
+      setIsSaved(true);
+      setIsOpen(false);
+    }
   };
 
   const generateStaticHTML = (values) => {
@@ -130,10 +135,16 @@ const AERFloatingTable = ({ onSave, district }) => {
   };
 
   return (
-    <div className="aer-floating-wrapper">
+    <div className="aer-floating-wrapper" style={{ position: "fixed", top: "20px", right: "20px", zIndex: 999 }}>
       <button className="floating-toggle" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "✖ Close AER Table" : "📋 Fill AER Table"}
       </button>
+
+      {isSaved && (
+        <div style={{ marginTop: "8px", color: "green", fontWeight: "bold" }}>
+          ✅ AER Table Saved
+        </div>
+      )}
 
       {isOpen && (
         <div className="aer-table-window">
@@ -184,8 +195,8 @@ const AERFloatingTable = ({ onSave, district }) => {
               ))}
             </tbody>
           </table>
-          <button className="save-aer-button" onClick={handleSave}>
-            Save Table as Report Page
+          <button className="save-aer-button" onClick={handleSave} disabled={isSaved}>
+            {isSaved ? "✔ Saved" : "Save Table as Report Page"}
           </button>
         </div>
       )}
