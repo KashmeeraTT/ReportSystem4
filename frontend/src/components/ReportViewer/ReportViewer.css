@@ -32,11 +32,17 @@
   
   .pagination-controls {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px 16px;
-    background: linear-gradient(to right, #f1faff, #dceeff);
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, #f9f9f9, #e9f5ff);
     border-top: 1px solid #ddd;
+    padding: 10px 16px;
+    height: 60px;
+    font-size: 15px;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 60px;
+    box-sizing: border-box;
   }
   
   .page-nav {
@@ -69,6 +75,8 @@
   }
   
   .page-indicator {
+    min-width: 120px; /* consistent width */
+    text-align: center;
     font-weight: 500;
     font-size: 14px;
     color: #555;
