@@ -1,6 +1,6 @@
 const Papa = require("papaparse");
 
-module.exports = function generateSection(title, data, previousMonth = null, previousMonthYear = null, language = "en", altTitles = null) {
+module.exports = function generateSection(title, data, Month = null, MonthYear = null, altTitles = null) {
     if (!data || !data.content) {
         return `
             <div class="section" style="page-break-after: always;">
@@ -98,7 +98,7 @@ module.exports = function generateSection(title, data, previousMonth = null, pre
         if (png2Base64) {
             htmlContent += `
                 <div class="section" style="page-break-after: always;">
-                    <h2>${altTitles} - ${previousMonth} ${previousMonthYear}</h2>
+                    <h2>${altTitles} - ${Month} ${MonthYear}</h2>
                     <div style="text-align: center;">
                         <img src="${png2Base64}" alt="${title} Image 2" style="max-width: 100%; height: auto;" />
                     </div>

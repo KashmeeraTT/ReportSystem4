@@ -57,9 +57,8 @@ exports.generateReport = async (req, res, next) => {
             generateSection(
               `${topics.seasonalSummary[language]} ${month} ${year}, ${nextMonth} ${nextMonthYear}, ${nextNextMonth} ${nextNextMonthYear}`,
               seasonalRainfall,
-              null,
-              null,
-              language,
+              month,
+              year,
               getAltTitle("seasonalSummary", "Seasonal Rainfall Forecast Summary for")
             ),
           
@@ -68,7 +67,6 @@ exports.generateReport = async (req, res, next) => {
               rainfallForecast1,
               null,
               null,
-              language,
               altTitles
             ),
             generateSection(
@@ -76,7 +74,6 @@ exports.generateReport = async (req, res, next) => {
               rainfallForecast2,
               null,
               null,
-              language,
               altTitles
             ),
             generateSection(
@@ -84,7 +81,6 @@ exports.generateReport = async (req, res, next) => {
               rainfallForecast3,
               null,
               null,
-              language,
               altTitles
             ),
           
@@ -93,7 +89,6 @@ exports.generateReport = async (req, res, next) => {
               weeklyRainfall0,
               null,
               null,
-              language,
               altTitles
             ),
           
@@ -102,7 +97,6 @@ exports.generateReport = async (req, res, next) => {
               weeklyRainfall1,
               null,
               null,
-              language,
               altTitles
             ),
             generateSection(
@@ -110,7 +104,6 @@ exports.generateReport = async (req, res, next) => {
               weeklyRainfall2,
               null,
               null,
-              language,
               altTitles
             ),
             generateSection(
@@ -118,7 +111,6 @@ exports.generateReport = async (req, res, next) => {
               weeklyRainfall3,
               null,
               null,
-              language,
               altTitles
             ),
             generateSection(
@@ -126,7 +118,6 @@ exports.generateReport = async (req, res, next) => {
               weeklyRainfall4,
               null,
               null,
-              language,
               altTitles
             ),
           
@@ -135,7 +126,6 @@ exports.generateReport = async (req, res, next) => {
               receivedRainfall,
               previousMonth,
               previousMonthYear,
-              language,
               getAltTitle("percentOfNormal", "Percent of Normal Precipitation")
             ),
           
@@ -144,7 +134,6 @@ exports.generateReport = async (req, res, next) => {
               climatologicalRainfall,
               null,
               null,
-              language,
               altTitles
             ),
           
@@ -153,7 +142,6 @@ exports.generateReport = async (req, res, next) => {
               majorReservoir,
               null,
               null,
-              language,
               altTitles
             ),
             generateSection(
@@ -161,7 +149,6 @@ exports.generateReport = async (req, res, next) => {
               mediumReservoir,
               null,
               null,
-              language,
               getAltTitle("provincialIrrigation", "Provincial Irrigation")
             ),
             generateSection(
@@ -169,7 +156,6 @@ exports.generateReport = async (req, res, next) => {
               minorTank,
               null,
               null,
-              language,
               altTitles
             ),
           
@@ -178,7 +164,6 @@ exports.generateReport = async (req, res, next) => {
               Parameters,
               null,
               null,
-              language,
               altTitles
             ),
           ];
