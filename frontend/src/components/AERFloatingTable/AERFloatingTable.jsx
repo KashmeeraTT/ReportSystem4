@@ -88,7 +88,7 @@ const AERFloatingTable = ({ onSave, district }) => {
             overflow: hidden;
           }
           th {
-            background: linear-gradient(to right, #2980b9, #6dd5fa);
+            background: linear-gradient(to right,rgb(89, 188, 254),rgb(208, 226, 233));
             color: white;
             padding: 12px;
             text-align: center;
