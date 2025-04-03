@@ -30,7 +30,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages, language }) => {
     }
   };
 
-  const t = translations[language] || translations["en"];
+  const t = translations[language] || translations.en;
 
   useEffect(() => {
     if (JSON.stringify(previousReportPagesRef.current) !== JSON.stringify(reportPages)) {
@@ -48,6 +48,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages, language }) => {
             title="Report Viewer"
             srcDoc={reportPages[currentPage]}
             className="iframe"
+            scrolling="no"
           />
           <div className="pagination-controls">
             <button
@@ -70,7 +71,7 @@ const ReportViewer = ({ reportPages, setUpdatedReportPages, language }) => {
           </div>
         </>
       ) : (
-        <p>{t.noReport}</p>
+        <p className="no-report-text">{t.noReport}</p>
       )}
     </div>
   );
