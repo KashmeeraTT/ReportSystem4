@@ -5,7 +5,7 @@ const districtAERCodes = {
   Vavuniya: ["DL1b", "DL1e", "DL1f"],
   Anuradhapura: ["DL2a", "DL2b", "DL2c"],
   Ampara: ["DL3a", "DL3b", "DL3c"],
-  // 🔁 Add more districts with corresponding codes as needed
+  // Add more districts as needed
 };
 
 const AERFloatingTable = ({ onSave, district }) => {
@@ -27,9 +27,15 @@ const AERFloatingTable = ({ onSave, district }) => {
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: checked }));
+  const handleRadioChange = (code, rangeNum) => {
+    const updatedValues = { ...formValues };
+    // Clear previous selection for that AER code
+    for (let i = 1; i <= 5; i++) {
+      delete updatedValues[`AER-${code}-range${i}`];
+    }
+    // Set the selected range
+    updatedValues[`AER-${code}-range${rangeNum}`] = true;
+    setFormValues(updatedValues);
   };
 
   const handleSave = () => {
@@ -46,9 +52,9 @@ const AERFloatingTable = ({ onSave, district }) => {
       </tr>
     `;
 
-    const checkboxRow = (label, rangeNum) =>
+    const radioRow = (label, rangeNum) =>
       row(label, (code) =>
-        values[`AER-${code}-range${rangeNum}`] ? "✓" : ""
+        values[`AER-${code}-range${rangeNum}`] ? "Yes" : ""
       );
 
     return `
@@ -78,11 +84,11 @@ const AERFloatingTable = ({ onSave, district }) => {
             <tbody>
               ${row("Seasonal Rainfall Forecast", (c) => values[`SRF-${c}`] || "N/A")}
               ${row("Received Rainfall Last Month", (c) => values[`RRF-${c}`] || "N/A")}
-              ${checkboxRow("Minor Tank Water Availability 0%-30%", 1)}
-              ${checkboxRow("Minor Tank Water Availability 31%-50%", 2)}
-              ${checkboxRow("Minor Tank Water Availability 51%-70%", 3)}
-              ${checkboxRow("Minor Tank Water Availability 71%-90%", 4)}
-              ${checkboxRow("Minor Tank Water Availability 91%-100%", 5)}
+              ${radioRow("Minor Tank Water Availability 0%-30%", 1)}
+              ${radioRow("Minor Tank Water Availability 31%-50%", 2)}
+              ${radioRow("Minor Tank Water Availability 51%-70%", 3)}
+              ${radioRow("Minor Tank Water Availability 71%-90%", 4)}
+              ${radioRow("Minor Tank Water Availability 91%-100%", 5)}
             </tbody>
           </table>
         </div>
@@ -135,10 +141,10 @@ const AERFloatingTable = ({ onSave, district }) => {
                   {aerCodes.map((code) => (
                     <td key={code}>
                       <input
-                        type="checkbox"
-                        name={`AER-${code}-range${range}`}
+                        type="radio"
+                        name={`AER-${code}`}
                         checked={!!formValues[`AER-${code}-range${range}`]}
-                        onChange={handleCheckboxChange}
+                        onChange={() => handleRadioChange(code, range)}
                       />
                     </td>
                   ))}
