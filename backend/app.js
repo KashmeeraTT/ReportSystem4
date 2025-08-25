@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 
 // Configure CORS
-const allowedOrigins = ['https://report-system2.vercel.app']; // Add your frontend's origin here
+const allowedOrigins = (process.env.CORS_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean); // Add your frontend's origin here
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
