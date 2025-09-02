@@ -151,7 +151,6 @@ function App() {
         resetSignal={aerResetSignal}
       />
 
-      <SpeedInsights />
     </div>
   );
 }
