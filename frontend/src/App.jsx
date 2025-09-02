@@ -4,7 +4,6 @@ import ReportViewer from "./components/ReportViewer/ReportViewer";
 import AERFloatingTable from "./components/AERFloatingTable/AERFloatingTable";
 import "./styles/global.css";
 import API_BASE_URL from "./config";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   const [formData, setFormData] = useState({
