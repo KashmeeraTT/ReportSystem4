@@ -5,6 +5,7 @@ const districtAERCodes = {
   Vavuniya: ["DL1b", "DL1e", "DL1f"],
   Anuradhapura: ["DL2a", "DL2b", "DL2c"],
   Ampara: ["DL3a", "DL3b", "DL3c"],
+  Puttalam: ["DL2b"],
 };
 
 const translations = {
