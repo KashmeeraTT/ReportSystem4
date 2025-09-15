@@ -3,9 +3,12 @@ import "./AERFloatingTable.css";
 
 const districtAERCodes = {
   Vavuniya: ["DL1b", "DL1e", "DL1f"],
-  Anuradhapura: ["DL2a", "DL2b", "DL2c"],
+  Anuradhapura: ["DL1b", "DL1e", "DL1f"],
   Ampara: ["DL3a", "DL3b", "DL3c"],
-  Puttalam: ["DL2b", "DL2c", "DL2d"],
+  Puttalam: ["DL3", "DL1b", "IL1b", "IL1a"],
+  Kurunegala: ["IL1a", "DL1b", "IL3", "IL1b"],
+  Trincomalee: ["DL2b", "DL1d", "DL1c"],
+  Batticaloa: ["DL3a", "DL3b", "DL3c"],
 };
 
 const translations = {
