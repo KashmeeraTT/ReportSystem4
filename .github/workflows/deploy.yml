@@ -19,7 +19,7 @@ jobs:
           host: ${{ vars.DEPLOY_HOST || '124.43.162.220' }}
           username: ${{ vars.DEPLOY_USER || 'super' }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          fingerprint: "SHA256:nC4g6+RmVxnRT5al8XbClvzYR3BKP3/rS+ueVwki47Y"
+          fingerprint: "SHA256:mm6/M98xzH6LeDbeOhKy7zqBSK1MlmRXh6R9IMuK2yc"
           script_stop: true
           command_timeout: 30m
           script: |
