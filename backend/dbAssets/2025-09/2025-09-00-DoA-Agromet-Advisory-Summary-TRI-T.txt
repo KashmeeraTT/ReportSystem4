@@ -1,0 +1,40 @@
+கிடைக்கக்கூடிய வானிலை முன்னறிவிப்புகளைக் கொண்டு, விவசாயத் திட்டமிடலை மேற்கொள்ளும்போது, ​​ஒவ்வொரு மாதத்திற்கும் பொதுவான காலநிலை மழை மதிப்புகளை இயல்பான மழை மதிப்புகளாகக் கருதுவது நல்லது.
+<p>
+<table style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial, sans-serif;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; border: 1px solid #ddd;">Month</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">AER DL2b</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1d</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1c</th>
+        </tr>
+    </thead>
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; border: 1px solid #ddd;"></th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(திருகோணமலை)</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(குச்சவெளி, கோமரங்கடவல)</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(கந்தளே)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">செப்டம்பர்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+        </tr>
+        <tr style="background-color: #f9f9f9;">
+            <td style="padding: 10px; border: 1px solid #ddd;">அக்டோபர்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">நவம்பர்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">நார்மல் அருகில்</td>
+        </tr>
+    </tbody>
+</table>

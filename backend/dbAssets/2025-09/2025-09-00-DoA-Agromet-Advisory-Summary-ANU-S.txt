@@ -1,0 +1,40 @@
+පවතින කාලගුණ අනාවැකි සමඟ, කෘෂිකාර්මික සැලසුම් කිරීමේදී සෑම මාසයකම සාමාන්‍ය දේශගුණික වර්ෂාපතන අගයන් සාමාන්‍යයට ආසන්න වර්ෂාපතන අගයන් ලෙස සලකා බැලීම සුදුසුය.
+<p>
+<table style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial, sans-serif;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; border: 1px solid #ddd;">Month</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1b</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1e</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">AER DL1f</th>
+        </tr>
+    </thead>
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; border: 1px solid #ddd;"></th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(අනුරාධපුර, මැදවච්චිය, ගලෙන්බිඳුණුවැව, මරදන්කඩවල, කැකිරාව, ගල්නෑව, මහ ඉලුප්පල්ලම, තඹුත්තේගම, කලාඔය, නොච්චියාගම)</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(කැබිතිගොල්ලෑව, පදවිය, හොරොව්පොතාන, කහටගස්දිගිලිය)</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">(මහ විලච්චිය)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">සැප්තැම්බර්</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+        </tr>
+        <tr style="background-color: #f9f9f9;">
+            <td style="padding: 10px; border: 1px solid #ddd;">ඔක්තෝබර්</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">නොවැම්බර්</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">සාමාන්‍යයට ආසන්නයි</td>
+        </tr>
+    </tbody>
+</table>
