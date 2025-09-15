@@ -1,0 +1,27 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH & run deploy.sh
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.DEPLOY_HOST || '124.43.162.220' }}
+          username: ${{ vars.DEPLOY_USER || 'super' }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          fingerprint: "SHA256:nC4g6+RmVxnRT5al8XbClvzYR3BKP3/rS+ueVwki47Y"
+          script_stop: true
+          command_timeout: 30m
+          script: |
+            set -euo pipefail
+            /opt/reportsystem/ReportSystem4/deploy.sh
