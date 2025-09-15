@@ -4,6 +4,7 @@ const MeteorologySchema = new mongoose.Schema({
     department: String,
     category: String,
     subcategory: String,
+    language: String,
     day: Number,
     month: String,
     submonth: String,

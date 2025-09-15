@@ -41,7 +41,9 @@ exports.generateReport = async (req, res, next) => {
 
         const receivedRainfall = await Meteorology.findOne({ category: "Rainfall", subcategory: "Recieved", year, month: previousMonth, district });
 
-        const climatologicalRainfall = await Meteorology.findOne({ category: "Rainfall", subcategory: "Climatological", year, month, district });
+        // const climatologicalRainfall = await Meteorology.findOne({ category: "Rainfall", subcategory: "Climatological", language, year, month, district });
+
+        const climatologicalRainfall = (await Meteorology.findOne({ category: "Rainfall", subcategory: "Climatological", language, year, month, district })) ?? (language !== "en" ? await Meteorology.findOne({ category: "Rainfall", subcategory: "Climatological", language: "en", year, month, district }) : null);
 
         const majorReservoir = await findNearestPrevious("Reservoir", "Major", district, year, month, day);
         const mediumReservoir = await findNearestPrevious("Reservoir", "Medium", district, year, month, day);
