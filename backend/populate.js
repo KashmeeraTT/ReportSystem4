@@ -1037,7 +1037,7 @@ const meteorologyData = [
         category: "Rainfall",
         subcategory: "Weekly",
         year: 2025,
-        weekNumber: 36,
+        weekNumber: 38,
         subweekNumber: 0,
         content: {
             csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/2025-09", "2025-09-00-DoM-Rainfall-Forecast-Weekly-Data.csv")), // Store CSV as binary
@@ -1048,7 +1048,7 @@ const meteorologyData = [
         category: "Rainfall",
         subcategory: "Weekly",
         year: 2025,
-        weekNumber: 36,
+        weekNumber: 38,
         subweekNumber: 1,
         content: {
             png1: readImage(path.join(__dirname, "dbAssets/2025-09", "2025-09-00-DoM-Rainfall-Forecast-Weekly1.png")),
@@ -1059,7 +1059,7 @@ const meteorologyData = [
         category: "Rainfall",
         subcategory: "Weekly",
         year: 2025,
-        weekNumber: 36,
+        weekNumber: 38,
         subweekNumber: 2,
         content: {
             png1: readImage(path.join(__dirname, "dbAssets/2025-09", "2025-09-00-DoM-Rainfall-Forecast-Weekly2.png")),
@@ -1070,7 +1070,7 @@ const meteorologyData = [
         category: "Rainfall",
         subcategory: "Weekly",
         year: 2025,
-        weekNumber: 36,
+        weekNumber: 38,
         subweekNumber: 3,
         content: {
             png1: readImage(path.join(__dirname, "dbAssets/2025-09", "2025-09-00-DoM-Rainfall-Forecast-Weekly3.png")),
@@ -1081,7 +1081,7 @@ const meteorologyData = [
         category: "Rainfall",
         subcategory: "Weekly",
         year: 2025,
-        weekNumber: 36,
+        weekNumber: 38,
         subweekNumber: 4,
         content: {
             png1: readImage(path.join(__dirname, "dbAssets/2025-09", "2025-09-00-DoM-Rainfall-Forecast-Weekly4.png")),
