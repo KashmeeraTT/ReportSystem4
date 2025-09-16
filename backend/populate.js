@@ -1270,6 +1270,18 @@ const meteorologyData = [
     {
         department: "ID",
         category: "Reservoir",
+        subcategory: "Major",
+        day: 16,
+        month: "September",
+        year: 2025,
+        district: "Trincomalee",
+        content: {
+            csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/2025-09", "2025-09-16-ID-Reservoir-Water-Availability-Data-Major-TRI.csv")),
+        },
+    },
+    {
+        department: "ID",
+        category: "Reservoir",
         subcategory: "Medium",
         day: 15,
         month: "September",
@@ -1368,6 +1380,19 @@ const meteorologyData = [
         district: "Anuradhapura",
         content: {
             csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/2025-09", "2025-09-16-ID-Reservoir-Water-Availability-Data-Medium-ANU.csv")),
+            //csv2: readCsvAsBinary(path.join(__dirname, "dbAssets/KUR", "2025-08-31-PID-Reservoir-Water-Availability-Data-Medium.csv")),
+        },
+    },
+    {
+        department: "ID",
+        category: "Reservoir",
+        subcategory: "Medium",
+        day: 16,
+        month: "September",
+        year: 2025,
+        district: "Trincomalee",
+        content: {
+            csv1: readCsvAsBinary(path.join(__dirname, "dbAssets/2025-09", "2025-09-16-ID-Reservoir-Water-Availability-Data-Medium-TRI.csv")),
             //csv2: readCsvAsBinary(path.join(__dirname, "dbAssets/KUR", "2025-08-31-PID-Reservoir-Water-Availability-Data-Medium.csv")),
         },
     },
